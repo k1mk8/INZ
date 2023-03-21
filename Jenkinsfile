@@ -25,7 +25,7 @@ pipeline {
                 branch 'main'
             }
             steps {
-                git branch: 'main', credentialsId: 'sdyszews', url: 'https://gitlab-stud.elka.pw.edu.pl/sdyszews/inz23'
+                git branch: 'main', credentialsId: '01a1c8b4-d615-4c5e-9c1f-b59dced8f672	', url: 'https://gitlab-stud.elka.pw.edu.pl/sdyszews/inz23'
             }
         }
 
@@ -34,7 +34,7 @@ pipeline {
                 branch 'develop'
             }
             steps {
-                git branch: 'develop', credentialsId: 'sdyszews', url: 'https://gitlab-stud.elka.pw.edu.pl/sdyszews/inz23'
+                git branch: 'develop', credentialsId: '01a1c8b4-d615-4c5e-9c1f-b59dced8f672	', url: 'https://gitlab-stud.elka.pw.edu.pl/sdyszews/inz23'
             }
         }
 
