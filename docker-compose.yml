@@ -1,0 +1,37 @@
+version: '3.7'
+services:
+  db:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+    volumes: 
+      - db:/var/lib/postgresql/data
+
+  #api:
+  #  image: INZ-api
+  #  ports:
+  #    - "8082:8082"
+  #  depends_on:
+  #    - db
+  #  build:
+  #    context: .
+  #    dockerfile: src/main/java/com/example/demo/
+#
+  #app:
+  #  image: app-dev
+  #  build:
+  #    context: ./src/main/frontend
+  #    dockerfile: Dockerfile
+  #  volumes:
+  #    - ./src:/app/src
+  #  ports:
+  #    - "3000:3000"
+  #  stdin_open: true
+
+volumes:
+  db:
+    driver: local
