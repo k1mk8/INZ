@@ -3,7 +3,7 @@ pipeline {
     agent any
 
     options {
-        gitLabConnection('inz23')
+        gitLabConnection('GitLab')
     }
 
     post {
@@ -47,11 +47,11 @@ pipeline {
 
 
         stage('Docker') {
-            steps {
-                sh 'docker compose down'
-                sh 'docker compose build'
-                sh 'docker compose up -d'
-            }
+           steps {
+               sh 'docker compose down'
+               sh 'docker compose build'
+               sh 'docker compose up -d'
+           }
         }
 
         //stage('Test') {
@@ -94,13 +94,14 @@ pipeline {
                 branch 'main'
             }
             steps{
+                echo "OK"
             }
         }
 
-        stage('Cleanup') {
-          steps {
-                sh 'docker compose down'
-          }
-        }
+        //stage('Cleanup') {
+        //  steps {
+        //        sh 'docker compose down'
+        //  }
+        //}
     }
 }
