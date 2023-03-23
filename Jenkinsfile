@@ -48,9 +48,8 @@ pipeline {
 
         stage('Docker') {
            steps {
-               sh 'docker kill $(docker ps -q)'
-               sh 'docker rm $(docker ps -a -q)'
-               sh 'docker rmi $(docker images -q)'
+               sh 'docker compose down'
+               sh 'docker system prune -a'
                sh 'docker compose build'
                sh 'docker compose up -d'
            }
