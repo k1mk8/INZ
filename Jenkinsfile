@@ -38,17 +38,19 @@ pipeline {
             }
         }
 
-        //stage('Gradle Build') {
-        //    steps {
-        //        updateGitlabCommitStatus name: 'jenkins-pipeline', state: 'running'
-        //        sh '/home/sdyszews/.sdkman/candidates/gradle/current/bin/gradle wrapper build'
-        //    }
-        //}
+        stage('Gradle Build') {
+           steps {
+               updateGitlabCommitStatus name: 'jenkins-pipeline', state: 'running'
+               sh '/opt/gradle/gradle-7.6.1/bin/gradle wrapper build'
+           }
+        }
 
 
         stage('Docker') {
            steps {
-               sh 'docker compose down'
+               sh 'docker kill $(docker ps -q)'
+               sh 'docker rm $(docker ps -a -q)'
+               sh 'docker rmi $(docker images -q)'
                sh 'docker compose build'
                sh 'docker compose up -d'
            }
