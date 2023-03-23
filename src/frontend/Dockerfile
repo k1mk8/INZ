@@ -1,9 +1,9 @@
 FROM node:18-alpine
-WORKDIR .
+
+WORKDIR /usr/src/app
+
 COPY package*.json ./
 RUN npm install
-RUN npm install semantic-ui-angular-jquery
-RUN npm i -g semantic-ui --save
+RUN npm install -g @angular/cli
+
 COPY . .
-EXPOSE 3000
-CMD ["ng", "serve"]

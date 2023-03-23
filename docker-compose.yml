@@ -12,24 +12,25 @@ services:
       - db:/var/lib/postgresql/data
 
   api:
-   image: INZ-api
+   image: inz-api
    ports:
      - "8082:8082"
    depends_on:
      - db
    build:
      context: .
-     dockerfile: src/main/java/com/example/demo/
+     dockerfile: src/main/java/com/example/demo/Dockerfile
 
   app:
    image: app-dev
    build:
      context: ./src/frontend
      dockerfile: Dockerfile
+   command: sh -c "ng serve --host 0.0.0.0 --port 4200"
    volumes:
      - ./src:/app/src
    ports:
-     - "3000:3000"
+     - "4200:4200"
    stdin_open: true
 
 volumes:
