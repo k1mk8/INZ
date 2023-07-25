@@ -1,0 +1,60 @@
+h1.page-title {
+    font-size: 28px;
+    text-align: center;
+    font-weight: bold;
+}
+
+h2.name {
+    font-size: 25px;
+    text-align: center;
+    font-weight: bold;
+}
+
+h2.contact {
+    font-size: 25px;
+    text-align: center;
+    margin-top: 6%;
+    margin-bottom: 6%;
+    font-weight: bold;
+}
+a.email {
+    font-size: 25px;
+    margin-left: 27%;
+    color: black;
+}
+a.value-email {
+    font-size: 25px;
+    margin-left: 35%;
+    color: black;
+}
+
+a.telefon {
+    font-size: 25px;
+    margin-left: 27%;
+    color: black;
+}
+a.value-telefon {
+    font-size: 25px;
+    margin-left: 35%;
+    color: black;
+}
+
+h2.space {
+    margin-top: 3%;
+    margin-bottom: 3%;
+}
+
+a.adres {
+    font-size: 25px;
+    margin-left: 27%;
+    color: black;
+}
+a.value-adres {
+    font-size: 25px;
+    margin-left: 35%;
+    color: black;
+}
+
+div.navbar {
+    width: 400px;
+}
