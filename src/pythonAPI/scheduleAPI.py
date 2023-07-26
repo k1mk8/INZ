@@ -34,7 +34,7 @@ class API():
             """, [product_name])
             product_id = self.cursor.fetchone()[0]
             return(product_id)
-      
+
       def getNeededProfession(self, product_id: int) -> list:
             self.cursor.execute("""
             SELECT Profession, Time_needed FROM PRODUCT_COMPONENT
