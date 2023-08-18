@@ -2,12 +2,12 @@ package com.example.restservicecors;
 
 public class User {
 
-	private final int id;
-	private final String name;
-	private final String surname;
-	private final String number;
-	private final String email;
-	private final String hash;
+	private int id;
+	private String name;
+	private String surname;
+	private String number;
+	private String email;
+	private String hash;
 
 	public User() {
 		this.id = -1;
@@ -49,5 +49,29 @@ public class User {
 
 	public String getHash() {
 		return hash;
+	}
+
+	private void setId(int id) {
+		this.id = id;
+	}
+
+	private void setName(String name) {
+		this.name = name;
+	}
+
+	private void setSurname(String surname) {
+		this.surname = surname;
+	}
+
+	private void setNumber(String number) {
+		this.number = number;
+	}
+
+	private void setEmail(String email) {
+		this.email = email;
+	}
+
+	private void setHash(String hash) {
+		this.hash = hash;
 	}
 }
