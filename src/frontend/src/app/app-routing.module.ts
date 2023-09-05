@@ -5,11 +5,12 @@ import { AppComponent } from './app.component';
 import { ContactComponent } from './contact/contact.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import { MyAccountComponent } from './my-account/my-account.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: AppComponent
+    component: MainPageComponent
   },
   {
     path: 'contact',
@@ -22,7 +23,13 @@ const routes: Routes = [
   {
     path: 'myaccount',
     component: MyAccountComponent
-  }
+  }, 
+  {
+    path: 'login',
+    component: LoginComponent
+  }, 
+  // otherwise redirect to home page
+  {path:'**',redirectTo:"/"}
 ];
 
 @NgModule({

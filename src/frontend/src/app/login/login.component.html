@@ -36,19 +36,19 @@
         Logowanie
       </div>  
     </div>
-   </div>
-   <h2 class="name">STOLMEL</h2>
-   <h2 class="contact">KONTAKT</h2>
-
-   <div>
-    <a class="email"> E-mail:</a> <a class="value-email"> stolmel@wp.pl</a>
-   </div>
-   <h2 class="space"></h2>
-   <div>
-    <a class="telefon"> Telefon:</a> <a class="value-telefon"> 81 307 04 92</a>
-   </div>
-   <h2 class="space"></h2>
-   <div>
-    <a class="adres"> Adres:</a> <a class="value-adres"> Stara wieś 29, 21-013 Puchaczów</a>
-   </div>
- </body>
+    </div>
+    <div class="Logowanie">
+      <h2>Logowanie</h2>
+      <form (ngSubmit)="login()">
+        <div>
+          <label for="email">Adres e-mail:</label>
+          <input type="email" id="email" name="email" [(ngModel)]="email" required>
+        </div>
+        <div>
+          <label for="password">Hasło:</label>
+          <input type="password" id="password" name="password" [(ngModel)]="password" required>
+        </div>
+        <button type="submit">Zaloguj się</button>
+      </form>
+    </div>
+</body>
