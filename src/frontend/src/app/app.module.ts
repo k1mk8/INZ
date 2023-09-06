@@ -15,7 +15,7 @@ import { MainPageComponent } from './main-page/main-page.component';
 import { MyAccountComponent } from './my-account/my-account.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { RegistryComponent } from './registry/registry.component';
 
 
 @NgModule({
@@ -24,7 +24,8 @@ import { HttpClientModule } from '@angular/common/http';
     ContactComponent,
     MainPageComponent,
     MyAccountComponent,
-    LoginComponent
+    LoginComponent,
+    RegistryComponent
   ],
   imports: [
     BrowserModule,

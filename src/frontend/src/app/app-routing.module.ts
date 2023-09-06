@@ -6,6 +6,7 @@ import { ContactComponent } from './contact/contact.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import { MyAccountComponent } from './my-account/my-account.component';
 import { LoginComponent } from './login/login.component';
+import { RegistryComponent } from './registry/registry.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  }, 
+  {
+    path: 'registry',
+    component: RegistryComponent
   }, 
   // otherwise redirect to home page
   {path:'**',redirectTo:"/"}

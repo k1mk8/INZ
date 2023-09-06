@@ -37,22 +37,18 @@
       </div>  
     </div>
     </div>
-    <div class="Logowanie">
-      <h2>Logowanie</h2>
-      <form (ngSubmit)="login()">
+    <div class="Rejestracja">
+      <h2>Rejestracja</h2>
+      <form (ngSubmit)="register()">
         <div>
-          <label for="email">Adres e-mail:</label>
-          <input type="email" id="email" name="email" [(ngModel)]="email" required>
+          <label for="registerEmail">Adres e-mail:</label>
+          <input type="email" id="registerEmail" name="registerEmail" [(ngModel)]="registerEmail" required>
         </div>
         <div>
-          <label for="password">Hasło:</label>
-          <input type="password" id="password" name="password" [(ngModel)]="password" required>
+          <label for="registerPassword">Hasło:</label>
+          <input type="password" id="registerPassword" name="registerPassword" [(ngModel)]="registerPassword" required>
         </div>
-        <button type="submit">Zaloguj się</button>
-        <div class="center-label"> <!-- Add this container -->
-          <label class="registryLabel">Nie masz konta? Załóż je tutaj: </label>
-        </div>
-        <button class="registry" (click)="directToRegistry()">Załóż konto</button>
+        <button type="submit">Zarejestruj się</button>
       </form>
     </div>
 </body>

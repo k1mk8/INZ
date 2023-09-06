@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-
-import { NgTemplateOutlet } from '@angular/common';
+import { Router } from '@angular/router';
 
 
 
@@ -11,6 +9,7 @@ import { NgTemplateOutlet } from '@angular/common';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
+  constructor(private router: Router) {}
   email: string = '';
   password: string = '';
 
@@ -18,5 +17,8 @@ export class LoginComponent {
     // Tutaj można dodać kod do wysłania danych logowania na serwer
     // i obsługi odpowiedzi z serwera, np. autoryzacji.
     // Możesz użyć Angular HTTP Client lub innych narzędzi do komunikacji z serwerem.
+  }
+  directToRegistry() {
+    this.router.navigate(['registry']);
   }
 }
