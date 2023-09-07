@@ -41,12 +41,27 @@
       <h2>Rejestracja</h2>
       <form (ngSubmit)="register()">
         <div>
+          <label for="registerFirstName">Imię:</label>
+          <input type="text" id="registerFirstName" name="registerFirstName" [(ngModel)]="registerFirstName" required>
+        </div>
+        <div>
+          <label for="registerLastName">Nazwisko:</label>
+          <input type="text" id="registerLastName" name="registerLastName" [(ngModel)]="registerLastName" required>
+        </div>
+        <div>
           <label for="registerEmail">Adres e-mail:</label>
           <input type="email" id="registerEmail" name="registerEmail" [(ngModel)]="registerEmail" required>
         </div>
         <div>
+          <label for="registerPhoneNumber">Numer telefonu:</label>
+          <input type="tel" id="registerPhoneNumber" name="registerPhoneNumber" [(ngModel)]="registerPhoneNumber" required>
+        </div>
+        <div>
           <label for="registerPassword">Hasło:</label>
           <input type="password" id="registerPassword" name="registerPassword" [(ngModel)]="registerPassword" required>
+        </div>
+        <div class="error-message" *ngIf="message">
+          {{ message }}
         </div>
         <button type="submit">Zarejestruj się</button>
       </form>

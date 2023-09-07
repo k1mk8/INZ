@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -10,13 +10,33 @@ import { Component, OnInit } from '@angular/core';
 export class RegistryComponent {
   registerEmail: string = '';
   registerPassword: string = '';
+  registerFirstName: string = '';
+  registerLastName: string = '';
+  registerPhoneNumber: string = '';
+  message: string = '';
+
+  constructor(private http: HttpClient) {}
 
   register() {
-    // Kod do rejestracji
-    console.log('Zarejestrowano nowego użytkownika:');
-    console.log('E-mail: ' + this.registerEmail);
-    console.log('Hasło: ' + this.registerPassword);
-    
-    // Możesz teraz przekazać dane do serwera i wykonać rejestrację użytkownika.
+    // Dane do wysłania na serwer
+    const userData = {
+      email: this.registerEmail,
+      password: this.registerPassword,
+      firstName: this.registerFirstName,
+      lastName: this.registerLastName,
+      phoneNumber: this.registerPhoneNumber
+    };
+
+    // Wysłanie danych na serwer
+    this.http.post('http://localhost:8080/register', userData).subscribe(
+      (response: any) => {
+        console.log('Rejestracja zakończona sukcesem', response);
+        this.message = 'Błąd podczas rejestracji. Proszę spróbować ponownie.';
+      },
+      (error) => {
+        console.error('Błąd podczas rejestracji', error);
+        this.message = 'Błąd podczas rejestracji. Proszę spróbować ponownie.';
+      }
+    );
   }
 }
