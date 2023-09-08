@@ -15,11 +15,6 @@ export class LoginComponent {
   password: string = '';
   message: string = '';
 
-  login() {
-    // Tutaj można dodać kod do wysłania danych logowania na serwer
-    // i obsługi odpowiedzi z serwera, np. autoryzacji.
-    // Możesz użyć Angular HTTP Client lub innych narzędzi do komunikacji z serwerem.
-  }
   fetchDataFromServer() {
     const url = 'http://localhost:8080/getUser';
 
@@ -31,12 +26,30 @@ export class LoginComponent {
       // Możesz teraz wykorzystać email i hash w swojej aplikacji
       console.log('Email:', email);
       console.log('Hash:', hash);
+      localStorage.setItem('isLoggedIn', 'true');
     },
     (error) => {
       console.error('Błąd podczas logowania', error);
         this.message = 'Nieprawidłowy email lub hasło. Proszę spróbować ponownie.';
     }
     );
+  }
+
+  login() {
+    const userData = {
+      password: this.email
+    };
+
+    this.http.post('http://localhost:8080/login', userData).subscribe(
+      (response: any) => {
+        console.log('Logowanie zakończona sukcesem', response);
+      },
+      (error) => {
+        console.error('Błąd podczas logowania', error);
+      }
+    );
+    this.fetchDataFromServer();
+
   }
   directToRegistry() {
     this.router.navigate(['registry']);

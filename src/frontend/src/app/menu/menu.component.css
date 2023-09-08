@@ -1,3 +1,18 @@
+h1.page-title {
+    font-size: 28px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.centered-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    margin: 0;
+}
+
 h2.name {
     font-size: 25px;
     text-align: center;
@@ -47,4 +62,8 @@ a.value-adres {
     font-size: 25px;
     margin-left: 35%;
     color: black;
+}
+
+div.navbar {
+    width: 400px;
 }

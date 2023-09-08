@@ -16,6 +16,7 @@ import { MyAccountComponent } from './my-account/my-account.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { RegistryComponent } from './registry/registry.component';
+import { MenuComponent } from './menu/menu.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { RegistryComponent } from './registry/registry.component';
     MainPageComponent,
     MyAccountComponent,
     LoginComponent,
-    RegistryComponent
+    RegistryComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,
