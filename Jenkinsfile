@@ -39,20 +39,26 @@ pipeline {
         }
 
         stage('Gradle Build') {
-           steps {
-               updateGitlabCommitStatus name: 'jenkins-pipeline', state: 'running'
-               sh '/opt/gradle/gradle-7.6.1/bin/gradle wrapper build'
-           }
+            when{
+                anyOf { branch 'main'; branch 'develop' }
+            }
+            steps {
+                updateGitlabCommitStatus name: 'jenkins-pipeline', state: 'running'
+                sh '/opt/gradle/gradle-7.6.1/bin/gradle wrapper build'
+            }
         }
 
 
         stage('Docker') {
-           steps {
-               sh 'docker compose down'
-               sh 'docker system prune -a'
-               sh 'docker compose build'
-               sh 'docker compose up -d'
-           }
+            when{
+                anyOf { branch 'main'; branch 'develop' }
+            }
+            steps {
+                sh 'docker compose down'
+                sh 'docker system prune -a'
+                sh 'docker compose build'
+                sh 'docker compose up -d'
+            }
         }
 
         //stage('Test') {
