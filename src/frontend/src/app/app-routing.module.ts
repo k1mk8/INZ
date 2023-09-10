@@ -5,11 +5,14 @@ import { AppComponent } from './app.component';
 import { ContactComponent } from './contact/contact.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import { MyAccountComponent } from './my-account/my-account.component';
+import { LoginComponent } from './login/login.component';
+import { RegistryComponent } from './registry/registry.component';
+import { Venus3DLComponent } from './venus3-dl/venus3-dl.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: AppComponent
+    component: MainPageComponent
   },
   {
     path: 'contact',
@@ -22,7 +25,21 @@ const routes: Routes = [
   {
     path: 'myaccount',
     component: MyAccountComponent
-  }
+  }, 
+  {
+    path: 'login',
+    component: LoginComponent
+  }, 
+  {
+    path: 'registry',
+    component: RegistryComponent
+  }, 
+  {
+    path: 'venus3dl',
+    component: Venus3DLComponent
+  }, 
+  // otherwise redirect to home page
+  {path:'**',redirectTo:"/"}
 ];
 
 @NgModule({
