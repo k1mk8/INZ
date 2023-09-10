@@ -1,6 +1,5 @@
-package com.example.restservicecors;
+package com.example.application;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -10,11 +9,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @RestController
-public class UserController {
+public class ClientController {
 
-	private final User JanKowalski = new User(0, "Jan", "Kowalski", "881056092", "JanKowalski@gmail.com", "#");
-
-	@CrossOrigin(origins = "http://localhost:8082")
+	private final Client JanKowalski = new Client(0, "Jan", "Kowalski", "881056092", "JanKowalski@gmail.com", "#");
 
 	@GetMapping("/getId")
 	public int id() {
@@ -52,8 +49,8 @@ public class UserController {
 		return JanKowalski.getHash();
 	}
 
-	@GetMapping("/getUser")
-	public User user() {
+	@GetMapping("/getClient")
+	public Client client() {
 		System.out.println("==== get user ====");
 		return JanKowalski;
 	}

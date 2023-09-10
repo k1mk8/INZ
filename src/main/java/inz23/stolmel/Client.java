@@ -1,6 +1,6 @@
-package com.example.restservicecors;
+package com.example.application;
 
-public class User {
+public class Client {
 
 	private int id;
 	private String name;
@@ -9,7 +9,7 @@ public class User {
 	private String email;
 	private String hash;
 
-	public User() {
+	public Client() {
 		this.id = -1;
 		this.name = "";
 		this.surname = "";
@@ -18,7 +18,7 @@ public class User {
 		this.hash = "";
 	}
 
-	public User(int id, String name, String surname, String number, String email, String hash) {
+	public Client(int id, String name, String surname, String number, String email, String hash) {
 		this.id = id;
 		this.name = name;
 		this.surname = surname;
