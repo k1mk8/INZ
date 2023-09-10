@@ -23,7 +23,13 @@ export class LoginComponent {
 
     this.http.post('http://localhost:8082/login', userData).subscribe(
       (response: any) => {
-        console.log('Logowanie zakończona sukcesem', response);
+        if (response == true)
+        {
+          console.log('Logowanie zakończona sukcesem', response);
+          localStorage.setItem('loggedIn', this.email);
+        }
+        else
+          console.log('Nieprawidłowy email lub haslo');
       },
       (error) => {
         console.error('Błąd podczas logowania', error);
