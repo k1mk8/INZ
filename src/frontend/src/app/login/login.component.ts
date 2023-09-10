@@ -21,7 +21,7 @@ export class LoginComponent {
       password: this.password
     };
 
-    this.http.post('http://localhost:8080/login', userData).subscribe(
+    this.http.post('http://localhost:8082/login', userData).subscribe(
       (response: any) => {
         console.log('Logowanie zakończona sukcesem', response);
       },

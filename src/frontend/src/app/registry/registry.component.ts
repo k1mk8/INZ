@@ -28,7 +28,7 @@ export class RegistryComponent {
     };
 
     // Wysłanie danych na serwer
-    this.http.post('http://localhost:8080/register', userData).subscribe(
+    this.http.post('http://localhost:8082/register', userData).subscribe(
       (response: any) => {
         console.log('Rejestracja zakończona sukcesem', response);
         this.message = 'Błąd podczas rejestracji. Proszę spróbować ponownie.';
