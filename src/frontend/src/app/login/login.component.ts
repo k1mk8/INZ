@@ -27,13 +27,18 @@ export class LoginComponent {
         {
           console.log('Logowanie zakończona sukcesem', response);
           localStorage.setItem('loggedIn', this.email);
+          this.message = 'Logowanie prawidłowe';
           this.directToMyAccount();
         }
         else
+        {
+          this.message = 'Nieprawidłowy email lub hasło';
           console.log('Nieprawidłowy email lub haslo');
+        }
       },
       (error) => {
         console.error('Błąd podczas logowania', error);
+        this.message = 'Błąd podczas logowania';
       }
     );
   }
