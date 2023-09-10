@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 public class PostgreSQL {
 
     private static final String DB_URL = "jdbc:postgresql://inz23_db_1:5432/postgres";
@@ -147,12 +148,12 @@ public class PostgreSQL {
 
     public static boolean login (String getEmail, String getPassword) {
         System.out.println("==== login init ====");
-        
+
         String getHash = SHA512.hash(getPassword);
         
         Client client = null;
         try {
-            String selectSql = String.format("SELECT * FROM client WHERE email = '%s' AND hash = '%s", getEmail, getHash);
+            String selectSql = String.format("SELECT * FROM client WHERE email = '%s' AND hash = '%s'", getEmail, getHash);
             ResultSet resultSet = PostgreSQL.execute(selectSql);
 
             // Process and display the retrieved data

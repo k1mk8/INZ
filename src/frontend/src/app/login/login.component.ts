@@ -27,6 +27,7 @@ export class LoginComponent {
         {
           console.log('Logowanie zakończona sukcesem', response);
           localStorage.setItem('loggedIn', this.email);
+          this.directToMyAccount();
         }
         else
           console.log('Nieprawidłowy email lub haslo');
@@ -38,5 +39,8 @@ export class LoginComponent {
   }
   directToRegistry() {
     this.router.navigate(['registry']);
+  }
+  directToMyAccount() {
+    this.router.navigate(['myaccount']);
   }
 }
