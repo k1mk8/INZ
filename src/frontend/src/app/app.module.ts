@@ -17,6 +17,7 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { RegistryComponent } from './registry/registry.component';
 import { MenuComponent } from './menu/menu.component';
+import { Venus3DLComponent } from './venus3-dl/venus3-dl.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { MenuComponent } from './menu/menu.component';
     MyAccountComponent,
     LoginComponent,
     RegistryComponent,
-    MenuComponent
+    MenuComponent,
+    Venus3DLComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +37,7 @@ import { MenuComponent } from './menu/menu.component';
     ReactiveFormsModule, 
     SocialLoginModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [{
     provide: 'SocialAuthServiceConfig',

@@ -7,6 +7,7 @@ import { MainPageComponent } from './main-page/main-page.component';
 import { MyAccountComponent } from './my-account/my-account.component';
 import { LoginComponent } from './login/login.component';
 import { RegistryComponent } from './registry/registry.component';
+import { Venus3DLComponent } from './venus3-dl/venus3-dl.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,10 @@ const routes: Routes = [
   {
     path: 'registry',
     component: RegistryComponent
+  }, 
+  {
+    path: 'venus3dl',
+    component: Venus3DLComponent
   }, 
   // otherwise redirect to home page
   {path:'**',redirectTo:"/"}

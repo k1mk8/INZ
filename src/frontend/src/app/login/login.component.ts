@@ -15,29 +15,10 @@ export class LoginComponent {
   password: string = '';
   message: string = '';
 
-  fetchDataFromServer() {
-    const url = 'http://localhost:8080/getUser';
-
-    this.http.get(url).subscribe((data: any) => {
-      // Odbieranie danych z serwera
-      const email = data.email;
-      const hash = data.hash;
-
-      // Możesz teraz wykorzystać email i hash w swojej aplikacji
-      console.log('Email:', email);
-      console.log('Hash:', hash);
-      localStorage.setItem('isLoggedIn', 'true');
-    },
-    (error) => {
-      console.error('Błąd podczas logowania', error);
-        this.message = 'Nieprawidłowy email lub hasło. Proszę spróbować ponownie.';
-    }
-    );
-  }
-
   login() {
     const userData = {
-      password: this.email
+      email: this.email,
+      password: this.password
     };
 
     this.http.post('http://localhost:8080/login', userData).subscribe(
@@ -48,8 +29,6 @@ export class LoginComponent {
         console.error('Błąd podczas logowania', error);
       }
     );
-    this.fetchDataFromServer();
-
   }
   directToRegistry() {
     this.router.navigate(['registry']);
