@@ -14,11 +14,6 @@ public class PostgreSQLController {
 
   private final PostgreSQL api = new PostgreSQL();
 
-  // @GetMapping("/clients")
-  // public String getAllClients() {
-  //   return api.getAllClients();
-  // }
-
   @PostMapping("/clientByEmail")
   @ResponseBody
   @CrossOrigin(origins = "http://localhost:4200")

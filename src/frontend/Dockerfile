@@ -4,5 +4,6 @@ WORKDIR /usr/src/app
 
 COPY package*.json ./
 RUN npm install -g npm@10.1.0
+RUN npm update --force
 RUN npm install -g @angular/cli
 COPY . .

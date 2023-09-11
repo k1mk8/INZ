@@ -63,63 +63,6 @@ public class PostgreSQL {
         }
     }
 
-    // public static String getAllClients() {
-    // List<Client> ans = new ArrayList<Client>();
-    // System.out.println("==== receive init ====");
-    // try {
-        
-    //     Connection connection = this.connect();
-    //     // Define the SQL SELECT statement
-    //     String selectSql = "SELECT * FROM client";
-
-    //     // Create a PreparedStatement for the SELECT query
-    //     PreparedStatement selectStatement = connection.prepareStatement(selectSql);
-
-    //     // Execute the SELECT query and get the result set
-    //     ResultSet resultSet = selectStatement.executeQuery();
-    //     System.out.println("==== query executed ====");
-
-    //     // Process and display the retrieved data
-    //     while (resultSet.next()) {
-    //         int id = resultSet.getInt("id");
-    //         String name = resultSet.getString("name");
-    //         String surname = resultSet.getString("surname");
-    //         String number = resultSet.getString("number");
-    //         String email = resultSet.getString("email");
-    //         String hash = resultSet.getString("hash");
-    //         Client client = new Client(id, name, surname, number, email, hash);
-    //         ans.add(client);
-
-    //         System.out.println(client);
-    //     }
-
-    //     // Close the ResultSet, PreparedStatement, and the SELECT statement
-    //     resultSet.close();
-    //     selectStatement.close();
-    //     connection.close();
-
-    // } catch (Exception e) {
-    //     e.printStackTrace();
-    // }
-    // String answer = "";
-    // for(Client element : ans) {
-    //     answer += " ";
-    //     answer += element.getId();
-    //     answer += " ";
-    //     answer += element.getName();
-    //     answer += " ";
-    //     answer += element.getSurname();
-    //     answer += " ";
-    //     answer += element.getNumber();
-    //     answer += " ";
-    //     answer += element.getEmail();
-    //     answer += " ";
-    //     answer += element.getHash();
-    //     answer += "\r\n";
-    // }
-    // return answer;
-    // }
-
     public static Client getClientByEmail(String getEmail) {
         System.out.println("==== getCLientByEmail init ====");
         Client client = null;
@@ -193,15 +136,15 @@ public class PostgreSQL {
     public static boolean register (Client client) {
         System.out.println("==== register init ====");
         
-        boolean status = false;
+        if (getClientByEmail(client.getEmail()) != null)
+            return false;
         try {
             String insertSql = String.format("INSERT INTO client(id, \"name\", \"surname\", \"number\", \"email\", \"hash\") VALUES (%d, '%s', '%s', '%s', '%s', '%s')", client.getId(), client.getName(), client.getSurname(), client.getNumber(), client.getEmail(), client.getHash());
             ResultSet resultSet = PostgreSQL.execute(insertSql);
-            status = true;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return status;
+        return (getClientByEmail(client.getEmail()) != null ? true : false );
     }
 
 }
