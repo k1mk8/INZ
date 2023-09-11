@@ -13,7 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { RegistryComponent } from './registry/registry.component';
 import { MenuComponent } from './menu/menu.component';
 import { Venus3DLComponent } from './venus3-dl/venus3-dl.component';
-
+import {CookieService} from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -33,6 +33,8 @@ import { Venus3DLComponent } from './venus3-dl/venus3-dl.component';
     FormsModule,
     HttpClientModule,
   ],
+  providers:
+  [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

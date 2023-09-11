@@ -21,6 +21,7 @@ public class PostgreSQLController {
 
   @PostMapping("/clientByEmail")
   @ResponseBody
+  @CrossOrigin(origins = "http://localhost:4200")
   public Client getClientByEmail(@RequestBody String email) {
     return api.getClientByEmail(email);
   }

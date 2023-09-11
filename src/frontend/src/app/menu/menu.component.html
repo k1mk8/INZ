@@ -52,11 +52,11 @@
         [routerLink]="['/contact']">
         Kontakt
       </div> 
-      <div class="ui secondary button" style="width: 200px;" [title]="'myaccount'"
+      <div class="ui secondary button" style="width: 200px;" [title]="'myaccount'" *ngIf="this.cookieService.get('SESSION_TOKEN')"
         [routerLink]="['/myaccount']">
         Moje konto
       </div> 
-      <div class="ui secondary button" style="width: 200px;" [title]="'login'"
+      <div class="ui secondary button" style="width: 200px;" [title]="'login'" *ngIf="!this.cookieService.get('SESSION_TOKEN')"
         [routerLink]="['/login']">
         Logowanie
       </div> 
