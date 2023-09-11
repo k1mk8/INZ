@@ -32,4 +32,18 @@ public class PostgreSQLController {
   public boolean login(@RequestBody ObjectNode json) {
     return api.login(json.get("email").asText(), json.get("password").asText());
   }
+
+  @PostMapping("/register")
+  @ResponseBody
+  @CrossOrigin(origins = "http://localhost:4200")
+  public boolean register(@RequestBody ObjectNode json) {
+    int id = api.getFreeClientId() + 1;
+    String name = json.get("name").asText();
+    String surname = json.get("surname").asText();
+    String number = json.get("number").asText();
+    String email = json.get("email").asText();
+    String hash = SHA512.hash(json.get("password").asText());
+    Client client = new Client(id, name, surname, number, email, hash);
+    return api.register(client);
+  }
 }

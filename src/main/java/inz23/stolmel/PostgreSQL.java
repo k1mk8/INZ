@@ -146,6 +146,24 @@ public class PostgreSQL {
         return client;
     }
 
+    public static int getFreeClientId() {
+        System.out.println("==== getFreeId init ====");
+        int id = -1;
+        try {
+            String selectSql = String.format("SELECT id FROM client ORDER BY id DESC LIMIT 1");
+            ResultSet resultSet = PostgreSQL.execute(selectSql);
+
+            // Process and display the retrieved data
+            while (resultSet.next()) {
+                id = resultSet.getInt("id");
+                System.out.println(String.format("%d", id));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
+
     public static boolean login (String getEmail, String getPassword) {
         System.out.println("==== login init ====");
 
@@ -166,14 +184,26 @@ public class PostgreSQL {
                 String hash = resultSet.getString("hash");
                 client = new Client(id, name, surname, number, email, hash);
             }
-
-            System.out.println(client);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
         return (client == null ? false : true);
     }
+
+    public static boolean register (Client client) {
+        System.out.println("==== register init ====");
+        
+        boolean status = false;
+        try {
+            String insertSql = String.format("INSERT INTO client(id, \"name\", \"surname\", \"number\", \"email\", \"hash\") VALUES (%d, '%s', '%s', '%s', '%s', '%s')", client.getId(), client.getName(), client.getSurname(), client.getNumber(), client.getEmail(), client.getHash());
+            ResultSet resultSet = PostgreSQL.execute(insertSql);
+            status = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return status;
+    }
+
 }
 
 
