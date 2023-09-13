@@ -111,6 +111,14 @@ class API():
             goods = self.cursor.fetchall()
             return(goods)
 
+      def checkMaterialsAvaiability(self, product_id: int) -> bool:
+            self.cursor.execute("""
+            SELECT id, amount FROM GOODS
+            WHERE %s = product_id AND '0' = is_available
+            """, [product_id])
+            goods = self.cursor.fetchall()
+            return(goods == [])
+
       def __del__(self) -> None:
             self.disconnect()
 
