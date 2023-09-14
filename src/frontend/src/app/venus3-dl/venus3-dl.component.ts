@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-venus3-dl',
@@ -7,9 +8,10 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./venus3-dl.component.css']
 })
 export class Venus3DLComponent {
-  constructor(private http: HttpClient) {}
+  constructor(private router: Router, private http: HttpClient) {}
 
-  name: string = "Knz Venus";
+  name: string = "Knz benetto";
+  timing: string = "";
   avialability: string = 'Sprawdzanie dostepnosci';
 
   ngOnInit() {
@@ -34,6 +36,32 @@ export class Venus3DLComponent {
         console.error('Błąd podczas pobierania danych', error);
       }
     );
+
+    this.http.post('http://localhost:8082/checkSchedule', productData).subscribe(
+      (response: any) => {
+        if (response.date != null)
+        {
+          console.log('Czas oczekiwania wynosi: ', response.date);
+          this.timing = response.date;
+        }
+        else
+        {
+          console.log('Czas oczekiwania wynosi ponad miesiąc');
+          this.timing = "Czas oczekiwania wynosi ponad miesiąc";
+        }
+      },
+      (error) => {
+        console.error('Błąd podczas pobierania danych', error);
+      }
+    );
+  }
+
+  order() {
+    const productData = {
+      name: this.name
+    };
+    this.http.post('http://localhost:8082/setSchedule', productData).subscribe();
+    this.router.navigate(['myaccount']);
   }
 
   openImageInNewWindow() {

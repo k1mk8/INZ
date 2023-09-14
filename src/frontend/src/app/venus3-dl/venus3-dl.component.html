@@ -29,6 +29,22 @@
                     <a class="marker"> {{ avialability }}</a>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    <span class="marker">Data odbioru:</span>
+                </td>
+                <td>
+                    <a class="marker"> {{ timing }}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="marker">Zamów:</span>
+                </td>
+                <td>
+                    <button class="registry" (click)="order()">Zamów</button>
+                </td>
+            </tr>
         </tbody>
     </table>
 </body>
