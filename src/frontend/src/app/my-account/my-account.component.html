@@ -1,1 +1,22 @@
-<app-menu></app-menu>
+<body>
+    <app-menu></app-menu>
+     <h2 class="contact">Twoje dane</h2>
+     <div>
+      <a class="email"> Imię:</a> <a class="value-email"> {{ name }}</a>
+     </div>
+     <h2 class="space"></h2>
+     <div>
+      <a class="telefon"> Nazwisko:</a> <a class="value-telefon"> {{ surname }}</a>
+     </div>
+     <h2 class="space"></h2>
+     <div>
+      <a class="adres"> Numer:</a> <a class="value-adres"> {{ number }}</a>
+     </div>
+     <h2 class="space"></h2>
+     <div>
+        <a class="adres"> Email:</a> <a class="value-adres"> {{ email }}</a>
+    </div>
+    <div class="center-container">
+        <div (click)="deleteCookies()" class="ui secondary button" style="width: 200px;">Wyloguj się</div>
+    </div>
+   </body>
