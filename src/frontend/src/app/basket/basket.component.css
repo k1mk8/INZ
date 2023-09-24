@@ -1,0 +1,17 @@
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 2% 10% 0 10%;
+}
+
+.ui.secondary.button {
+    width: 200px;
+}
+
+.basket {
+    font-size: 25px;
+    text-align: center;
+    margin-top: 6%;
+    margin-bottom: 6%;
+    font-weight: bold;
+}

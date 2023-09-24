@@ -14,6 +14,9 @@ import { RegistryComponent } from './registry/registry.component';
 import { MenuComponent } from './menu/menu.component';
 import { Venus3DLComponent } from './venus3-dl/venus3-dl.component';
 import {CookieService} from 'ngx-cookie-service';
+import { BasketComponent } from './basket/basket.component';
+import { HistoryComponent } from './history/history.component';
+import { OliwiaIII3dlComponent } from './oliwia-iii3dl/oliwia-iii3dl.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,10 @@ import {CookieService} from 'ngx-cookie-service';
     LoginComponent,
     RegistryComponent,
     MenuComponent,
-    Venus3DLComponent
+    Venus3DLComponent,
+    BasketComponent,
+    HistoryComponent,
+    OliwiaIII3dlComponent
   ],
   imports: [
     BrowserModule,
