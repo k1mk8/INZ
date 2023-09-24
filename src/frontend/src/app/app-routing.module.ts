@@ -13,6 +13,7 @@ import { HistoryComponent } from './history/history.component';
 import { OliwiaIII3dlComponent } from './oliwia-iii3dl/oliwia-iii3dl.component';
 import { VenusFotelComponent } from './venus-fotel/venus-fotel.component';
 import { MatrixComponent } from './matrix/matrix.component';
+import { SaraComponent } from './sara/sara.component';
 
 const routes: Routes = [
   {
@@ -62,7 +63,11 @@ const routes: Routes = [
   {
     path: 'matrix',
     component: MatrixComponent
-  },     
+  },
+  {
+    path: 'sara',
+    component: SaraComponent
+  },          
   // otherwise redirect to home page
   {path:'**',redirectTo:"/"}
 ];

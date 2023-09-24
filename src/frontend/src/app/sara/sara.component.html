@@ -1,0 +1,49 @@
+<app-menu></app-menu>
+<h2> Sara</h2>
+<body>
+    <img src="../../assets/sara.jpg" alt="sara" (click)="openImageInNewWindow()">
+    <p class="wymiary"> Wymiary:</p>
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    <span class="marker">Wersalka:</span>
+                </td>
+                <td>190 x 94 cm</td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="marker">pow. spania:</span>
+                </td>
+                <td>190 x 120 cm</td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="marker">Dostępność:</span>
+                </td>
+                <td>
+                    <a class="marker"> {{ avialability }}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="marker">Data odbioru:</span>
+                </td>
+                <td>
+                    <a class="marker"> {{ timing }}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="marker">Zamów:</span>
+                </td>
+                <td>
+                    <button class="registry" (click)="order()">Zamów</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+<div class="bottom-bar">
+    <p class="bottom-bar-text">Praca inżynierska</p>
+</div>
