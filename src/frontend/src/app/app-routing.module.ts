@@ -12,6 +12,7 @@ import { BasketComponent } from './basket/basket.component';
 import { HistoryComponent } from './history/history.component';
 import { OliwiaIII3dlComponent } from './oliwia-iii3dl/oliwia-iii3dl.component';
 import { VenusFotelComponent } from './venus-fotel/venus-fotel.component';
+import { MatrixComponent } from './matrix/matrix.component';
 
 const routes: Routes = [
   {
@@ -57,7 +58,11 @@ const routes: Routes = [
   {
     path: 'venusfotel',
     component: VenusFotelComponent
-  },   
+  },
+  {
+    path: 'matrix',
+    component: MatrixComponent
+  },     
   // otherwise redirect to home page
   {path:'**',redirectTo:"/"}
 ];

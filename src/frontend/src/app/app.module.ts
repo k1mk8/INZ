@@ -18,6 +18,7 @@ import { BasketComponent } from './basket/basket.component';
 import { HistoryComponent } from './history/history.component';
 import { OliwiaIII3dlComponent } from './oliwia-iii3dl/oliwia-iii3dl.component';
 import { VenusFotelComponent } from './venus-fotel/venus-fotel.component';
+import { MatrixComponent } from './matrix/matrix.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { VenusFotelComponent } from './venus-fotel/venus-fotel.component';
     BasketComponent,
     HistoryComponent,
     OliwiaIII3dlComponent,
-    VenusFotelComponent
+    VenusFotelComponent,
+    MatrixComponent
   ],
   imports: [
     BrowserModule,
