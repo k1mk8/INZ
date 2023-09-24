@@ -22,6 +22,7 @@ import { MatrixComponent } from './matrix/matrix.component';
 import { SaraComponent } from './sara/sara.component';
 import { ClassiccouchComponent } from './classiccouch/classiccouch.component';
 import { DivankubaComponent } from './divankuba/divankuba.component';
+import { DivanjasComponent } from './divanjas/divanjas.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { DivankubaComponent } from './divankuba/divankuba.component';
     MatrixComponent,
     SaraComponent,
     ClassiccouchComponent,
-    DivankubaComponent
+    DivankubaComponent,
+    DivanjasComponent
   ],
   imports: [
     BrowserModule,

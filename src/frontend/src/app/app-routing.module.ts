@@ -16,6 +16,7 @@ import { MatrixComponent } from './matrix/matrix.component';
 import { SaraComponent } from './sara/sara.component';
 import { ClassiccouchComponent } from './classiccouch/classiccouch.component';
 import { DivankubaComponent } from './divankuba/divankuba.component';
+import { DivanjasComponent } from './divanjas/divanjas.component';
 
 const routes: Routes = [
   {
@@ -77,7 +78,11 @@ const routes: Routes = [
   {
     path: 'divankuba',
     component: DivankubaComponent
-  },                   
+  },
+  {
+    path: 'divanjas',
+    component: DivanjasComponent
+  },                        
   // otherwise redirect to home page
   {path:'**',redirectTo:"/"}
 ];
