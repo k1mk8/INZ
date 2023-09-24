@@ -11,6 +11,7 @@ import { Venus3DLComponent } from './venus3-dl/venus3-dl.component';
 import { BasketComponent } from './basket/basket.component';
 import { HistoryComponent } from './history/history.component';
 import { OliwiaIII3dlComponent } from './oliwia-iii3dl/oliwia-iii3dl.component';
+import { VenusFotelComponent } from './venus-fotel/venus-fotel.component';
 
 const routes: Routes = [
   {
@@ -52,7 +53,11 @@ const routes: Routes = [
   {
     path: 'oliwiaIII3dl',
     component: OliwiaIII3dlComponent
-  },  
+  }, 
+  {
+    path: 'venusfotel',
+    component: VenusFotelComponent
+  },   
   // otherwise redirect to home page
   {path:'**',redirectTo:"/"}
 ];
