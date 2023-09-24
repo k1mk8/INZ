@@ -14,6 +14,7 @@ import { OliwiaIII3dlComponent } from './oliwia-iii3dl/oliwia-iii3dl.component';
 import { VenusFotelComponent } from './venus-fotel/venus-fotel.component';
 import { MatrixComponent } from './matrix/matrix.component';
 import { SaraComponent } from './sara/sara.component';
+import { ClassiccouchComponent } from './classiccouch/classiccouch.component';
 
 const routes: Routes = [
   {
@@ -67,7 +68,11 @@ const routes: Routes = [
   {
     path: 'sara',
     component: SaraComponent
-  },          
+  }, 
+  {
+    path: 'classiccouch',
+    component: ClassiccouchComponent
+  },            
   // otherwise redirect to home page
   {path:'**',redirectTo:"/"}
 ];

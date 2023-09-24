@@ -20,6 +20,7 @@ import { OliwiaIII3dlComponent } from './oliwia-iii3dl/oliwia-iii3dl.component';
 import { VenusFotelComponent } from './venus-fotel/venus-fotel.component';
 import { MatrixComponent } from './matrix/matrix.component';
 import { SaraComponent } from './sara/sara.component';
+import { ClassiccouchComponent } from './classiccouch/classiccouch.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { SaraComponent } from './sara/sara.component';
     OliwiaIII3dlComponent,
     VenusFotelComponent,
     MatrixComponent,
-    SaraComponent
+    SaraComponent,
+    ClassiccouchComponent
   ],
   imports: [
     BrowserModule,
