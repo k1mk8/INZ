@@ -21,6 +21,7 @@ import { VenusFotelComponent } from './venus-fotel/venus-fotel.component';
 import { MatrixComponent } from './matrix/matrix.component';
 import { SaraComponent } from './sara/sara.component';
 import { ClassiccouchComponent } from './classiccouch/classiccouch.component';
+import { DivankubaComponent } from './divankuba/divankuba.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { ClassiccouchComponent } from './classiccouch/classiccouch.component';
     VenusFotelComponent,
     MatrixComponent,
     SaraComponent,
-    ClassiccouchComponent
+    ClassiccouchComponent,
+    DivankubaComponent
   ],
   imports: [
     BrowserModule,

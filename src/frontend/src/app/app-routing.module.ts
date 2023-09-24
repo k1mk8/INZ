@@ -15,6 +15,7 @@ import { VenusFotelComponent } from './venus-fotel/venus-fotel.component';
 import { MatrixComponent } from './matrix/matrix.component';
 import { SaraComponent } from './sara/sara.component';
 import { ClassiccouchComponent } from './classiccouch/classiccouch.component';
+import { DivankubaComponent } from './divankuba/divankuba.component';
 
 const routes: Routes = [
   {
@@ -72,7 +73,11 @@ const routes: Routes = [
   {
     path: 'classiccouch',
     component: ClassiccouchComponent
-  },            
+  },
+  {
+    path: 'divankuba',
+    component: DivankubaComponent
+  },                   
   // otherwise redirect to home page
   {path:'**',redirectTo:"/"}
 ];
