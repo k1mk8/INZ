@@ -48,16 +48,23 @@ pipeline {
             }
         }
 
-
         stage('Docker') {
             when{
                 anyOf { branch 'main'; branch 'develop' }
             }
             steps {
-                sh 'docker compose down'
-                sh 'docker system prune -a'
                 sh 'docker compose build'
-                sh 'docker compose up -d'
+            }
+        }
+
+
+        stage('Deploy') {
+            when{
+                branch 'main'
+            }
+            steps {
+                sh 'docker compose down'
+                sh 'docker compose up'
             }
         }
 
@@ -95,15 +102,6 @@ pipeline {
         //         sh './gradlew publish -Prelease'
         //     }
         // }
-
-        stage('Deploy to Server'){
-            when{
-                branch 'main'
-            }
-            steps{
-                echo "OK"
-            }
-        }
 
         //stage('Cleanup') {
         //  steps {
