@@ -48,27 +48,31 @@ public class PostgreSQLController {
   @PostMapping("/checkAvailability")
   @CrossOrigin(origins = APIaddress)
   @ResponseBody
-  public List<JSONObject> getNeededProfessions(@RequestBody ObjectNode json) {
-    List<JSONObject> neededProfessions = api.getNeededProfessions(Integer.valueOf(json.get("id").asText()));
-    //System.out.println(String.format("==== wynik: %d ====", id));
-    return neededProfessions;
+  public boolean checkMaterialsAvailability(@RequestBody ObjectNode json) {
+    int id = api.getProductId(json.get("name").asText());
+    boolean materialAvailability = api.checkMaterialsAvailability(id);
+    System.out.println(String.format("Poduct availability: %b", materialAvailability));
+    return  materialAvailability;
   }
 
   @PostMapping("/checkSchedule")
   @CrossOrigin(origins = APIaddress)
   @ResponseBody
   public String getLastHourOfTasks(@RequestBody ObjectNode json) {
-    List<JSONObject> neededProfessionsTime = api.getNeededProfessions(Integer.valueOf(json.get("id").asText()));
+    int id = api.getProductId(json.get("name").asText());
+    List<JSONObject> neededProfessionsTime = api.getNeededProfessions(id);
     List<JSONObject> ListOfTimestampsAndEmployees = api.getLastHourOfTasks(neededProfessionsTime);
-    //System.out.println(String.format("==== wynik: %d ====", id));
-    return ListOfTimestampsAndEmployees.get(ListOfTimestampsAndEmployees.size()-1).get("timestamp").toString();
+    String lastTimestamp = ListOfTimestampsAndEmployees.get(ListOfTimestampsAndEmployees.size()-1).get("timestamp").toString();
+    System.out.println(String.format("==== Delivery time: %s ====", lastTimestamp));
+    return String.format("{\"date\":\"%s\"}", lastTimestamp);
   }
 
   @PostMapping("/setSchedule")
   @CrossOrigin(origins = APIaddress)
   @ResponseBody
   public void setLastHourOfTasks(@RequestBody ObjectNode json) {
-    List<JSONObject> neededProfessionsTime = api.getNeededProfessions(Integer.valueOf(json.get("id").asText()));
+    int id = api.getProductId(json.get("name").asText());
+    List<JSONObject> neededProfessionsTime = api.getNeededProfessions(id);
     List<JSONObject> ListOfTimestampsAndEmployees = api.getLastHourOfTasks(neededProfessionsTime);
     api.setHoursForEmployees(ListOfTimestampsAndEmployees);
     System.out.println(String.format("==== order successful ===="));

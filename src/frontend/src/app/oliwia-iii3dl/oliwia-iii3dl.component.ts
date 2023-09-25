@@ -3,14 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-venus3-dl',
-  templateUrl: './venus3-dl.component.html',
-  styleUrls: ['./venus3-dl.component.css']
+  selector: 'app-oliwia-iii3dl',
+  templateUrl: './oliwia-iii3dl.component.html',
+  styleUrls: ['./oliwia-iii3dl.component.css']
 })
-export class Venus3DLComponent {
+export class OliwiaIII3dlComponent {
   constructor(private router: Router, private http: HttpClient) {}
 
-  name: string = "Venus 3DL";
+  name: string = "Oliwia III 3DL";
   timing: string = "";
   avialability: string = 'Sprawdzanie dostepnosci';
 
@@ -65,6 +65,6 @@ export class Venus3DLComponent {
   }
 
   openImageInNewWindow() {
-    window.open('../../assets/venus3dl.jpg', '_blank');
+    window.open('../../assets/oliwiaIII3dl.jpg', '_blank');
   }
 }

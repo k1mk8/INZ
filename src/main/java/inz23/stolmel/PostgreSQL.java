@@ -134,6 +134,24 @@ public class PostgreSQL {
     
     //################################################################################################
 
+    public static boolean checkMaterialsAvailability(int productId) {
+        System.out.println("==== checkMaterialsAvaiability init ====");
+        boolean isAvailable = false;
+        try {
+            String selectSql = String.format("""
+            SELECT id, amount FROM GOODS
+            WHERE '%s' = product_id AND '1' = is_available
+            """, productId);
+            ResultSet resultSet = PostgreSQL.execute(selectSql);
+            if (resultSet.next()) {
+                isAvailable = true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return isAvailable;
+    }
+
     public static int getProductId(String productName) {
         System.out.println("==== getProductId init ====");
         int id = -1;
