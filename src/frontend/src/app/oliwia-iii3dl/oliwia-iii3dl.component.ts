@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class OliwiaIII3dlComponent {
   constructor(private router: Router, private http: HttpClient) {}
 
-  name: string = "Knz benetto";
+  name: string = "Oliwia III 3DL";
   timing: string = "";
   avialability: string = 'Sprawdzanie dostepnosci';
 

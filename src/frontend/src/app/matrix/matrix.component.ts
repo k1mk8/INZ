@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class MatrixComponent {
   constructor(private router: Router, private http: HttpClient) {}
 
-  name: string = "Knz benetto";
+  name: string = "Matrix";
   timing: string = "";
   avialability: string = 'Sprawdzanie dostepnosci';
 

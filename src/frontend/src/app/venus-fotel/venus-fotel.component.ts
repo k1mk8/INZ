@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class VenusFotelComponent {
   constructor(private router: Router, private http: HttpClient) {}
 
-  name: string = "Knz benetto";
+  name: string = "Venus fotel";
   timing: string = "";
   avialability: string = 'Sprawdzanie dostepnosci';
 

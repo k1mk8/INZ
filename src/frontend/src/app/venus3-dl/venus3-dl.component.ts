@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class Venus3DLComponent {
   constructor(private router: Router, private http: HttpClient) {}
 
-  name: string = "Knz benetto";
+  name: string = "Venus 3DL";
   timing: string = "";
   avialability: string = 'Sprawdzanie dostepnosci';
 

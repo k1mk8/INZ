@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class DivankubaComponent {
   constructor(private router: Router, private http: HttpClient) {}
 
-  name: string = "Knz benetto";
+  name: string = "Tapczan Kuba";
   timing: string = "";
   avialability: string = 'Sprawdzanie dostepnosci';
 
