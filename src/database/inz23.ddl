@@ -40,12 +40,13 @@ insert into employee (id, pesel, name, surname, profession) values (13, 39345678
 
 -- order
 
-insert into "order" (id, state, client_id) values (1, 'A', 1);
-insert into "order" (id, state, client_id) values (2, 'W', 2);
-insert into "order" (id, state, client_id) values (3, 'Z', 3);
-insert into "order" (id, state, client_id) values (4, 'A', 4);
-insert into "order" (id, state, client_id) values (5, 'W', 5);
-insert into "order" (id, state, client_id) values (6, 'Z', 6);
+insert into "order" (id, state, client_id) values (1, 'K', 1);
+insert into "order" (id, state, client_id) values (2, 'W', 1);
+insert into "order" (id, state, client_id) values (3, 'Z', 1);
+insert into "order" (id, state, client_id) values (4, 'Z', 3);
+insert into "order" (id, state, client_id) values (5, 'K', 4);
+insert into "order" (id, state, client_id) values (6, 'W', 5);
+insert into "order" (id, state, client_id) values (7, 'Z', 6);
 
 -- product
 

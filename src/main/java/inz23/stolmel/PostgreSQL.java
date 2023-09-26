@@ -70,7 +70,7 @@ public class PostgreSQL {
     }
 
     public static int getFreeClientId() {
-        System.out.println("==== getFreeId init ====");
+        System.out.println("==== getFreeClientId init ====");
         int id = -1;
         try {
             String selectSql = String.format("SELECT id FROM client ORDER BY id DESC LIMIT 1");
