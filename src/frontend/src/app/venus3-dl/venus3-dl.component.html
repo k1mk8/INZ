@@ -29,7 +29,7 @@
                     <a class="marker"> {{ avialability }}</a>
                 </td>
             </tr>
-            <tr>
+            <tr *ngIf="avialability === 'Produkt dostępny'">
                 <td>
                     <span class="marker">Data odbioru:</span>
                 </td>
@@ -37,7 +37,7 @@
                     <a class="marker"> {{ timing }}</a>
                 </td>
             </tr>
-            <tr>
+            <tr *ngIf="avialability === 'Produkt dostępny'">
                 <td>
                     <span class="marker">Zamów:</span>
                 </td>
