@@ -74,4 +74,11 @@ public class Client {
 	private void setHash(String hash) {
 		this.hash = hash;
 	}
+
+	@Override
+    public String toString() {
+        return String.format("""
+		{"id":"%d", "name":"%s", "surname":"%s", "number":"%s", "email":"%s", "hash":"%s"}""", 
+		this.id, this.name, this.surname, this.number, this.email, this.hash);
+    }
 }
