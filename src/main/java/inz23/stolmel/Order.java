@@ -50,7 +50,7 @@ public class Order {
         try {
             String selectSql = String.format("""
             SELECT * FROM "order"
-            WHERE '%d' = client_id
+            WHERE '%d' = client_id AND 'Aktywny Koszyk' != state 
             """, clientId);
             ResultSet resultSet = PostgreSQL.execute(selectSql);
             while (resultSet.next()) {
@@ -87,6 +87,28 @@ public class Order {
             e.printStackTrace();
         }
         return orderProducts;
+    }
+
+    public static JSONObject getBasketOfClient(Integer clientId) {
+        System.out.println("==== getBasketOfClient init ====");
+
+        JSONObject clientBasket = new JSONObject();
+        try {
+            String selectSql = String.format("""
+            SELECT * FROM "order"
+            WHERE '%d' = client_id AND 'Aktywny Koszyk' = state 
+            """, clientId);
+            ResultSet resultSet = PostgreSQL.execute(selectSql);
+            if (resultSet.next()) {
+                clientBasket.put("id", resultSet.getString("id"));
+                clientBasket.put("state", resultSet.getString("state"));
+                clientBasket.put("timestamp", resultSet.getString("timestamp"));
+            }
+            System.out.println(clientBasket);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return clientBasket;
     }
 
     public static Product getProductFromId(Integer productId) {

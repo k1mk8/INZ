@@ -40,4 +40,14 @@ public class OrderController {
     }
     return orderProducts.toString().replace("\\\"", "\"").replace("\"{", "{").replace("}\"", "}");
   }
+
+  @PostMapping("/getBasketOfClient")
+  @CrossOrigin(origins = APIaddress)
+  @ResponseBody
+  public String getBasketOfClient(@RequestBody ObjectNode json) {
+    Client client = PostgreSQL.getClientByEmail(json.get("email").asText());
+    Integer id = client.getId();
+    JSONObject clientBasket = api.getBasketOfClient(id);
+    return clientBasket.toString();
+  }
 }
