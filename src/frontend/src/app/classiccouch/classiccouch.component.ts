@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-classiccouch',
@@ -8,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./classiccouch.component.css']
 })
 export class ClassiccouchComponent {
-  constructor(private router: Router, private http: HttpClient) {}
+  constructor(private router: Router, private http: HttpClient, private cookieservice: CookieService) {}
 
   name: string = "Wersalka zwykła";
   timing: string = "";
@@ -56,12 +57,14 @@ export class ClassiccouchComponent {
     );
   }
 
-  order() {
+  addToBasket() {
     const productData = {
-      name: this.name
+      email: this.cookieservice.get('SESSION_TOKEN'),
+      name: this.name,
+      amount: 1
     };
-    this.http.post('http://localhost:8082/setSchedule', productData).subscribe();
-    this.router.navigate(['myaccount']);
+    this.http.post('http://localhost:8082/addToBasket', productData).subscribe();
+    this.router.navigate(['basket']);
   }
 
   openImageInNewWindow() {

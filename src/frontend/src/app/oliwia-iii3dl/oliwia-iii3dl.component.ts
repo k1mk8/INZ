@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-oliwia-iii3dl',
@@ -8,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./oliwia-iii3dl.component.css']
 })
 export class OliwiaIII3dlComponent {
-  constructor(private router: Router, private http: HttpClient) {}
+  constructor(private router: Router, private http: HttpClient, private cookieservice: CookieService) {}
 
   name: string = "Oliwia III 3DL";
   timing: string = "";
@@ -56,12 +57,14 @@ export class OliwiaIII3dlComponent {
     );
   }
 
-  order() {
+  addToBasket() {
     const productData = {
-      name: this.name
+      email: this.cookieservice.get('SESSION_TOKEN'),
+      name: this.name,
+      amount: 1
     };
-    this.http.post('http://localhost:8082/setSchedule', productData).subscribe();
-    this.router.navigate(['myaccount']);
+    this.http.post('http://localhost:8082/addToBasket', productData).subscribe();
+    this.router.navigate(['basket']);
   }
 
   openImageInNewWindow() {
