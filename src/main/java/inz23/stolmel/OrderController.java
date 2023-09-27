@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import java.util.List;
 import java.util.ArrayList;
 import org.json.*;
 
@@ -26,5 +25,19 @@ public class OrderController {
     Integer id = client.getId();
     JSONArray ordersOfClient = api.getOrdersOfClient(id);
     return ordersOfClient.toString();
+  }
+
+  @PostMapping("/getProductsFromOrder")
+  @CrossOrigin(origins = APIaddress)
+  @ResponseBody
+  public String getProductsFromOrder(@RequestBody ObjectNode json) {
+    JSONArray orderProductsIds = api.getProductIdsFromOrder(json.get("order_id").asInt());
+    JSONArray orderProducts = new JSONArray();
+    for(int it = 0; it < orderProductsIds.length(); it++) {
+      Integer product_id = orderProductsIds.getJSONObject(it).getInt("product_id");
+      Product product = api.getProductFromId(product_id);
+      orderProducts.put(product);
+    }
+    return orderProducts.toString().replace("\\\"", "\"").replace("\"{", "{").replace("}\"", "}");
   }
 }

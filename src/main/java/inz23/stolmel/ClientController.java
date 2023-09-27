@@ -54,20 +54,4 @@ public class ClientController {
 		System.out.println("==== get user ====");
 		return JanKowalski;
 	}
-
-	@PostMapping("/sendParam")
-	@ResponseBody
-	public String sendParam(@RequestParam String string) {
-		System.out.println("==== receive parameter ====");
-		System.out.println(string);
-		return string;
-	}
-
-	@PostMapping("/sendString")
-	@ResponseBody
-	public String sendString(@RequestBody String string) {
-		System.out.println("==== receive string ====");
-		System.out.println(string);
-		return string;
-	}
 }

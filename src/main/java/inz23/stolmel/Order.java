@@ -49,7 +49,7 @@ public class Order {
         JSONArray clientOrders = new JSONArray();
         try {
             String selectSql = String.format("""
-            SELECT id, state FROM "order"
+            SELECT * FROM "order"
             WHERE '%d' = client_id
             """, clientId);
             ResultSet resultSet = PostgreSQL.execute(selectSql);
@@ -57,6 +57,7 @@ public class Order {
                 JSONObject jo = new JSONObject();
                 jo.put("id", resultSet.getString("id"));
                 jo.put("state", resultSet.getString("state"));
+                jo.put("timestamp", resultSet.getString("timestamp"));
                 clientOrders.put(jo);
             }
             System.out.println(clientOrders);
@@ -64,6 +65,51 @@ public class Order {
             e.printStackTrace();
         }
         return clientOrders;
+    }
+
+    public static JSONArray getProductIdsFromOrder(Integer orderId) {
+        System.out.println("==== getProductsFromOrder init ====");
+
+        JSONArray orderProducts = new JSONArray();
+        try {
+            String selectSql = String.format("""
+            SELECT product_id FROM BASKET
+            WHERE '%d' = order_id
+            """, orderId);
+            ResultSet resultSet = PostgreSQL.execute(selectSql);
+            while (resultSet.next()) {
+                JSONObject jo = new JSONObject();
+                jo.put("product_id", resultSet.getString("product_id"));
+                orderProducts.put(jo);
+            }
+            System.out.println(orderProducts);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return orderProducts;
+    }
+
+    public static Product getProductFromId(Integer productId) {
+        System.out.println("==== getProductFromId init ====");
+
+        Product product = null;
+        try {
+            String selectSql = String.format("""
+            SELECT * FROM PRODUCT
+            WHERE '%d' = id
+            """, productId);
+            ResultSet resultSet = PostgreSQL.execute(selectSql);
+            if (resultSet.next()) {
+                Integer id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                String price = resultSet.getString("price");
+                product = new Product(id, name, price);
+            }
+            System.out.println(product);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return product;
     }
 }
 
