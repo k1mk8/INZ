@@ -53,16 +53,16 @@ export class BasketComponent {
     );
   }
 
-  removeProduct(name : string) {
+  removeFromBasket(name : string) {
     const product = {
       order_id : this.id ,
-      prodName : name
+      product_name : name
     }
-    this.http.post('http://localhost:8082/removeProduct', product).subscribe(
+    this.http.post('http://localhost:8082/removeFromBasket', product).subscribe(
       (response: any) => {
-        
       }
     );
+    window.location.reload();
   }
 }
 

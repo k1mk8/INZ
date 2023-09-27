@@ -151,13 +151,26 @@ public class Order {
         return clientBasket;
     }
 
-    public static void addToBasket(Integer order_id, Integer product_id, Integer amount) {
+    public static void addToBasket(Integer orderId, Integer productId, Integer amount) {
         System.out.println("==== addToBasket init ====");
         try {
             String insertSql = String.format("""
             INSERT INTO basket(order_id, product_id, amount) VALUES (%d, %d, %d)""", 
-            order_id, product_id, amount);
+            orderId, productId, amount);
             ResultSet resultSet = PostgreSQL.execute(insertSql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void removeFromBasket(Integer orderId, Integer productId) {
+        System.out.println("==== removeFromBasket init ====");
+        try {
+            String removeSql = String.format("""
+            DELETE FROM basket
+            WHERE order_id = %d AND product_id = %d""", 
+            orderId, productId);
+            ResultSet resultSet = PostgreSQL.execute(removeSql);
         } catch (Exception e) {
             e.printStackTrace();
         }

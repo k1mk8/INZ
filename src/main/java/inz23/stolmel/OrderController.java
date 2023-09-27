@@ -72,4 +72,12 @@ public class OrderController {
     Integer productId = PostgreSQL.getProductId(json.get("name").asText());
     api.addToBasket(clientBasket.getInt("id"), productId, json.get("amount").asInt());
   }
+
+  @PostMapping("/removeFromBasket")
+  @ResponseBody
+  @CrossOrigin(origins = APIaddress)
+  public void removeFromBasket(@RequestBody ObjectNode json) {
+    Integer id = PostgreSQL.getProductId(json.get("product_name").asText());
+    api.removeFromBasket(json.get("order_id").asInt(), id);
+  }
 }
