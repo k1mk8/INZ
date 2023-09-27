@@ -10,6 +10,10 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.util.List;
 import org.json.*;
+import java.text.DateFormat;  
+import java.text.SimpleDateFormat;  
+import java.util.Date;  
+import java.util.Calendar;  
 
 
 public class Order {
@@ -17,6 +21,10 @@ public class Order {
     private static final String DB_URL = "jdbc:postgresql://inz23_db_1:5432/postgres";
     private static final String DB_USER = "postgres";
     private static final String DB_PASSWORD = "postgres";
+
+    private static final Date date = Calendar.getInstance().getTime();  
+    private static final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");  
+    private static final String strDate = dateFormat.format(date);
 
     public static ResultSet execute(String query) {
         ResultSet resultSet = null;
@@ -67,19 +75,51 @@ public class Order {
         return clientOrders;
     }
 
+    public static JSONObject createOrderForClient(Integer clientId) {
+        System.out.println("==== createOrderForClient init ====");
+
+        JSONObject clientBasket = new JSONObject();
+        try {
+            String selectSql = String.format("""
+            SELECT id FROM "order"
+            ORDER BY id DESC
+            LIMIT 1
+            """);
+            ResultSet resultSet = PostgreSQL.execute(selectSql);
+            Integer freeID = 0;
+            if (resultSet.next()) {
+                freeID = resultSet.getInt("id") + 1;
+            }
+            clientBasket.put("id", freeID);
+            clientBasket.put("state", "Aktywny Koszyk");
+            clientBasket.put("client_id", clientId);
+            clientBasket.put("timestamp", strDate);
+            System.out.println(clientBasket);
+            System.out.println("==== inserting order init ====");
+            String insertSql = String.format("""
+            INSERT INTO "order"(id, state, client_id, timestamp) VALUES (%d, '%s', '%s', '%s')
+            """, freeID, "Aktywny Koszyk", clientId, strDate);
+            resultSet = PostgreSQL.execute(insertSql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return clientBasket;
+    }
+
     public static JSONArray getProductIdsFromOrder(Integer orderId) {
         System.out.println("==== getProductsFromOrder init ====");
 
         JSONArray orderProducts = new JSONArray();
         try {
             String selectSql = String.format("""
-            SELECT product_id FROM BASKET
+            SELECT product_id, amount FROM BASKET
             WHERE '%d' = order_id
             """, orderId);
             ResultSet resultSet = PostgreSQL.execute(selectSql);
             while (resultSet.next()) {
                 JSONObject jo = new JSONObject();
                 jo.put("product_id", resultSet.getString("product_id"));
+                jo.put("amount", resultSet.getString("amount"));
                 orderProducts.put(jo);
             }
             System.out.println(orderProducts);
@@ -111,13 +151,13 @@ public class Order {
         return clientBasket;
     }
 
-    public static void addToBasket(Integer order_id, Integer product_id) {
+    public static void addToBasket(Integer order_id, Integer product_id, Integer amount) {
         System.out.println("==== addToBasket init ====");
         try {
-            String selectSql = String.format("""
-            INSERT INTO basket(order_id, product_id) VALUES (%d, %d)""", 
-            order_id, product_id);
-            ResultSet resultSet = PostgreSQL.execute(selectSql);
+            String insertSql = String.format("""
+            INSERT INTO basket(order_id, product_id, amount) VALUES (%d, %d, %d)""", 
+            order_id, product_id, amount);
+            ResultSet resultSet = PostgreSQL.execute(insertSql);
         } catch (Exception e) {
             e.printStackTrace();
         }

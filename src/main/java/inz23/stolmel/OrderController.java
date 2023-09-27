@@ -31,14 +31,20 @@ public class OrderController {
   @CrossOrigin(origins = APIaddress)
   @ResponseBody
   public String getProductsFromOrder(@RequestBody ObjectNode json) {
-    JSONArray orderProductsIds = api.getProductIdsFromOrder(json.get("order_id").asInt());
+    JSONArray orderProductsInBucket = api.getProductIdsFromOrder(json.get("order_id").asInt());
     JSONArray orderProducts = new JSONArray();
-    for(int it = 0; it < orderProductsIds.length(); it++) {
-      Integer product_id = orderProductsIds.getJSONObject(it).getInt("product_id");
+    for(int it = 0; it < orderProductsInBucket.length(); it++) {
+      Integer product_id = orderProductsInBucket.getJSONObject(it).getInt("product_id");
+      Integer amount = orderProductsInBucket.getJSONObject(it).getInt("amount");
       Product product = api.getProductFromId(product_id);
-      orderProducts.put(product);
+      JSONObject productInBucket = new JSONObject();
+      productInBucket.put("id", product_id);
+      productInBucket.put("amount", amount);
+      productInBucket.put("name", product.getName());
+      productInBucket.put("price", product.getPrice());
+      orderProducts.put(productInBucket);
     }
-    return orderProducts.toString().replace("\\\"", "\"").replace("\"{", "{").replace("}\"", "}");
+    return orderProducts.toString();
   }
 
   @PostMapping("/getBasketOfClient")
@@ -46,8 +52,10 @@ public class OrderController {
   @ResponseBody
   public String getBasketOfClient(@RequestBody ObjectNode json) {
     Client client = PostgreSQL.getClientByEmail(json.get("email").asText());
-    Integer id = client.getId();
-    JSONObject clientBasket = api.getBasketOfClient(id);
+    JSONObject clientBasket = api.getBasketOfClient(client.getId());
+    if (!clientBasket.has("id")) {
+      return null;
+    }
     return clientBasket.toString();
   }
 
@@ -57,7 +65,11 @@ public class OrderController {
   public void addToBasket(@RequestBody ObjectNode json) {
     Client client = PostgreSQL.getClientByEmail(json.get("email").asText());
     JSONObject clientBasket = api.getBasketOfClient(client.getId());
+    if (!clientBasket.has("id")) {
+      api.createOrderForClient(client.getId());
+      clientBasket = api.getBasketOfClient(client.getId());
+    }
     Integer productId = PostgreSQL.getProductId(json.get("name").asText());
-    api.addToBasket(clientBasket.getInt("id"), productId);
+    api.addToBasket(clientBasket.getInt("id"), productId, json.get("amount").asInt());
   }
 }

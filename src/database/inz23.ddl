@@ -61,16 +61,16 @@ insert into product (id, name, price, description) values (8, 'Tapczan Jaś', 90
 
 -- basket
 
-insert into basket (order_id, product_id) values (1, 1);
-insert into basket (order_id, product_id) values (1, 2);
-insert into basket (order_id, product_id) values (1, 4);
-insert into basket (order_id, product_id) values (2, 5);
-insert into basket (order_id, product_id) values (2, 6);
-insert into basket (order_id, product_id) values (3, 3);
-insert into basket (order_id, product_id) values (4, 8);
-insert into basket (order_id, product_id) values (5, 5);
-insert into basket (order_id, product_id) values (6, 7);
-insert into basket (order_id, product_id) values (7, 7);
+insert into basket (order_id, product_id, amount) values (1, 1, 2);
+insert into basket (order_id, product_id, amount) values (1, 2, 1);
+insert into basket (order_id, product_id, amount) values (1, 4, 2);
+insert into basket (order_id, product_id, amount) values (2, 5, 3);
+insert into basket (order_id, product_id, amount) values (2, 6, 4);
+insert into basket (order_id, product_id, amount) values (3, 3, 2);
+insert into basket (order_id, product_id, amount) values (4, 8, 5);
+insert into basket (order_id, product_id, amount) values (5, 5, 1);
+insert into basket (order_id, product_id, amount) values (6, 7, 1);
+insert into basket (order_id, product_id, amount) values (7, 7, 2);
 
 -- goods
 
