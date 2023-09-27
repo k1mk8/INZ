@@ -52,4 +52,17 @@ export class BasketComponent {
       }
     );
   }
+
+  removeProduct(name : string) {
+    const product = {
+      order_id : this.id ,
+      prodName : name
+    }
+    this.http.post('http://localhost:8082/removeProduct', product).subscribe(
+      (response: any) => {
+        
+      }
+    );
+  }
 }
+

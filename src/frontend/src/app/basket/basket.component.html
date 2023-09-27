@@ -1,18 +1,20 @@
 <body>
   <app-menu></app-menu>
-  <div class="button-container">
-    <div class="ui secondary button" [routerLink]="['/myaccount']" >Dane konta</div>
-    <div class="ui secondary button" [routerLink]="['/basket']">Koszyk</div>
-    <div class="ui secondary button" [routerLink]="['/history']">Historia zamówień</div>
-  </div>
-  <h2 class="basket">Twój Koszyk </h2>
+  <app-buttons></app-buttons>
+  <h2 class="basket">Twój Koszyk</h2>
 
-  <ul class="product-list">
-    <li *ngFor="let product of name; let i = index">
-      <div class="product-details">
-        <p>Nazwa: {{ product }}</p>
-        <p>Cena: {{ price[i] }}</p>
-      </div>
-    </li>
-  </ul>
+  <div class="product-container">
+    <ul class="product-list">
+      <li *ngFor="let product of name; let i = index">
+        <div class="product-details">
+          <p>Nazwa: {{ product }}</p>
+          <p>Cena: {{ price[i] }}</p>
+          <div class="ui secondary button" (click)="removeProduct(product)">Usuń</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="center-container">
+    <div class="ui secondary button" style="width: 200px;">Złóż zamówienie</div>
+</div>
 </body>

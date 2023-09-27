@@ -11,32 +11,35 @@
 .basket {
     font-size: 25px;
     text-align: center;
-    margin-top: 6%;
-    margin-bottom: 6%;
+    margin-top: 4%;
+    margin-bottom: 4%;
     font-weight: bold;
 }
 
-/* Style for the button container */
-.button-container {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 20px;
-}
+  .product-container {
+    width: 50%;
+    margin: 0 auto;
+  }
+  
+  .product-list {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+  }
 
-/* Style for the product list */
-.product-list {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    font-family: Arial, sans-serif;
-}
-
-/* Style for each product item */
-.product-details {
-    background-color: #fff;
-    border: 1px solid #ddd;
+  .product-details {
+    border: 1px solid #ccc;
     padding: 10px;
-    margin: 5px 0;
-    border-radius: 3px;
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
-}
+    margin: 10px auto;
+  }
+
+  .ui.secondary.button {
+    margin-top: 10px;
+  }
+  
+  .center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2%;
+  }

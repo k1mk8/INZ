@@ -1,10 +1,6 @@
 <body>
     <app-menu></app-menu>
-    <div class="button-container">
-      <div class="ui secondary button" [routerLink]="['/myaccount']" >Dane konta</div>
-      <div class="ui secondary button" [routerLink]="['/basket']">Koszyk</div>
-      <div class="ui secondary button" [routerLink]="['/history']">Historia zamówień</div>
-    </div>
+    <app-buttons></app-buttons>
     <h2 class="contact">Twoje dane</h2>
     <div>
         <a class="email"> Imię:</a> <a class="value-email"> {{ name }}</a>
