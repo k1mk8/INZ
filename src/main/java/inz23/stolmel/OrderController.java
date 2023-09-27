@@ -50,4 +50,14 @@ public class OrderController {
     JSONObject clientBasket = api.getBasketOfClient(id);
     return clientBasket.toString();
   }
+
+  @PostMapping("/addToBasket")
+  @ResponseBody
+  @CrossOrigin(origins = APIaddress)
+  public void addToBasket(@RequestBody ObjectNode json) {
+    Client client = PostgreSQL.getClientByEmail(json.get("email").asText());
+    JSONObject clientBasket = api.getBasketOfClient(client.getId());
+    Integer productId = PostgreSQL.getProductId(json.get("name").asText());
+    api.addToBasket(clientBasket.getInt("id"), productId);
+  }
 }

@@ -111,6 +111,18 @@ public class Order {
         return clientBasket;
     }
 
+    public static void addToBasket(Integer order_id, Integer product_id) {
+        System.out.println("==== addToBasket init ====");
+        try {
+            String selectSql = String.format("""
+            INSERT INTO basket(order_id, product_id) VALUES (%d, %d)""", 
+            order_id, product_id);
+            ResultSet resultSet = PostgreSQL.execute(selectSql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static Product getProductFromId(Integer productId) {
         System.out.println("==== getProductFromId init ====");
 
