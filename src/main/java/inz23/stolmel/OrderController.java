@@ -2,13 +2,11 @@ package com.example.application;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import java.util.ArrayList;
 import org.json.*;
 
 @RestController
@@ -21,7 +19,7 @@ public class OrderController {
   @CrossOrigin(origins = APIaddress)
   @ResponseBody
   public String getOrdersOfClient(@RequestBody ObjectNode json) {
-    Client client = Login.getClientByEmail(json.get("email").asText(), postgreSQL);
+    Client client = User.getClientByEmail(json.get("email").asText(), postgreSQL);
     Integer id = client.getId();
     JSONArray ordersOfClient = Order.getOrdersOfClient(id, postgreSQL);
     return ordersOfClient.toString();
@@ -51,7 +49,7 @@ public class OrderController {
   @CrossOrigin(origins = APIaddress)
   @ResponseBody
   public String getBasketOfClient(@RequestBody ObjectNode json) {
-    Client client = Login.getClientByEmail(json.get("email").asText(), postgreSQL);
+    Client client = User.getClientByEmail(json.get("email").asText(), postgreSQL);
     JSONObject clientBasket = Order.getBasketOfClient(client.getId(), postgreSQL);
     if (!clientBasket.has("id")) {
       return null;
@@ -63,13 +61,13 @@ public class OrderController {
   @ResponseBody
   @CrossOrigin(origins = APIaddress)
   public void addToBasket(@RequestBody ObjectNode json) {
-    Client client = Login.getClientByEmail(json.get("email").asText(), postgreSQL);
+    Client client = User.getClientByEmail(json.get("email").asText(), postgreSQL);
     JSONObject clientBasket = Order.getBasketOfClient(client.getId(), postgreSQL);
     if (!clientBasket.has("id")) {
       Order.createOrderForClient(client.getId(), postgreSQL);
       clientBasket = Order.getBasketOfClient(client.getId(), postgreSQL);
     }
-    Integer productId = Login.getProductId(json.get("name").asText(), postgreSQL);
+    Integer productId = ProductManager.getProductId(json.get("name").asText(), postgreSQL);
     Order.addToBasket(clientBasket.getInt("id"), productId, json.get("amount").asInt(), postgreSQL);
   }
 
@@ -77,7 +75,7 @@ public class OrderController {
   @ResponseBody
   @CrossOrigin(origins = APIaddress)
   public void removeFromBasket(@RequestBody ObjectNode json) {
-    Integer id = Login.getProductId(json.get("product_name").asText(), postgreSQL);
+    Integer id = ProductManager.getProductId(json.get("product_name").asText(), postgreSQL);
     Order.removeFromBasket(json.get("order_id").asInt(), id, postgreSQL);
   }
 }

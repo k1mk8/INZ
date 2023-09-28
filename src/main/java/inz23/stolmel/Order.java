@@ -1,14 +1,5 @@
 package com.example.application;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.stream.Collectors;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import java.util.List;
 import org.json.*;
 import java.text.DateFormat;  
 import java.text.SimpleDateFormat;  

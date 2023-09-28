@@ -1,112 +1,11 @@
 package com.example.application;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.stream.Collectors;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.util.ArrayList;
 import java.util.List;
 import org.json.*;
 
 
-public class Login {
-
-  public static Client getClientByEmail(String getEmail, PostgreSQL postgreSQL) {
-        System.out.println("==== getCLientByEmail init ====");
-        Client client = null;
-        try {
-            String selectSql = String.format("SELECT * FROM client WHERE email = '%s'", getEmail);
-            postgreSQL.execute(selectSql);
-
-            // Process and display the retrieved data
-            while (postgreSQL.resultSet.next()) {
-                int id = postgreSQL.resultSet.getInt("id");
-                String name = postgreSQL.resultSet.getString("name");
-                String surname = postgreSQL.resultSet.getString("surname");
-                String number = postgreSQL.resultSet.getString("number");
-                String email = postgreSQL.resultSet.getString("email");
-                String hash = postgreSQL.resultSet.getString("hash");
-                client = new Client(id, name, surname, number, email, hash);
-            }
-            postgreSQL.terminate();
-            System.out.println(client);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return client;
-    }
-
-    public static int getFreeClientId(PostgreSQL postgreSQL) {
-        System.out.println("==== getFreeClientId init ====");
-        int id = -1;
-        try {
-            String selectSql = String.format("SELECT id FROM client ORDER BY id DESC LIMIT 1");
-            postgreSQL.execute(selectSql);
-
-            // Process and display the retrieved data
-            while (postgreSQL.resultSet.next()) {
-                id = postgreSQL.resultSet.getInt("id");
-                System.out.println(String.format("%d", id));
-            }
-            postgreSQL.terminate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return id;
-    }
-
-    public static boolean login (String getEmail, String getPassword, PostgreSQL postgreSQL) {
-        System.out.println("==== login init ====");
-
-        String getHash = SHA512.hash(getPassword);
-        
-        Client client = null;
-        try {
-            String selectSql = String.format("SELECT * FROM client WHERE email = '%s' AND hash = '%s'", getEmail, getHash);
-            postgreSQL.execute(selectSql);
-
-            // Process and display the retrieved data
-            while (postgreSQL.resultSet.next()) {
-                int id = postgreSQL.resultSet.getInt("id");
-                String name = postgreSQL.resultSet.getString("name");
-                String surname = postgreSQL.resultSet.getString("surname");
-                String number = postgreSQL.resultSet.getString("number");
-                String email = postgreSQL.resultSet.getString("email");
-                String hash = postgreSQL.resultSet.getString("hash");
-                client = new Client(id, name, surname, number, email, hash);
-            }
-            postgreSQL.terminate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return (client == null ? false : true);
-    }
-
-    public static boolean register (Client client, PostgreSQL postgreSQL) {
-        System.out.println("==== register init ====");
-        
-        if (getClientByEmail(client.getEmail(), postgreSQL) != null)
-            return false;
-        try {
-            String insertSql = 
-                String.format("""
-                INSERT INTO client(id, \"name\", \"surname\", \"number\", \"email\", \"hash\") 
-                VALUES (%d, '%s', '%s', '%s', '%s', '%s')""", 
-                client.getId(), client.getName(), client.getSurname(), 
-                client.getNumber(), client.getEmail(), client.getHash());
-            postgreSQL.execute(insertSql);
-            postgreSQL.terminate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return (getClientByEmail(client.getEmail(), postgreSQL) != null ? true : false );
-    }
-    
-    //################################################################################################
+public class Schedules {
 
     public static boolean checkMaterialsAvailability(int productId, PostgreSQL postgreSQL) {
         System.out.println("==== checkMaterialsAvaiability init ====");
@@ -125,53 +24,6 @@ public class Login {
             e.printStackTrace();
         }
         return false;
-    }
-
-    public static int getProductId(String productName, PostgreSQL postgreSQL) {
-        System.out.println("==== getProductId init ====");
-        int id = -1;
-        try {
-            String selectSql = String.format("""
-            SELECT id FROM PRODUCT
-            WHERE name = '%s'""", productName);
-            postgreSQL.execute(selectSql);
-
-            // Process and display the retrieved data
-            while (postgreSQL.resultSet.next()) {
-                id = postgreSQL.resultSet.getInt("id");
-                System.out.println(String.format("%d", id));
-            }
-            postgreSQL.terminate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return id;
-    }
-    
-    public static List<JSONObject> getNeededProfessions(Integer productId, PostgreSQL postgreSQL) {
-        System.out.println("==== getNeededProfession init ====");
-        List<JSONObject> professionsTime = new ArrayList<JSONObject>();
-        try {
-            String selectSql = String.format("""
-            SELECT Profession, Time_needed FROM PRODUCT_COMPONENT
-            WHERE '%s' = Product_id""", productId);
-            postgreSQL.execute(selectSql);
-
-            // Process and display the retrieved data
-            while (postgreSQL.resultSet.next()) {
-                String Profession = postgreSQL.resultSet.getString("Profession");
-                int TimeNeeded = postgreSQL.resultSet.getInt("Time_needed");
-                JSONObject jo = new JSONObject();
-                jo.put("Profession", Profession);
-                jo.put("Time_needed", TimeNeeded);
-                professionsTime.add(jo);
-                System.out.println(String.format("%s, %d", Profession, TimeNeeded));
-            }
-            postgreSQL.terminate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return professionsTime;
     }
 
     public static List<JSONObject> getLastHourOfTasks(List<JSONObject> professionsTime, PostgreSQL postgreSQL) {
@@ -287,4 +139,6 @@ public class Login {
             e.printStackTrace();
         }
     }
+
 }
+
