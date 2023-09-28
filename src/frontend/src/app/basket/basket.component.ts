@@ -16,6 +16,7 @@ export class BasketComponent {
 
   name: string[] = [];
   price: string[] = [];
+  basket: string = "";
   
   ngOnInit() {
     const client = {
@@ -45,6 +46,7 @@ export class BasketComponent {
         else
         {
           console.log('Koszyk jest pusty');
+          this.basket = "Pusty";
         }
       },
       (error) => {
@@ -65,15 +67,20 @@ export class BasketComponent {
     window.location.reload();
   }
 
-  order() {
+  async order() {
     const basket = {
-      id : this.id
-    }
+      id: this.id
+    };
+  
     this.http.post('http://localhost:8082/order', basket).subscribe(
       (response: any) => {
+        console.log('Zamówienie zostało złożone:', response);
+        this.router.navigate(['history']);
+      },
+      (error) => {
+        console.error('Błąd podczas składania zamówienia', error);
       }
     );
-    this.router.navigate(['history']);
   }
 }
 
