@@ -36,15 +36,4 @@ public class SchedulesController {
     System.out.println(String.format("==== Delivery time: %s ====", lastTimestamp));
     return String.format("{\"date\":\"%s\"}", lastTimestamp);
   }
-
-  @PostMapping("/setSchedule")
-  @CrossOrigin(origins = APIaddress)
-  @ResponseBody
-  public void setLastHourOfTasks(@RequestBody ObjectNode json) {
-    int id = ProductManager.getProductId(json.get("name").asText(), api);
-    List<JSONObject> neededProfessionsTime = ProductManager.getNeededProfessions(id, api);
-    List<JSONObject> ListOfTimestampsAndEmployees = Schedules.getLastHourOfTasks(neededProfessionsTime, api);
-    Schedules.setHoursForEmployees(ListOfTimestampsAndEmployees, api);
-    System.out.println(String.format("==== order successful ===="));
-  }
 }

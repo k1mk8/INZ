@@ -167,6 +167,28 @@ public class Order {
         }
         return product;
     }
+
+    public static void order(JSONArray orderProductsInBucket, PostgreSQL postgreSQL) {
+        System.out.println("==== order init ====");
+        for(int it = 0; it < orderProductsInBucket.length(); it++) {
+            System.out.println(orderProductsInBucket.getJSONObject(it));
+            Schedules.setSchedule(orderProductsInBucket.getJSONObject(it), postgreSQL);
+        }
+    }
+
+    public static void changeOrderStatus(Integer orderId, PostgreSQL postgreSQL) {
+        System.out.println("==== changeOrderStatus init ====");
+        try {
+            String updateSql = String.format("""
+            UPDATE "order" SET state = '%s'
+            WHERE id = '%d'
+            """, "W trakcie realizacji", orderId);
+            postgreSQL.execute(updateSql);
+            postgreSQL.terminate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
 
 

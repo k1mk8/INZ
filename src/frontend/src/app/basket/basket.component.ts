@@ -64,5 +64,16 @@ export class BasketComponent {
     );
     window.location.reload();
   }
+
+  order() {
+    const basket = {
+      id : this.id
+    }
+    this.http.post('http://localhost:8082/order', basket).subscribe(
+      (response: any) => {
+      }
+    );
+    this.router.navigate(['history']);
+  }
 }
 

@@ -30,6 +30,8 @@ public class PostgreSQL {
             Class.forName("org.postgresql.Driver");
             
             while (!this.isFree){
+                System.out.println("sleep");
+                Thread.sleep(100);
             }
             this.isFree = false;
 

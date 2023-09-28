@@ -140,5 +140,13 @@ public class Schedules {
         }
     }
 
+    public static void setSchedule(JSONObject json, PostgreSQL postgreSQL) {
+        System.out.println("==== setSchedule init ====");
+        int id = json.getInt("product_id");
+        List<JSONObject> neededProfessionsTime = ProductManager.getNeededProfessions(id, postgreSQL);
+        List<JSONObject> ListOfTimestampsAndEmployees = Schedules.getLastHourOfTasks(neededProfessionsTime, postgreSQL);
+        Schedules.setHoursForEmployees(ListOfTimestampsAndEmployees, postgreSQL);
+        System.out.println(String.format("==== order successful ===="));
+    }
 }
 
