@@ -58,6 +58,11 @@ export class MatrixComponent {
   }
 
   addToBasket() {
+    if (!this.cookieservice.check('SESSION_TOKEN'))
+    {
+      this.router.navigate(['login']);
+      return;
+    }
     const productData = {
       email: this.cookieservice.get('SESSION_TOKEN'),
       name: this.name,

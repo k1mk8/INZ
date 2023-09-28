@@ -58,6 +58,11 @@ export class Venus3DLComponent {
   }
 
   addToBasket() {
+    if (!this.cookieservice.check('SESSION_TOKEN'))
+    {
+      this.router.navigate(['login']);
+      return;
+    }
     const productData = {
       email: this.cookieservice.get('SESSION_TOKEN'),
       name: this.name,
@@ -69,5 +74,6 @@ export class Venus3DLComponent {
 
   openImageInNewWindow() {
     window.open('../../assets/venus3dl.jpg', '_blank');
-  }
+  } 
+  
 }

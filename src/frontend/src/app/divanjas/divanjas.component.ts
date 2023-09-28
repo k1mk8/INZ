@@ -58,6 +58,11 @@ export class DivanjasComponent {
   }
 
   addToBasket() {
+    if (!this.cookieservice.check('SESSION_TOKEN'))
+    {
+      this.router.navigate(['login']);
+      return;
+    }
     const productData = {
       email: this.cookieservice.get('SESSION_TOKEN'),
       name: this.name,
@@ -65,7 +70,7 @@ export class DivanjasComponent {
     };
     this.http.post('http://localhost:8082/addToBasket', productData).subscribe();
     this.router.navigate(['basket']);
-  }
+  } 
 
   openImageInNewWindow() {
     window.open('../../assets/divanJas.jpg', '_blank');
