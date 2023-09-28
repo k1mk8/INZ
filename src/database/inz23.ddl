@@ -40,23 +40,37 @@ insert into employee (id, pesel, name, surname, profession) values (13, 39345678
 
 -- order
 
-insert into "order" (id, state, client_id) values (1, 'A', 1);
-insert into "order" (id, state, client_id) values (2, 'W', 2);
-insert into "order" (id, state, client_id) values (3, 'Z', 3);
-insert into "order" (id, state, client_id) values (4, 'A', 4);
-insert into "order" (id, state, client_id) values (5, 'W', 5);
-insert into "order" (id, state, client_id) values (6, 'Z', 6);
+insert into "order" (id, state, client_id, "timestamp") values (1, 'Aktywny Koszyk', 1, '2023-05-31 6:00');
+insert into "order" (id, state, client_id, "timestamp") values (2, 'W trakcie realizacji', 1, '2023-08-1 23:59');
+insert into "order" (id, state, client_id, "timestamp") values (3, 'Zakończone', 1, '2023-08-11 16:10');
+insert into "order" (id, state, client_id, "timestamp") values (4, 'Zakończone', 3, '2023-09-12 6:00');
+insert into "order" (id, state, client_id, "timestamp") values (5, 'Aktywny Koszyk', 4, '2023-09-26 16:05');
+insert into "order" (id, state, client_id, "timestamp") values (6, 'W trakcie realizacji', 5, '2023-09-27 4:00');
+insert into "order" (id, state, client_id, "timestamp") values (7, 'W trakcie realizacji', 6, '2023-09-27 12:56');
 
 -- product
 
-insert into product (id, name) values (1, 'Venus 3DL');
-insert into product (id, name) values (2, 'Oliwia III 3DL');
-insert into product (id, name) values (3, 'Venus fotel');
-insert into product (id, name) values (4, 'Matrix');
-insert into product (id, name) values (5, 'Sara');
-insert into product (id, name) values (6, 'Wersalka zwykła');
-insert into product (id, name) values (7, 'Tapczan Kuba');
-insert into product (id, name) values (8, 'Tapczan Jaś');
+insert into product (id, name, price, description) values (1, 'Venus 3DL', 2000, 'Wygodna kanapa do spania z pojemnikiem na pościel. Wykonana na sprężynach typu bonell i piance wysokoelastycznej. Mechanizm wspomagający otwieranie. Poduszki z pianki profilowanej. Nóżki drewniane kolor venge.');
+insert into product (id, name, price, description) values (2, 'Oliwia III 3DL', 2200, 'Wygodna kanapa do spania z pojemnikiem na pościel. Wykonana na sprężynach typu bonell i piance wysokoelastycznej.');
+insert into product (id, name, price) values (3, 'Venus fotel', 1300);
+insert into product (id, name, price) values (4, 'Matrix', 800);
+insert into product (id, name, price) values (5, 'Sara', 1500);
+insert into product (id, name, price) values (6, 'Wersalka zwykła', 1200);
+insert into product (id, name, price, description) values (7, 'Tapczan Kuba', 1000, 'Wygodny tapczan pojedynczy do spania z pojemnikiem na pościel.');
+insert into product (id, name, price, description) values (8, 'Tapczan Jaś', 900, 'Wygodny tapczan pojedynczy do spania z pojemnikiem na pościel.');
+
+-- basket
+
+insert into basket (order_id, product_id, amount) values (1, 1, 2);
+insert into basket (order_id, product_id, amount) values (1, 2, 1);
+insert into basket (order_id, product_id, amount) values (1, 4, 2);
+insert into basket (order_id, product_id, amount) values (2, 5, 3);
+insert into basket (order_id, product_id, amount) values (2, 6, 4);
+insert into basket (order_id, product_id, amount) values (3, 3, 2);
+insert into basket (order_id, product_id, amount) values (4, 8, 5);
+insert into basket (order_id, product_id, amount) values (5, 5, 1);
+insert into basket (order_id, product_id, amount) values (6, 7, 1);
+insert into basket (order_id, product_id, amount) values (7, 7, 2);
 
 -- goods
 

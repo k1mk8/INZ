@@ -23,6 +23,7 @@ import { SaraComponent } from './sara/sara.component';
 import { ClassiccouchComponent } from './classiccouch/classiccouch.component';
 import { DivankubaComponent } from './divankuba/divankuba.component';
 import { DivanjasComponent } from './divanjas/divanjas.component';
+import { ButtonsComponent } from './buttons/buttons.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { DivanjasComponent } from './divanjas/divanjas.component';
     SaraComponent,
     ClassiccouchComponent,
     DivankubaComponent,
-    DivanjasComponent
+    DivanjasComponent,
+    ButtonsComponent
   ],
   imports: [
     BrowserModule,

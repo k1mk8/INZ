@@ -1,0 +1,9 @@
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 2% 10% 0 10%;
+}
+
+.ui.secondary.button {
+    width: 200px;
+}
