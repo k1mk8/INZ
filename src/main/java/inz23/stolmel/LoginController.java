@@ -12,7 +12,7 @@ import java.util.List;
 import org.json.*;
 
 @RestController
-public class PostgreSQLController {
+public class LoginController {
 
   private final PostgreSQL api = new PostgreSQL();
   private final String APIaddress = "http://localhost:4200";
@@ -21,36 +21,36 @@ public class PostgreSQLController {
   @ResponseBody
   @CrossOrigin(origins = APIaddress)
   public Client getClientByEmail(@RequestBody String email) {
-    return api.getClientByEmail(email);
+    return Login.getClientByEmail(email, api);
   }
 
   @PostMapping("/login")
   @ResponseBody
   @CrossOrigin(origins = APIaddress)
   public boolean login(@RequestBody ObjectNode json) {
-    return api.login(json.get("email").asText(), json.get("password").asText());
+    return Login.login(json.get("email").asText(), json.get("password").asText(), api);
   }
 
   @PostMapping("/register")
   @ResponseBody
   @CrossOrigin(origins = APIaddress)
   public boolean register(@RequestBody ObjectNode json) {
-    int id = api.getFreeClientId() + 1;
+    int id = Login.getFreeClientId(api) + 1;
     String name = json.get("name").asText();
     String surname = json.get("surname").asText();
     String number = json.get("number").asText();
     String email = json.get("email").asText();
     String hash = SHA512.hash(json.get("password").asText());
     Client client = new Client(id, name, surname, number, email, hash);
-    return api.register(client);
+    return Login.register(client, api);
   }
 
   @PostMapping("/checkAvailability")
   @CrossOrigin(origins = APIaddress)
   @ResponseBody
   public boolean checkMaterialsAvailability(@RequestBody ObjectNode json) {
-    int id = api.getProductId(json.get("name").asText());
-    boolean materialAvailability = api.checkMaterialsAvailability(id);
+    int id = Login.getProductId(json.get("name").asText(), api);
+    boolean materialAvailability = Login.checkMaterialsAvailability(id, api);
     System.out.println(String.format("Poduct availability: %b", materialAvailability));
     return  materialAvailability;
   }
@@ -59,9 +59,9 @@ public class PostgreSQLController {
   @CrossOrigin(origins = APIaddress)
   @ResponseBody
   public String getLastHourOfTasks(@RequestBody ObjectNode json) {
-    int id = api.getProductId(json.get("name").asText());
-    List<JSONObject> neededProfessionsTime = api.getNeededProfessions(id);
-    List<JSONObject> ListOfTimestampsAndEmployees = api.getLastHourOfTasks(neededProfessionsTime);
+    int id = Login.getProductId(json.get("name").asText(), api);
+    List<JSONObject> neededProfessionsTime = Login.getNeededProfessions(id, api);
+    List<JSONObject> ListOfTimestampsAndEmployees = Login.getLastHourOfTasks(neededProfessionsTime, api);
     String lastTimestamp = ListOfTimestampsAndEmployees.get(ListOfTimestampsAndEmployees.size()-1).get("timestamp").toString();
     System.out.println(String.format("==== Delivery time: %s ====", lastTimestamp));
     return String.format("{\"date\":\"%s\"}", lastTimestamp);
@@ -71,10 +71,10 @@ public class PostgreSQLController {
   @CrossOrigin(origins = APIaddress)
   @ResponseBody
   public void setLastHourOfTasks(@RequestBody ObjectNode json) {
-    int id = api.getProductId(json.get("name").asText());
-    List<JSONObject> neededProfessionsTime = api.getNeededProfessions(id);
-    List<JSONObject> ListOfTimestampsAndEmployees = api.getLastHourOfTasks(neededProfessionsTime);
-    api.setHoursForEmployees(ListOfTimestampsAndEmployees);
+    int id = Login.getProductId(json.get("name").asText(), api);
+    List<JSONObject> neededProfessionsTime = Login.getNeededProfessions(id, api);
+    List<JSONObject> ListOfTimestampsAndEmployees = Login.getLastHourOfTasks(neededProfessionsTime, api);
+    Login.setHoursForEmployees(ListOfTimestampsAndEmployees, api);
     System.out.println(String.format("==== order successful ===="));
   }
 }
