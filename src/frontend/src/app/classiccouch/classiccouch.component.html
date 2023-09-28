@@ -22,12 +22,12 @@
                     <span class="marker">Dostępność:</span>
                 </td>
                 <td>
-                    <a class="marker"> {{ avialability }}</a>
+                    <a class="marker"> {{ availability }}</a>
                 </td>
             </tr>
         </tbody>
     </table>
-    <div class="ui secondary button" *ngIf="avialability === 'Produkt dostępny'" (click)="addToBasket()">Dodaj do koszyka</div>
+    <div class="ui secondary button" *ngIf="availability === 'Produkt dostępny'" (click)="addToBasket()">Dodaj do koszyka</div>
 </body>
 <div class="bottom-bar">
     <p class="bottom-bar-text">Praca inżynierska</p>
