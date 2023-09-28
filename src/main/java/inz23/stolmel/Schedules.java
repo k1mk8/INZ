@@ -99,10 +99,10 @@ public class Schedules {
                             SELECT DISTINCT ON (datetime) datetime, EMPLOYEE.id FROM SCHEDULE
                             INNER JOIN EMPLOYEE ON Employee_id = EMPLOYEE.id
                             WHERE employee.id = '%s' AND Is_occupied = '0'
-                            AND DATE(datetime) = '%s'
+                            AND DATE(datetime) = '%s' AND datetime > '%s'
                             GROUP BY EMPLOYEE.id, datetime
                             ORDER BY datetime LIMIT '%s'
-                    """, id, date, time);
+                    """, id, date, lastTimeOfSchedule.get(referenceOfProfessions.get(idx)), time);
                     postgreSQL.execute(selectSql);
                     while (postgreSQL.resultSet.next()) {
                         JSONObject jo = new JSONObject();
