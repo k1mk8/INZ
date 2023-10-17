@@ -21,8 +21,25 @@
                 </td>
                 <td>200 x 140 cm</td>
             </tr>
+            <tr>
+                <td>
+                    <span class="marker">Dostępność:</span>
+                </td>
+                <td>
+                    <a class="marker"> {{ availability }}</a>
+                </td>
+            </tr>
+            <tr *ngIf="availability === 'Produkt dostępny'">
+                <td>
+                    <span class="marker">Data odbioru:</span>
+                </td>
+                <td>
+                    <a class="marker"> {{ timing }}</a>
+                </td>
+            </tr>
         </tbody>
     </table>
+    <div class="ui secondary button" *ngIf="availability === 'Produkt dostępny'" (click)="addToBasket()">Dodaj do koszyka</div>
 </body>
 <div class="bottom-bar">
     <p class="bottom-bar-text">Praca inżynierska</p>

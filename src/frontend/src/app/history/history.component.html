@@ -1,0 +1,24 @@
+<body>
+  <app-menu></app-menu>
+  <app-buttons></app-buttons>
+  <h2 class="history">Historia zamówień</h2>
+  <div class="order-container">
+    <div class="orders">
+      <div *ngFor="let order of id; let i = index">
+        <div class="order-details">
+          <p>Numer zamówienia: {{ order }}</p>
+          <p>Status: {{ state[i] }}</p>
+          <p>Data złożenia zamówienia: {{ timestamp[i] }}</p>
+        </div>
+        <ul class="product-list">
+          <li *ngFor="let product of name[i]; let j = index">
+            <div class="product-details">
+              <p>Nazwa: {{ product }}</p>
+              <p>Cena: {{ price[i][j] }}</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>

@@ -21,7 +21,7 @@ pipeline {
     stages {
 
         stage('Main Pull') {
-            when{
+            when {
                 branch 'main'
             }
             steps {
@@ -38,8 +38,37 @@ pipeline {
             }
         }
 
-        stage('Gradle Build') {
+        stage('IP setup') {
             when{
+                anyOf { branch 'main'; branch 'develop' }
+            }
+            steps {
+                script {
+                    def dir = "./src/main/java"
+                    def from = "localhost"
+                    def to = "89.78.181.33"
+
+                    // Find and replace text in files
+                    sh """
+                        find "$dir" -type f -exec sed -i 's/$from/$to/g' {} \\;
+                    """
+
+                    echo "Swapped $from to $to in $dir."
+
+                    dir = "./src/frontend/src/app"
+                                        
+                    // Find and replace text in files
+                    sh """
+                        find "$dir" -type f -exec sed -i 's/$from/$to/g' {} \\;
+                    """
+                    
+                    echo "Swapped $from to $to in $dir."
+                }
+            }
+        }
+
+        stage('Gradle Build') {
+            when {
                 anyOf { branch 'main'; branch 'develop' }
             }
             steps {
@@ -48,16 +77,23 @@ pipeline {
             }
         }
 
-
         stage('Docker') {
             when{
                 anyOf { branch 'main'; branch 'develop' }
             }
             steps {
-                sh 'docker compose down'
-                sh 'docker system prune -a'
                 sh 'docker compose build'
-                sh 'docker compose up -d'
+            }
+        }
+
+
+        stage('Deploy') {
+            when{
+                branch 'main'
+            }
+            steps {
+                sh 'docker compose down'
+                sh 'docker compose up'
             }
         }
 
@@ -95,15 +131,6 @@ pipeline {
         //         sh './gradlew publish -Prelease'
         //     }
         // }
-
-        stage('Deploy to Server'){
-            when{
-                branch 'main'
-            }
-            steps{
-                echo "OK"
-            }
-        }
 
         //stage('Cleanup') {
         //  steps {

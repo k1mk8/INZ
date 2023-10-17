@@ -13,50 +13,42 @@
         <i class="dropdown icon"></i>
         <div class="menu">
           <div class="item" [title]="'venus3dl'" [routerLink]="['/venus3dl']">Venus 3DL</div>
-          <div class="item">Oliwia III 3DL</div>
-          <div class="item">Parma 3DL</div>
-          <div class="item">Neptun 3DL</div>
-          <div class="item">Sandra 3DL</div>
-          <div class="item">Bergamo 3DL</div>
-          <div class="item">Oskar 3DL</div>
-          <div class="item">Blanka 3DL</div>
-          <div class="item">Oliwia 3DL</div>
-          <div class="item">Vis Max 3DL</div>
+          <div class="item" [title]="'oliwiaIII3dl'" [routerLink]="['/oliwiaIII3dl']">Oliwia III 3DL</div>
         </div>
       </div>
       <div class="ui simple dropdown item">
         <div class="ui secondary button" style="width: 200px;">Fotele</div>
         <i class="dropdown icon"></i>
         <div class="menu">
-          <div class="item">Produkty</div>
-          <div class="item">Usługi</div>
+          <div class="item" [title]="'venusfotel'" [routerLink]="['/venusfotel']">Venus fotel</div>
+          <div class="item" [title]="'matrix'" [routerLink]="['/matrix']">Matrix</div>
         </div>
       </div>
       <div class="ui simple dropdown item">
         <div class="ui secondary button" style="width: 200px;">Wersalki</div>
         <i class="dropdown icon"></i>
         <div class="menu">
-          <div class="item">Produkty</div>
-          <div class="item">Usługi</div>
+          <div class="item" [title]="'sara'" [routerLink]="['/sara']">Sara</div>
+          <div class="item" [title]="'classiccouch'" [routerLink]="['/classiccouch']">Wersalka zwykła</div>
         </div>
       </div>
       <div class="ui simple dropdown item">
         <div class="ui secondary button" style="width: 200px;">Łoża sypialne</div>
         <i class="dropdown icon"></i>
         <div class="menu">
-          <div class="item">Produkty</div>
-          <div class="item">Usługi</div>
+          <div class="item" [title]="'divankuba'" [routerLink]="['/divankuba']">Tapczan Kuba</div>
+          <div class="item" [title]="'divanjas'" [routerLink]="['/divanjas']">Tapczan Jaś</div>
         </div>
       </div>
       <div class="ui secondary button" style="width: 200px;" [title]="'contact'"
         [routerLink]="['/contact']">
         Kontakt
       </div> 
-      <div class="ui secondary button" style="width: 200px;" [title]="'myaccount'"
+      <div class="ui secondary button" style="width: 200px;" [title]="'myaccount'" *ngIf="this.cookieService.get('SESSION_TOKEN')"
         [routerLink]="['/myaccount']">
         Moje konto
       </div> 
-      <div class="ui secondary button" style="width: 200px;" [title]="'login'"
+      <div class="ui secondary button" style="width: 200px;" [title]="'login'" *ngIf="!this.cookieService.get('SESSION_TOKEN')"
         [routerLink]="['/login']">
         Logowanie
       </div> 

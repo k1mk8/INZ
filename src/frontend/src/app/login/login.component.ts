@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  constructor(private router: Router, private http: HttpClient) {}
+  constructor(private router: Router, private http: HttpClient, private cookieservice: CookieService) {}
   
   email: string = '';
   password: string = '';
@@ -26,7 +26,7 @@ export class LoginComponent {
         if (response == true)
         {
           console.log('Logowanie zakończona sukcesem', response);
-          localStorage.setItem('loggedIn', this.email);
+          this.cookieservice.set('SESSION_TOKEN', this.email, 1/24);
           this.message = 'Logowanie prawidłowe';
           this.directToMyAccount();
         }
