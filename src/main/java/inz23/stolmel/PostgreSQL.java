@@ -14,7 +14,7 @@ import org.json.*;
 
 public class PostgreSQL {
 
-    private final String DB_URL = "jdbc:postgresql://inz23_db_1:5432/postgres";
+    private final String DB_URL = "jdbc:postgresql://inz23_db:5432/postgres";
     private final String DB_USER = "postgres";
     private final String DB_PASSWORD = "postgres";
     public boolean isFree = true;
