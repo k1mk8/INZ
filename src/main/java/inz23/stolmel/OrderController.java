@@ -54,6 +54,8 @@ public class OrderController {
     if (!clientBasket.has("id")) {
       return null;
     }
+    String basketFinish = Order.basketFinish(clientBasket.getInt("id"), postgreSQL);
+    clientBasket.put("basketFinish", basketFinish);
     return clientBasket.toString();
   }
 

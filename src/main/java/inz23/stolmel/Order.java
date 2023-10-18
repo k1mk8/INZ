@@ -189,6 +189,27 @@ public class Order {
             e.printStackTrace();
         }
     }
+
+    public static String basketFinish(Integer orderId, PostgreSQL postgreSQL) {
+        System.out.println("==== basketFinish init ====");
+        String basketFinish = "";
+        try {
+            String selectSql = String.format("""
+            SELECT datetime FROM schedule
+            WHERE order_id = '%d'
+            ORDER BY datetime DESC
+            LIMIT 1
+            """, orderId);
+            postgreSQL.execute(selectSql, "select");
+            if (postgreSQL.resultSet.next()) {
+                basketFinish = postgreSQL.resultSet.getString("datetime");
+            }
+            postgreSQL.terminate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return basketFinish;
+    }
 }
 
 
