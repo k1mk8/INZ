@@ -59,20 +59,25 @@ export class DivanjasComponent {
     }
   }
 
-  addToBasket() {
-    if (!this.cookieservice.check('SESSION_TOKEN'))
-    {
+  async addToBasket(): Promise<void> {
+    if (!this.cookieservice.check('SESSION_TOKEN')) {
       this.router.navigate(['login']);
       return;
     }
+
     const productData = {
       email: this.cookieservice.get('SESSION_TOKEN'),
       name: this.name,
       amount: 1
     };
-    this.http.post('http://localhost:8082/addToBasket', productData).subscribe();
-    this.router.navigate(['basket']);
-  } 
+
+    try {
+      await this.http.post('http://localhost:8082/addToBasket', productData).toPromise();
+      this.router.navigate(['basket']);
+    } catch (error) {
+      console.error('Błąd podczas dodawania produktu do koszyka', error);
+    }
+  }
 
   openImageInNewWindow() {
     window.open('../../assets/divanJas.jpg', '_blank');

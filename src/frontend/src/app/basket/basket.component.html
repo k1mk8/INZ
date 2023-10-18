@@ -14,8 +14,11 @@
       </li>
     </ul>
   </div>
+  <div class="finish" *ngIf="timestamp != ''">
+    <a class="deliver-time"> Czas dostawy koszyka: &nbsp;</a> <a class="value-email"> {{ timestamp }}</a>
+  </div>
   <div class="center-container">
-    <div class="ui secondary button order-button" (click)="order()" *ngIf="basket !== 'Pusty'">Złóż zamówienie</div>
+    <div class="ui secondary button order-button" (click)="order()" *ngIf="timestamp != ''">Złóż zamówienie</div>
   </div>
 </body>
 <app-bottom-bar></app-bottom-bar>

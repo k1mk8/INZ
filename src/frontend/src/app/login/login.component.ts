@@ -15,33 +15,30 @@ export class LoginComponent {
   password: string = '';
   message: string = '';
 
-  login() {
+  async login(): Promise<void> {
     const userData = {
       email: this.email,
       password: this.password
     };
 
-    this.http.post('http://localhost:8082/login', userData).subscribe(
-      (response: any) => {
-        if (response == true)
-        {
-          console.log('Logowanie zakończona sukcesem', response);
-          this.cookieservice.set('SESSION_TOKEN', this.email, 1/24);
-          this.message = 'Logowanie prawidłowe';
-          this.directToMyAccount();
-        }
-        else
-        {
-          this.message = 'Nieprawidłowy email lub hasło';
-          console.log('Nieprawidłowy email lub haslo');
-        }
-      },
-      (error) => {
-        console.error('Błąd podczas logowania', error);
-        this.message = 'Błąd podczas logowania';
+    try {
+      const response: any = await this.http.post('http://localhost:8082/login', userData).toPromise();
+
+      if (response === true) {
+        console.log('Logowanie zakończona sukcesem', response);
+        this.cookieservice.set('SESSION_TOKEN', this.email, 1/24);
+        this.message = 'Logowanie prawidłowe';
+        this.directToMyAccount();
+      } else {
+        this.message = 'Nieprawidłowy email lub hasło';
+        console.log('Nieprawidłowy email lub hasło');
       }
-    );
+    } catch (error) {
+      console.error('Błąd podczas logowania', error);
+      this.message = 'Błąd podczas logowania';
+    }
   }
+  
   directToRegistry() {
     this.router.navigate(['registry']);
   }

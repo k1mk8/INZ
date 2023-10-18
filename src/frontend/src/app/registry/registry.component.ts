@@ -16,8 +16,7 @@ export class RegistryComponent {
   registerPhoneNumber: string = '';
   message: string = '';
 
-  register() {
-    // Dane do wysłania na serwer
+  async register(): Promise<void> {
     const userData = {
       email: this.registerEmail,
       password: this.registerPassword,
@@ -26,25 +25,20 @@ export class RegistryComponent {
       number: this.registerPhoneNumber
     };
 
-    // Wysłanie danych na serwer
-    this.http.post('http://localhost:8082/register', userData).subscribe(
-      (response: any) => {
-        if (response == true)
-        {
-          console.log('Rejestracja zakończona sukcesem', response);
-          this.message = 'Logowanie prawidłowe';
-          this.router.navigate(['login'])
-        }
-        else
-        {
-          this.message = 'Użytkownik z takim emailem istnieje w systemie';
-          console.log('Użytkownik z takim emailem istnieje w systemie');
-        }
-      },
-      (error) => {
-        console.error('Błąd podczas rejestracji', error);
-        this.message = 'Błąd podczas rejestracji. Proszę spróbować ponownie.';
+    try {
+      const response: any = await this.http.post('http://localhost:8082/register', userData).toPromise();
+
+      if (response === true) {
+        console.log('Rejestracja zakończona sukcesem', response);
+        this.message = 'Logowanie prawidłowe';
+        this.router.navigate(['login']);
+      } else {
+        this.message = 'Użytkownik z takim emailem istnieje w systemie';
+        console.log('Użytkownik z takim emailem istnieje w systemie');
       }
-    );
+    } catch (error) {
+      console.error('Błąd podczas rejestracji', error);
+      this.message = 'Błąd podczas rejestracji. Proszę spróbować ponownie.';
+    }
   }
 }
