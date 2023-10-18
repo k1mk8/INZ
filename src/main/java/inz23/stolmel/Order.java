@@ -125,6 +125,7 @@ public class Order {
             orderId, productId, amount);
             postgreSQL.execute(insertSql);
             postgreSQL.terminate();
+            Schedules.setSchedule(productId, orderId, postgreSQL);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -139,6 +140,8 @@ public class Order {
             orderId, productId);
             postgreSQL.execute(removeSql);
             postgreSQL.terminate();
+            Schedules.removeSchedule(orderId, postgreSQL);
+            Schedules.updateSchedule(orderId, postgreSQL);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -168,12 +171,9 @@ public class Order {
         return product;
     }
 
-    public static void order(JSONArray orderProductsInBucket, Integer orderId, PostgreSQL postgreSQL) {
+    public static void order(Integer productId, Integer orderId, PostgreSQL postgreSQL) {
         System.out.println("==== order init ====");
-        for(int it = 0; it < orderProductsInBucket.length(); it++) {
-            System.out.println(orderProductsInBucket.getJSONObject(it));
-            Schedules.setSchedule(orderProductsInBucket.getJSONObject(it), orderId, postgreSQL);
-        }
+        Schedules.setSchedule(productId, orderId, postgreSQL);
     }
 
     public static void changeOrderStatus(Integer orderId, PostgreSQL postgreSQL) {

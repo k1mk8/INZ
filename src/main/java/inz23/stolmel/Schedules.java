@@ -76,7 +76,7 @@ public class Schedules {
                     (
                             SELECT DISTINCT ON (datetime) datetime, EMPLOYEE.id FROM SCHEDULE
                             INNER JOIN EMPLOYEE ON Employee_id = EMPLOYEE.id
-                            WHERE profession = '%s' AND order_id = null
+                            WHERE profession = '%s' AND order_id is null
                             AND datetime > '%s'
                             GROUP BY EMPLOYEE.id, datetime
                             ORDER BY datetime
@@ -140,13 +140,41 @@ public class Schedules {
         }
     }
 
-    public static void setSchedule(JSONObject json, Integer orderId, PostgreSQL postgreSQL) {
+    public static void setSchedule(Integer productId, Integer orderId, PostgreSQL postgreSQL) {
         System.out.println("==== setSchedule init ====");
-        int id = json.getInt("product_id");
-        List<JSONObject> neededProfessionsTime = ProductManager.getNeededProfessions(id, postgreSQL);
+        List<JSONObject> neededProfessionsTime = ProductManager.getNeededProfessions(productId, postgreSQL);
         List<JSONObject> ListOfTimestampsAndEmployees = Schedules.getLastHourOfTasks(neededProfessionsTime, postgreSQL);
         Schedules.setHoursForEmployees(ListOfTimestampsAndEmployees, orderId, postgreSQL);
         System.out.println(String.format("==== order successful ===="));
+    }
+
+    public static void removeSchedule(Integer orderId, PostgreSQL postgreSQL) {
+        System.out.println("==== removeSchedule init ====");
+        try {
+            String selectSql = String.format("""
+                UPDATE SCHEDULE
+                SET order_id = null
+                WHERE order_id = '%d'
+                """, orderId);
+            postgreSQL.execute(selectSql);
+            postgreSQL.terminate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void updateSchedule(Integer orderId, PostgreSQL postgreSQL) {
+        System.out.println("==== updateSchedule init ====");
+        try {            
+            JSONArray orderProductsInBucket = Order.getProductIdsFromOrder(orderId, postgreSQL);
+            for(int it = 0; it < orderProductsInBucket.length(); it++) {
+                System.out.println(orderProductsInBucket.getJSONObject(it));
+                Integer product_id = orderProductsInBucket.getJSONObject(it).getInt("product_id");
+                Schedules.setSchedule(product_id, orderId, postgreSQL);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
 
