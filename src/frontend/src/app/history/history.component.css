@@ -1,9 +1,15 @@
 .history {
-  font-size: 25px;
+  font-size: 30px;
   text-align: center;
-  margin-top: 4%;
-  margin-bottom: 4%;
   font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.order-container {
+  width: 80%;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .orders {
@@ -11,28 +17,27 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 0;
   font-family: Arial, sans-serif;
-  width: 50%;
+  margin: 0;
 }
-.order-container {
-  width: 50%;
-  margin: 0 auto;
-}
+
 .order-details {
   background-color: #f0f0f0;
   border: 1px solid #ccc;
   padding: 10px;
-  margin: 10px;
+  margin: 10px 0;
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   text-align: center;
+  width: 80%;
+  max-width: 600px;
 }
 
 .product-list {
   list-style-type: none;
   padding: 0;
-  width: 50%;
+  width: 100%;
+  max-width: 600px;
 }
 
 .product-details {
@@ -42,4 +47,18 @@
   margin: 5px 0;
   border-radius: 3px;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  max-width: 600px;
+}
+
+.order-details .ui.secondary.button {
+  width: 100px;
+  margin-top: 10px;
+}
+
+.center-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
 }
