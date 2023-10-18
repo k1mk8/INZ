@@ -13,7 +13,7 @@ export class BasketComponent {
   constructor(private router: Router, private http: HttpClient, private cookieservice: CookieService) {}
 
   id: string = "";
-
+  timestamp: string = "";
   name: string[] = [];
   price: string[] = [];
   basket: string = "";
@@ -28,6 +28,7 @@ export class BasketComponent {
 
       if (response != null) {
         this.id = response.id;
+        this.timestamp = response.basketFinish;
         const order = {
           order_id: response.id
         };

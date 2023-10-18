@@ -46,3 +46,10 @@
 .product-details .ui.secondary.button {
   margin-top: 10px;
 }
+.finish {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2%;
+  font-size: 22px;
+}
