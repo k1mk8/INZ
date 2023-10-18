@@ -14,7 +14,7 @@ public class ProductManager {
             String selectSql = String.format("""
             SELECT id FROM PRODUCT
             WHERE name = '%s'""", productName);
-            postgreSQL.execute(selectSql);
+            postgreSQL.execute(selectSql, "select");
 
             // Process and display the retrieved data
             while (postgreSQL.resultSet.next()) {
@@ -35,7 +35,7 @@ public class ProductManager {
             String selectSql = String.format("""
             SELECT Profession, Time_needed FROM PRODUCT_COMPONENT
             WHERE '%s' = Product_id""", productId);
-            postgreSQL.execute(selectSql);
+            postgreSQL.execute(selectSql, "select");
 
             // Process and display the retrieved data
             while (postgreSQL.resultSet.next()) {

@@ -22,7 +22,7 @@ public class PostgreSQL {
     public ResultSet resultSet = null;
     public Connection connection = null;
 
-    public void execute(String query) {
+    public void execute(String query, String queryType) {
         try {
             System.out.println("==== query init ====");
 
@@ -43,7 +43,12 @@ public class PostgreSQL {
             this.selectStatement = connection.prepareStatement(query);
 
             // Execute the SELECT query and get the result set
-            this.resultSet = this.selectStatement.executeQuery();
+            if(queryType == "select"){
+                this.resultSet = this.selectStatement.executeQuery();
+            }
+            else {
+                this.selectStatement.execute();
+            }
             System.out.println("==== query executed ====");
         } catch (Exception e) {
             e.printStackTrace();
