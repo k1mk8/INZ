@@ -54,7 +54,7 @@ public class Schedules {
                     String selectSql = String.format("""
                     SELECT DISTINCT ON (datetime) datetime, EMPLOYEE.id FROM SCHEDULE
                     INNER JOIN EMPLOYEE ON Employee_id = EMPLOYEE.id
-                    WHERE profession = '%s' AND Is_occupied = '0'
+                    WHERE profession = '%s' AND order_id is null
                     AND datetime > '%s'
                     GROUP BY EMPLOYEE.id, datetime
                     ORDER BY datetime LIMIT '%s'""", 
@@ -76,7 +76,7 @@ public class Schedules {
                     (
                             SELECT DISTINCT ON (datetime) datetime, EMPLOYEE.id FROM SCHEDULE
                             INNER JOIN EMPLOYEE ON Employee_id = EMPLOYEE.id
-                            WHERE profession = '%s' AND Is_occupied = '0'
+                            WHERE profession = '%s' AND order_id = null
                             AND datetime > '%s'
                             GROUP BY EMPLOYEE.id, datetime
                             ORDER BY datetime
@@ -98,7 +98,7 @@ public class Schedules {
                     """
                             SELECT DISTINCT ON (datetime) datetime, EMPLOYEE.id FROM SCHEDULE
                             INNER JOIN EMPLOYEE ON Employee_id = EMPLOYEE.id
-                            WHERE employee.id = '%s' AND Is_occupied = '0'
+                            WHERE employee.id = '%s' AND order_id is null
                             AND DATE(datetime) = '%s' AND datetime > '%s'
                             GROUP BY EMPLOYEE.id, datetime
                             ORDER BY datetime LIMIT '%s'
@@ -122,16 +122,16 @@ public class Schedules {
         return hoursForTasks;
     }
 
-    public static void setHoursForEmployees(List<JSONObject> professionsTime, PostgreSQL postgreSQL) {
+    public static void setHoursForEmployees(List<JSONObject> professionsTime, Integer orderId, PostgreSQL postgreSQL) {
         System.out.println("==== setHoursForEmployees init ====");
         try {
             for(Integer i = 0; i < professionsTime.size(); i++) {
                 //single task
                 String selectSql = String.format("""
                 UPDATE SCHEDULE
-                SET Is_occupied = 1
+                SET order_id = '%d'
                 WHERE datetime = '%s' AND employee_id = '%s'
-                """, professionsTime.get(i).get("timestamp"), professionsTime.get(i).get("employeeId"));
+                """, orderId, professionsTime.get(i).get("timestamp"), professionsTime.get(i).get("employeeId"));
                 postgreSQL.execute(selectSql);
                 postgreSQL.terminate();
             }
@@ -140,12 +140,12 @@ public class Schedules {
         }
     }
 
-    public static void setSchedule(JSONObject json, PostgreSQL postgreSQL) {
+    public static void setSchedule(JSONObject json, Integer orderId, PostgreSQL postgreSQL) {
         System.out.println("==== setSchedule init ====");
         int id = json.getInt("product_id");
         List<JSONObject> neededProfessionsTime = ProductManager.getNeededProfessions(id, postgreSQL);
         List<JSONObject> ListOfTimestampsAndEmployees = Schedules.getLastHourOfTasks(neededProfessionsTime, postgreSQL);
-        Schedules.setHoursForEmployees(ListOfTimestampsAndEmployees, postgreSQL);
+        Schedules.setHoursForEmployees(ListOfTimestampsAndEmployees, orderId, postgreSQL);
         System.out.println(String.format("==== order successful ===="));
     }
 }

@@ -168,11 +168,11 @@ public class Order {
         return product;
     }
 
-    public static void order(JSONArray orderProductsInBucket, PostgreSQL postgreSQL) {
+    public static void order(JSONArray orderProductsInBucket, Integer orderId, PostgreSQL postgreSQL) {
         System.out.println("==== order init ====");
         for(int it = 0; it < orderProductsInBucket.length(); it++) {
             System.out.println(orderProductsInBucket.getJSONObject(it));
-            Schedules.setSchedule(orderProductsInBucket.getJSONObject(it), postgreSQL);
+            Schedules.setSchedule(orderProductsInBucket.getJSONObject(it), orderId, postgreSQL);
         }
     }
 

@@ -85,7 +85,7 @@ public class OrderController {
   public void order(@RequestBody ObjectNode json) {
     Integer orderId = json.get("id").asInt();
     JSONArray orderProductsInBucket = Order.getProductIdsFromOrder(orderId, postgreSQL);
-    Order.order(orderProductsInBucket, postgreSQL);
+    Order.order(orderProductsInBucket, orderId, postgreSQL);
     Order.changeOrderStatus(orderId, postgreSQL);
   }
 }
