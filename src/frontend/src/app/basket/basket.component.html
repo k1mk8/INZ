@@ -15,7 +15,7 @@
     </ul>
   </div>
   <div class="center-container">
-    <div class="ui secondary button" (click)="order()" *ngIf="basket != 'Pusty'" style="width: 200px;">Złóż zamówienie</div>
+    <div class="ui secondary button order-button" (click)="order()" *ngIf="basket !== 'Pusty'">Złóż zamówienie</div>
   </div>
 </body>
 <app-bottom-bar></app-bottom-bar>
