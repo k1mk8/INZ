@@ -2,6 +2,7 @@
     <app-menu></app-menu>
     <app-buttons></app-buttons>
     <h2 class="contact">Twoje dane</h2>
+    <div class="center-container">
     <div>
         <a class="email"> Imię:</a> <a class="value-email"> {{ name }}</a>
         </div>
@@ -17,8 +18,9 @@
     <div>
         <a class="adres"> Email:</a> <a class="value-adres"> {{ email }}</a>
     </div>
-    <div class="center-container">
+    <div class="logout">
         <div (click)="deleteCookies()" class="ui secondary button" style="width: 200px;">Wyloguj się</div>
+    </div>
     </div>
 </body>
 <app-bottom-bar></app-bottom-bar>
