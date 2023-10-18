@@ -18,69 +18,62 @@ export class BasketComponent {
   price: string[] = [];
   basket: string = "";
   
-  ngOnInit() {
-    const client = {
-      email: this.cookieservice.get('SESSION_TOKEN')
-    };
+  async ngOnInit(): Promise<void> {
+    try {
+      const client = {
+        email: this.cookieservice.get('SESSION_TOKEN')
+      };
 
-    this.http.post('http://localhost:8082/getBasketOfClient', client).subscribe(
-      (response: any) => {
-        if (response != null)
-        {
-          this.id = response.id;
-          const order = {
-            order_id: response.id
-          };
-          this.http.post('http://localhost:8082/getProductsFromOrder', order).subscribe(
-            (response: any) => {
-              for (const value of response) {
-                this.name.push(value.name);
-                this.price.push(value.price);
-              }
-            },
-            (error) => {
-              console.error('Błąd podczas pobierania danych', error);
-            }
-          );
+      const response: any = await this.http.post('http://localhost:8082/getBasketOfClient', client).toPromise();
+
+      if (response != null) {
+        this.id = response.id;
+        const order = {
+          order_id: response.id
+        };
+
+        const orderResponse: any = await this.http.post('http://localhost:8082/getProductsFromOrder', order).toPromise();
+
+        for (const value of orderResponse) {
+          this.name.push(value.name);
+          this.price.push(value.price);
         }
-        else
-        {
-          console.log('Koszyk jest pusty');
-          this.basket = "Pusty";
-        }
-      },
-      (error) => {
-        console.error('Błąd podczas pobierania danych', error);
+      } else {
+        console.log('Koszyk jest pusty');
+        this.basket = 'Pusty';
       }
-    );
-  }
-
-  removeFromBasket(name : string) {
-    const product = {
-      order_id : this.id ,
-      product_name : name
+    } catch (error) {
+      console.error('Błąd podczas pobierania danych', error);
     }
-    this.http.post('http://localhost:8082/removeFromBasket', product).subscribe(
-      (response: any) => {
-      }
-    );
-    window.location.reload();
   }
 
-  async order() {
-    const basket = {
-      id: this.id
-    };
-  
-    this.http.post('http://localhost:8082/order', basket).subscribe(
-      (response: any) => {
-        console.log('Zamówienie zostało złożone:', response);
-        this.router.navigate(['history']);
-      },
-      (error) => {
-        console.error('Błąd podczas składania zamówienia', error);
-      }
-    );
+  async removeFromBasket(name: string): Promise<void> {
+    try {
+      const product = {
+        order_id: this.id,
+        product_name: name
+      };
+
+      await this.http.post('http://localhost:8082/removeFromBasket', product).toPromise();
+      window.location.reload();
+    } catch (error) {
+      console.error('Błąd podczas usuwania produktu z koszyka', error);
+    }
+  }
+
+  async order(): Promise<void> {
+    try {
+      const basket = {
+        id: this.id
+      };
+
+      const response: any = await this.http.post('http://localhost:8082/order', basket).toPromise();
+
+      console.log('Zamówienie zostało złożone:', response);
+      this.router.navigate(['history']);
+    } catch (error) {
+      console.error('Błąd podczas składania zamówienia', error);
+    }
   }
 }
 
