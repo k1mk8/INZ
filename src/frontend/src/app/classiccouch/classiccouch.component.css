@@ -1,11 +1,9 @@
-/* Stylowanie nagłówka */
 h2 {
   font-size: 24px;
   color: #333;
   text-align: center;
 }
 
-/* Stylowanie obrazka */
 img {
   display: block;
   margin: 0 auto;
@@ -19,27 +17,23 @@ img:hover {
   transform: scale(1.2);
 }
 
-/* Stylowanie paragrafu z wymiarami */
 h3.wymiary {
   font-weight: bold;
   text-align: center;
   margin-top: 20px;
 }
 
-/* Stylowanie tabeli z wymiarami */
 table {
   width: 60%;
   border-collapse: collapse;
   margin-top: 10px auto;
   margin: auto;
-  opacity: 0; /* Początkowo ukryj tabelę */
-  transform: translateY(20px); /* Przesuń tabelę w dół */
+  opacity: 0;
+  transform: translateY(20px);
 
-  /* Dodaj animację */
   transition: opacity 1.5s ease, transform 1.5s ease;
 }
 
-/* Po przewinięciu strony, pokaż tabelę */
 table.show-on-scroll {
   opacity: 1;
   transform: translateY(0);
@@ -51,21 +45,18 @@ table td {
   text-align: center;
 }
 
-/* Stylowanie markerów w tabeli */
 span.marker {
   font-weight: bold;
   color: #333;
   text-align: center;
 }
 
-/* Stylowanie linku dostępności */
 a.marker {
   text-decoration: none;
   color: #007bff;
   cursor: pointer;
 }
 
-/* Stylowanie przycisku "Dodaj do koszyka" */
 .ui.secondary.button {
   display: block;
   margin: 20px auto;
@@ -80,20 +71,4 @@ a.marker {
 
 .ui.secondary.button:hover {
   background-color: #0056b3;
-}
-
-/* Stylowanie belki na dole strony */
-.bottom-bar {
-  background-color: #333;
-  text-align: center;
-  padding: 10px 0;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-
-.bottom-bar-text {
-  color: #fff;
-  font-size: 14px;
 }

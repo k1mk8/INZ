@@ -49,15 +49,3 @@ body {
   .marker {
     font-weight: bold;
   }
-  
-  .bottom-bar {
-    background-color: black;
-    color: white;
-    padding: 10px 0;
-    text-align: center;
-  }
-  
-  .bottom-bar-text {
-    font-size: 18px;
-    margin: 0;
-  }

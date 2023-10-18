@@ -24,6 +24,7 @@ import { ClassiccouchComponent } from './classiccouch/classiccouch.component';
 import { DivankubaComponent } from './divankuba/divankuba.component';
 import { DivanjasComponent } from './divanjas/divanjas.component';
 import { ButtonsComponent } from './buttons/buttons.component';
+import { BottomBarComponent } from './bottom-bar/bottom-bar.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { ButtonsComponent } from './buttons/buttons.component';
     ClassiccouchComponent,
     DivankubaComponent,
     DivanjasComponent,
-    ButtonsComponent
+    ButtonsComponent,
+    BottomBarComponent
   ],
   imports: [
     BrowserModule,
