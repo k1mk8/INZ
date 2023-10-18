@@ -13,8 +13,8 @@ public class Schedules {
             String selectSql = String.format("""
             SELECT id, amount FROM GOODS
             WHERE '%s' = product_id AND '1' = is_available
-            """, productId);
-            postgreSQL.execute(selectSql);
+            """, productId, "select");
+            postgreSQL.execute(selectSql, "select");
             if (postgreSQL.resultSet.next()) {
                 postgreSQL.terminate();
                 return true;
@@ -59,13 +59,12 @@ public class Schedules {
                     GROUP BY EMPLOYEE.id, datetime
                     ORDER BY datetime LIMIT '%s'""", 
                     profession, lastTimeOfSchedule.get(referenceOfProfessions.get(idx)), time);
-                    postgreSQL.execute(selectSql);
+                    postgreSQL.execute(selectSql, "select");
                     while (postgreSQL.resultSet.next()) {
                         JSONObject jo = new JSONObject();
                         jo.put("timestamp", postgreSQL.resultSet.getString("datetime"));
                         jo.put("employeeId", postgreSQL.resultSet.getString("id"));
                         hoursForTasks.add(jo);
-                        System.out.println(hoursForTasks);
                     }
                     postgreSQL.terminate();
                 }
@@ -85,7 +84,7 @@ public class Schedules {
                     HAVING COUNT(a.datetime) >= '%s'
                     ORDER BY date
                     """, profession, lastTimeOfSchedule.get(referenceOfProfessions.get(idx)), time);
-                    postgreSQL.execute(selectSql);
+                    postgreSQL.execute(selectSql, "select");
                     String date = "";
                     int id = -1;
                     if (postgreSQL.resultSet.next()) {
@@ -103,19 +102,19 @@ public class Schedules {
                             GROUP BY EMPLOYEE.id, datetime
                             ORDER BY datetime LIMIT '%s'
                     """, id, date, lastTimeOfSchedule.get(referenceOfProfessions.get(idx)), time);
-                    postgreSQL.execute(selectSql);
+                    postgreSQL.execute(selectSql, "select");
                     while (postgreSQL.resultSet.next()) {
                         JSONObject jo = new JSONObject();
                         jo.put("timestamp", postgreSQL.resultSet.getString("datetime"));
                         jo.put("employeeId", postgreSQL.resultSet.getString("id"));
                         hoursForTasks.add(jo);
-                        System.out.println(hoursForTasks);
                     }
                     postgreSQL.terminate();
                 }
                 lastTimeOfSchedule.set(idx, hoursForTasks.get(hoursForTasks.size() - 1).get("timestamp").toString());
                 idx += 1;
             }
+            System.out.println(hoursForTasks);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -127,12 +126,12 @@ public class Schedules {
         try {
             for(Integer i = 0; i < professionsTime.size(); i++) {
                 //single task
-                String selectSql = String.format("""
+                String updateSql = String.format("""
                 UPDATE SCHEDULE
                 SET order_id = '%d'
                 WHERE datetime = '%s' AND employee_id = '%s'
                 """, orderId, professionsTime.get(i).get("timestamp"), professionsTime.get(i).get("employeeId"));
-                postgreSQL.execute(selectSql);
+                postgreSQL.execute(updateSql, "update");
                 postgreSQL.terminate();
             }
         } catch (Exception e) {
@@ -151,12 +150,12 @@ public class Schedules {
     public static void removeSchedule(Integer orderId, PostgreSQL postgreSQL) {
         System.out.println("==== removeSchedule init ====");
         try {
-            String selectSql = String.format("""
+            String updateSql = String.format("""
                 UPDATE SCHEDULE
                 SET order_id = null
                 WHERE order_id = '%d'
                 """, orderId);
-            postgreSQL.execute(selectSql);
+            postgreSQL.execute(updateSql, "update");
             postgreSQL.terminate();
         } catch (Exception e) {
             e.printStackTrace();

@@ -21,7 +21,7 @@ public class Order {
             SELECT * FROM "order"
             WHERE '%d' = client_id AND 'Aktywny Koszyk' != state 
             """, clientId);
-            postgreSQL.execute(selectSql);
+            postgreSQL.execute(selectSql, "select");
             while (postgreSQL.resultSet.next()) {
                 JSONObject jo = new JSONObject();
                 jo.put("id", postgreSQL.resultSet.getString("id"));
@@ -47,7 +47,7 @@ public class Order {
             ORDER BY id DESC
             LIMIT 1
             """);
-            postgreSQL.execute(selectSql);
+            postgreSQL.execute(selectSql, "select");
             Integer freeID = 0;
             if (postgreSQL.resultSet.next()) {
                 freeID = postgreSQL.resultSet.getInt("id") + 1;
@@ -62,7 +62,7 @@ public class Order {
             String insertSql = String.format("""
             INSERT INTO "order"(id, state, client_id, timestamp) VALUES (%d, '%s', '%s', '%s')
             """, freeID, "Aktywny Koszyk", clientId, strDate);
-            postgreSQL.execute(insertSql);
+            postgreSQL.execute(insertSql, "insert");
             postgreSQL.terminate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -79,7 +79,7 @@ public class Order {
             SELECT product_id, amount FROM BASKET
             WHERE '%d' = order_id
             """, orderId);
-            postgreSQL.execute(selectSql);
+            postgreSQL.execute(selectSql, "select");
             while (postgreSQL.resultSet.next()) {
                 JSONObject jo = new JSONObject();
                 jo.put("product_id", postgreSQL.resultSet.getString("product_id"));
@@ -103,7 +103,7 @@ public class Order {
             SELECT * FROM "order"
             WHERE '%d' = client_id AND 'Aktywny Koszyk' = state 
             """, clientId);
-            postgreSQL.execute(selectSql);
+            postgreSQL.execute(selectSql, "select");
             if (postgreSQL.resultSet.next()) {
                 clientBasket.put("id", postgreSQL.resultSet.getString("id"));
                 clientBasket.put("state", postgreSQL.resultSet.getString("state"));
@@ -123,7 +123,7 @@ public class Order {
             String insertSql = String.format("""
             INSERT INTO basket(order_id, product_id, amount) VALUES (%d, %d, %d)""", 
             orderId, productId, amount);
-            postgreSQL.execute(insertSql);
+            postgreSQL.execute(insertSql, "insert");
             postgreSQL.terminate();
             Schedules.setSchedule(productId, orderId, postgreSQL);
         } catch (Exception e) {
@@ -134,11 +134,11 @@ public class Order {
     public static void removeFromBasket(Integer orderId, Integer productId, PostgreSQL postgreSQL) {
         System.out.println("==== removeFromBasket init ====");
         try {
-            String removeSql = String.format("""
+            String deleteSql = String.format("""
             DELETE FROM basket
             WHERE order_id = %d AND product_id = %d""", 
             orderId, productId);
-            postgreSQL.execute(removeSql);
+            postgreSQL.execute(deleteSql, "delete");
             postgreSQL.terminate();
             Schedules.removeSchedule(orderId, postgreSQL);
             Schedules.updateSchedule(orderId, postgreSQL);
@@ -156,7 +156,7 @@ public class Order {
             SELECT * FROM PRODUCT
             WHERE '%d' = id
             """, productId);
-            postgreSQL.execute(selectSql);
+            postgreSQL.execute(selectSql, "select");
             if (postgreSQL.resultSet.next()) {
                 Integer id = postgreSQL.resultSet.getInt("id");
                 String name = postgreSQL.resultSet.getString("name");
@@ -183,7 +183,7 @@ public class Order {
             UPDATE "order" SET state = '%s'
             WHERE id = '%d'
             """, "W trakcie realizacji", orderId);
-            postgreSQL.execute(updateSql);
+            postgreSQL.execute(updateSql, "update");
             postgreSQL.terminate();
         } catch (Exception e) {
             e.printStackTrace();

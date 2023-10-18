@@ -7,7 +7,7 @@ public class User {
         Client client = null;
         try {
             String selectSql = String.format("SELECT * FROM client WHERE email = '%s'", getEmail);
-            postgreSQL.execute(selectSql);
+            postgreSQL.execute(selectSql, "select");
 
             // Process and display the retrieved data
             while (postgreSQL.resultSet.next()) {
@@ -36,7 +36,7 @@ public class User {
         Client client = null;
         try {
             String selectSql = String.format("SELECT * FROM client WHERE email = '%s' AND hash = '%s'", getEmail, getHash);
-            postgreSQL.execute(selectSql);
+            postgreSQL.execute(selectSql, "select");
 
             // Process and display the retrieved data
             while (postgreSQL.resultSet.next()) {
@@ -60,7 +60,7 @@ public class User {
         int id = -1;
         try {
             String selectSql = String.format("SELECT id FROM client ORDER BY id DESC LIMIT 1");
-            postgreSQL.execute(selectSql);
+            postgreSQL.execute(selectSql, "select");
 
             // Process and display the retrieved data
             while (postgreSQL.resultSet.next()) {
@@ -80,13 +80,12 @@ public class User {
         if (getClientByEmail(client.getEmail(), postgreSQL) != null)
             return false;
         try {
-            String insertSql = 
-                String.format("""
+            String insertSql = String.format("""
                 INSERT INTO client(id, \"name\", \"surname\", \"number\", \"email\", \"hash\") 
                 VALUES (%d, '%s', '%s', '%s', '%s', '%s')""", 
                 client.getId(), client.getName(), client.getSurname(), 
                 client.getNumber(), client.getEmail(), client.getHash());
-            postgreSQL.execute(insertSql);
+            postgreSQL.execute(insertSql, "insert");
             postgreSQL.terminate();
         } catch (Exception e) {
             e.printStackTrace();
