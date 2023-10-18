@@ -67,9 +67,11 @@ a.marker {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  width: 8%;
   transition: background-color 0.3s ease-in-out;
 }
 
 .ui.secondary.button:hover {
+  width: 8%;
   background-color: #0056b3;
 }
