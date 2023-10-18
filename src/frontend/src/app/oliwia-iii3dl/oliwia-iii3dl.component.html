@@ -1,11 +1,16 @@
 <app-menu></app-menu>
 <h2> Oliwia III 3DL</h2>
 <body>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.2/semantic.min.css">
     <img src="../../assets/oliwiaIII3dl.jpg" alt="oliwiaIII3dl" (click)="openImageInNewWindow()">
     <p class="opis">Opis:<br><br> Wygodna kanapa do spania z pojemnikiem na pościel. 
         Wykonana na sprężynach typu bonell i piance wysokoelastycznej.</p>
-    <p class="wymiary"> Wymiary:</p>
-    <table>
+    <h3 class="wymiary"> Wymiary:</h3>
+    <table [ngClass]="{'show-on-scroll': tableVisible}" id="myTable">
+        <colgroup>
+            <col style="width: 50%;">
+            <col style="width: 50%;"> 
+        </colgroup>
         <tbody>
             <tr>
                 <td>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
@@ -16,6 +16,20 @@ export class MatrixComponent {
   timing: string = "";
   availability: string = 'Sprawdzanie dostepnosci';
 
+  tableVisible = false;
+
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    const table = document.getElementById('myTable');
+    if (table) {
+      const rect = table.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      if (rect.top < windowHeight) {
+        this.tableVisible = true;
+      }
+    }
+  }
+  
   async ngOnInit() {
     const productData = {
       name: this.name
