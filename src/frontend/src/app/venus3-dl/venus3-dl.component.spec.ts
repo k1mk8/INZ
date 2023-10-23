@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { HttpClientModule } from '@angular/common/http';
+import { MenuComponent } from './../menu/menu.component';
+import { BottomBarComponent } from './../bottom-bar/bottom-bar.component';
 import { Venus3DLComponent } from './venus3-dl.component';
 
 describe('Venus3DLComponent', () => {
@@ -8,7 +10,8 @@ describe('Venus3DLComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ Venus3DLComponent ]
+      imports: [HttpClientModule],
+      declarations: [ Venus3DLComponent, MenuComponent, BottomBarComponent ]
     })
     .compileComponents();
 
