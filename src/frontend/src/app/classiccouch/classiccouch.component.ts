@@ -10,7 +10,7 @@ import { firstValueFrom } from 'rxjs';
   styleUrls: ['./classiccouch.component.css']
 })
 export class ClassiccouchComponent {
-  constructor(private router: Router, private http: HttpClient, private cookieservice: CookieService) {}
+  constructor(public router: Router, private http: HttpClient, public cookieservice: CookieService) {}
 
   name: string = "Wersalka zwykła";
   timing: string = "";
@@ -24,7 +24,7 @@ export class ClassiccouchComponent {
       const rect = table.getBoundingClientRect();
       const windowHeight = window.innerHeight;
       if (rect.top < windowHeight) {
-        this.tableVisible = true;
+        this.tableVisible = true; 
       }
     }
   }
@@ -60,9 +60,9 @@ export class ClassiccouchComponent {
   }
 
   async addToBasket(): Promise<void> {
-    if (!this.cookieservice.check('SESSION_TOKEN')) {
+    if (!this.cookieservice.check('SESSION_TOKEN')) { 
       this.router.navigate(['login']);
-      return;
+      return;   
     }
 
     const productData = {

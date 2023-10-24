@@ -11,7 +11,7 @@ import { firstValueFrom } from 'rxjs';
   styleUrls: ['./venus3-dl.component.css']
 })
 export class Venus3DLComponent {
-  constructor(private router: Router, private http: HttpClient, private cookieservice: CookieService) {}
+  constructor(public router: Router, public http: HttpClient, public cookieservice: CookieService) {}
 
   name: string = "Venus 3DL";
   timing: string = "";
@@ -53,7 +53,7 @@ export class Venus3DLComponent {
         console.log('Czas oczekiwania wynosi: ', scheduleResponse.date);
         this.timing = scheduleResponse.date;
       } else {
-        console.log('Czas oczekiwania wynosi ponad miesiąc');
+        console.log('Czas oczekiwania wynosi ponad miesiąc' );
         this.timing = "Czas oczekiwania wynosi ponad miesiąc";
       }
     } catch (error) {

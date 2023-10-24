@@ -27,25 +27,63 @@ describe('DivanjasComponent', () => {
     cookieService = TestBed.inject(CookieService);
     router = TestBed.inject(Router);
 
-    // Mock some necessary methods or properties from the router or cookie service.
-    spyOn(cookieService, 'check').and.returnValue(true);
+
     spyOn(cookieService, 'get').and.returnValue('SESSION_TOKEN');
   });
 
-  it('should create', () => {
+  it('should create component', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should fetch product availability', () => {
+    const availabilityResponse = true;
+
+    component.ngOnInit();
+
+    const availabilityRequest = httpTestingController.expectOne('http://localhost:8082/checkAvailability');
+
+    availabilityRequest.flush(availabilityResponse);
+
+    expect(component.availability).toBe('Sprawdzanie dostepnosci');
+  });
+  
+  it('should add product to the basket', () => {
+    spyOn(component, 'openImageInNewWindow');
+
+    const addProductData = {
+      email: 'lukaszkonieczny@gmail.com',
+      name: 'Tapczan Jas',
+      amount: 1,  
+    };
+
+    const cookieserviceSpy = spyOn(component.cookieservice, 'check').and.returnValue(true); 
+
+    component.addToBasket();
+
+    const addToBasketRequest = httpTestingController.expectOne('http://localhost:8082/addToBasket');
+    addToBasketRequest.flush({}); 
+
+    expect(cookieserviceSpy).toHaveBeenCalledWith('SESSION_TOKEN');
+  });
+
+  it('should open image in a new window', () => { 
+    spyOn(window, 'open'); // Mockujemy window.open, aby ją zignorować
+
+    component.openImageInNewWindow();
+
+    expect(window.open).toHaveBeenCalledWith('../../assets/divanJas.jpg', '_blank');
+  });
+
+
   it('should update tableVisible when window is scrolled', fakeAsync(() => {
-    const table = document.createElement('table');
+    const table = document.createElement('table'); 
     table.id = 'myTable';
     document.body.appendChild(table);
 
-    // Simulate window scroll event
-    window.dispatchEvent(new Event('scroll'));
+    window.dispatchEvent(new Event('scroll')); 
     tick();
 
-    expect(component.tableVisible).toBe(true);
+    expect(component.tableVisible).toBe(true); 
 
     document.body.removeChild(table);
   }));

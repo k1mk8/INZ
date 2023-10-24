@@ -56,7 +56,6 @@ export class BasketComponent {
       };
 
       await this.http.post('http://localhost:8082/removeFromBasket', product).toPromise();
-      window.location.reload();
     } catch (error) {
       console.error('Błąd podczas usuwania produktu z koszyka', error);
     }

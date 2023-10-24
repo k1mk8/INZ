@@ -10,7 +10,7 @@ import { firstValueFrom } from 'rxjs';
   styleUrls: ['./divankuba.component.css']
 })
 export class DivankubaComponent {
-  constructor(private router: Router, private http: HttpClient, private cookieservice: CookieService) {}
+  constructor(public router: Router, private http: HttpClient, public cookieservice: CookieService) {}
 
   name: string = "Tapczan Kuba";
   timing: string = "";

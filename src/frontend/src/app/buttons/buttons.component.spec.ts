@@ -7,7 +7,7 @@ describe('ButtonsComponent', () => {
   let fixture: ComponentFixture<ButtonsComponent>;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
+    await TestBed.configureTestingModule({ 
       imports: [RouterTestingModule],
       declarations: [ ButtonsComponent ]
     })
