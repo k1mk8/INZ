@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./my-account.component.css']
 })
 export class MyAccountComponent {
-  constructor(private cookieService: CookieService, private http: HttpClient, private router: Router) {}
+  constructor(public cookieService: CookieService, private http: HttpClient, public router: Router) {}
 
   name: string = '';
   surname: string = '';

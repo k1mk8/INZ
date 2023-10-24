@@ -15,7 +15,7 @@ export class LoginComponent {
   password: string = '';
   message: string = '';
 
-  async login(): Promise<void> {
+  async login(): Promise<void> { 
     const userData = {
       email: this.email,
       password: this.password
@@ -35,12 +35,12 @@ export class LoginComponent {
       }
     } catch (error) {
       console.error('Błąd podczas logowania', error);
-      this.message = 'Błąd podczas logowania';
+      this.message = 'Błąd podczas logowania'; 
     }
   }
   
   directToRegistry() {
-    this.router.navigate(['registry']);
+    this.router.navigate(['registry']); 
   }
   directToMyAccount() {
     this.router.navigate(['myaccount']);

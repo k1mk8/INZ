@@ -10,7 +10,7 @@ import { firstValueFrom } from 'rxjs';
   styleUrls: ['./venus-fotel.component.css']
 })
 export class VenusFotelComponent {
-  constructor(private router: Router, private http: HttpClient, private cookieservice: CookieService) {}
+  constructor(public router: Router, private http: HttpClient, public cookieservice: CookieService) {}
 
   name: string = "Venus fotel";
   timing: string = "";
