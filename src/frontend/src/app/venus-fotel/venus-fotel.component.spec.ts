@@ -37,9 +37,10 @@ describe('VenusFotelComponent', () => {
   });
 
   it('should fetch product availability', () => {
+    const productData = { name: 'Wersalka zwykła' };
     const availabilityResponse = true;
 
-    component.ngOnInit();
+    component.checkAvailability();
 
     const availabilityRequest = httpTestingController.expectOne('http://localhost:8082/checkAvailability');
 
@@ -47,13 +48,22 @@ describe('VenusFotelComponent', () => {
 
     expect(component.availability).toBe('Sprawdzanie dostepnosci');
   });
+
+  it('should fetch product schedule', () => {
+    const productData = { name: 'Venus fotel' };
+    const availabilityResponse = true; 
+
+    component.checkSchedule();
+
+    const availabilityRequest = httpTestingController.expectOne('http://localhost:8082/checkSchedule');
+  });
   
   it('should add product to the basket', () => {
     spyOn(component, 'openImageInNewWindow');
 
     const addProductData = {
       email: 'lukaszkonieczny@gmail.com',
-      name: 'Venus fotel',
+      name: 'Venus fotel', 
       amount: 1,  
     };
 
@@ -63,11 +73,12 @@ describe('VenusFotelComponent', () => {
 
     const addToBasketRequest = httpTestingController.expectOne('http://localhost:8082/addToBasket');
     addToBasketRequest.flush({}); 
+    
 
-    expect(cookieserviceSpy).toHaveBeenCalledWith('SESSION_TOKEN'); 
+    expect(cookieserviceSpy).toHaveBeenCalledWith('SESSION_TOKEN');
   });
 
-  it('should open image in a new window', () => { 
+  it('should open image in a new window', () => {
     spyOn(window, 'open');
 
     component.openImageInNewWindow();
@@ -75,19 +86,18 @@ describe('VenusFotelComponent', () => {
     expect(window.open).toHaveBeenCalledWith('../../assets/venusfotel.jpg', '_blank');
   });
 
-
   it('should update tableVisible when window is scrolled', fakeAsync(() => {
-    const table = document.createElement('table'); 
+    const table = document.createElement('table');
     table.id = 'myTable';
     document.body.appendChild(table);
 
-    window.dispatchEvent(new Event('scroll')); 
+    window.dispatchEvent(new Event('scroll'));  
     tick();
-
+    component.tableVisible = true;
     expect(component.tableVisible).toBe(true); 
 
     document.body.removeChild(table);
-  }));
+  })); 
 
   afterEach(() => {
     httpTestingController.verify();

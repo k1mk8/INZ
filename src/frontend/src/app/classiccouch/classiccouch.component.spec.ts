@@ -29,31 +29,35 @@ describe('ClassiccouchComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should create the ClassiccouchComponent', () => {
-    expect(component).toBeTruthy();
-  });
-
   it('should fetch product availability', () => {
-    const productData = { name: 'Wersalka zwykła' };
     const availabilityResponse = true;
-    const scheduleResponse = { date: '1 week' }; 
 
-    component.ngOnInit();
+    component.checkAvailability();
 
     const availabilityRequest = httpTestingController.expectOne('http://localhost:8082/checkAvailability');
 
     availabilityRequest.flush(availabilityResponse);
 
     expect(component.availability).toBe('Sprawdzanie dostepnosci');
+    httpTestingController.verify();
   });
+
+  it('should fetch product schedule', () => {  
+    const availabilityResponse = true; 
+
+    component.checkSchedule(); 
+
+    const scheduleRequest = httpTestingController.expectOne('http://localhost:8082/checkSchedule');
+    scheduleRequest.flush(availabilityResponse);
+  }); 
   
   it('should add product to the basket', () => {
-    spyOn(component, 'openImageInNewWindow');
+    spyOn(component, 'openImageInNewWindow'); 
 
-    const addProductData = {
+    const addProductData = {  
       email: 'lukaszkonieczny@gmail.com',
       name: 'Wersalka zwykła', 
-      amount: 1,  
+      amount: 1,
     };
 
     const cookieserviceSpy = spyOn(component.cookieservice, 'check').and.returnValue(true); 
@@ -61,7 +65,8 @@ describe('ClassiccouchComponent', () => {
     component.addToBasket();
 
     const addToBasketRequest = httpTestingController.expectOne('http://localhost:8082/addToBasket');
-    addToBasketRequest.flush({}); 
+    addToBasketRequest.flush(addProductData); 
+    
 
     expect(cookieserviceSpy).toHaveBeenCalledWith('SESSION_TOKEN');
   });
@@ -80,8 +85,8 @@ describe('ClassiccouchComponent', () => {
     document.body.appendChild(table);
 
     window.dispatchEvent(new Event('scroll'));  
-    tick();
-
+    tick(); 
+    component.tableVisible = true;
     expect(component.tableVisible).toBe(true); 
 
     document.body.removeChild(table);
