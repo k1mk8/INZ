@@ -3,6 +3,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MenuComponent } from './../menu/menu.component';
 import { BottomBarComponent } from './../bottom-bar/bottom-bar.component';
 import { VenusFotelComponent } from './venus-fotel.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('VenusFotelComponent', () => {
   let component: VenusFotelComponent;
@@ -10,7 +11,7 @@ describe('VenusFotelComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientModule],
+      imports: [HttpClientModule, RouterTestingModule],
       declarations: [ VenusFotelComponent, MenuComponent, BottomBarComponent ]
     })
     .compileComponents();

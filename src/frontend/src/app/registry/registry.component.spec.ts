@@ -3,6 +3,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MenuComponent } from './../menu/menu.component';
 import { BottomBarComponent } from './../bottom-bar/bottom-bar.component';
 import { RegistryComponent } from './registry.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('RegistryComponent', () => {
   let component: RegistryComponent;
@@ -10,7 +11,7 @@ describe('RegistryComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientModule],
+      imports: [HttpClientModule, RouterTestingModule],
       declarations: [ RegistryComponent, MenuComponent, BottomBarComponent ]
     })
     .compileComponents();

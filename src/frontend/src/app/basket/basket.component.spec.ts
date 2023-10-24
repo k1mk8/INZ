@@ -4,6 +4,7 @@ import { MenuComponent } from './../menu/menu.component';
 import { ButtonsComponent } from './../buttons/buttons.component';
 import { BottomBarComponent } from './../bottom-bar/bottom-bar.component';
 import { BasketComponent } from './basket.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('BasketComponent', () => {
   let component: BasketComponent;
@@ -11,7 +12,7 @@ describe('BasketComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientModule],
+      imports: [HttpClientModule, RouterTestingModule],
       declarations: [ BasketComponent,  MenuComponent, BottomBarComponent, ButtonsComponent ]
     })
     .compileComponents();

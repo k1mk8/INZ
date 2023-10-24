@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { MenuComponent } from './../menu/menu.component';
 import { BottomBarComponent } from './../bottom-bar/bottom-bar.component';
 import { DivanjasComponent } from './divanjas.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('DivanjasComponent', () => {
   let component: DivanjasComponent;
@@ -16,7 +17,7 @@ describe('DivanjasComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [DivanjasComponent, MenuComponent, BottomBarComponent],
-      imports: [HttpClientTestingModule],
+      imports: [HttpClientTestingModule, RouterTestingModule],
       providers: [CookieService, Router],
     });
 

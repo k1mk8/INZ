@@ -3,6 +3,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatrixComponent } from './matrix.component';
 import { BottomBarComponent } from './../bottom-bar/bottom-bar.component';
 import { MenuComponent } from './../menu/menu.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('MatrixComponent', () => {
   let component: MatrixComponent;
@@ -10,7 +11,7 @@ describe('MatrixComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientModule],
+      imports: [HttpClientModule, RouterTestingModule],
       declarations: [ MatrixComponent, MenuComponent, BottomBarComponent ]
     })
     .compileComponents();

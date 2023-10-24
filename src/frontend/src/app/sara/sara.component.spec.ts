@@ -3,6 +3,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MenuComponent } from './../menu/menu.component';
 import { BottomBarComponent } from './../bottom-bar/bottom-bar.component';
 import { SaraComponent } from './sara.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('SaraComponent', () => {
   let component: SaraComponent;
@@ -10,7 +11,7 @@ describe('SaraComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
+      imports: [HttpClientTestingModule, RouterTestingModule],
       declarations: [ SaraComponent, MenuComponent, BottomBarComponent ]
     })
     .compileComponents();
