@@ -10,7 +10,7 @@ import { firstValueFrom } from 'rxjs';
   styleUrls: ['./sara.component.css']
 })
 export class SaraComponent {
-  constructor(private router: Router, private http: HttpClient, private cookieservice: CookieService) {}
+  constructor(public router: Router, private http: HttpClient, public cookieservice: CookieService) {}
 
   name: string = "Sara";
   timing: string = "";
@@ -31,12 +31,20 @@ export class SaraComponent {
   }
   
   async ngOnInit() {
+
+    try {
+      this.checkAvailability();
+      this.checkSchedule();
+    } catch (error) {
+      console.error('Błąd podczas pobierania danych', error);
+    }
+  }
+
+  async checkAvailability() {
     const productData = {
       name: this.name
     };
-
-    try {
-      const availabilityResponse = await this.http.post<boolean>('http://localhost:8082/checkAvailability', productData).toPromise();
+    const availabilityResponse = await this.http.post<boolean>('http://localhost:8082/checkAvailability', productData).toPromise();
       
       if (availabilityResponse) {
         console.log('Produkt dostępny');
@@ -45,8 +53,14 @@ export class SaraComponent {
         console.log('Produkt niedostępny');
         this.availability = "Produkt niedostępny";
       }
+  }
 
-      const scheduleResponse = await firstValueFrom(this.http.post<{ date: string }>('http://localhost:8082/checkSchedule', productData));
+  async checkSchedule() {
+    const productData = {
+      name: this.name
+    };
+
+    const scheduleResponse = await firstValueFrom(this.http.post<{ date: string }>('http://localhost:8082/checkSchedule', productData));
 
       if (scheduleResponse && scheduleResponse.date != null) {
         console.log('Czas oczekiwania wynosi: ', scheduleResponse.date);
@@ -55,9 +69,6 @@ export class SaraComponent {
         console.log('Czas oczekiwania wynosi ponad miesiąc');
         this.timing = "Czas oczekiwania wynosi ponad miesiąc";
       }
-    } catch (error) {
-      console.error('Błąd podczas pobierania danych', error);
-    }
   }
 
   async addToBasket(): Promise<void> {

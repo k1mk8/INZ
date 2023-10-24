@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { concatMap } from 'rxjs/operators';
+import { tick } from '@angular/core/testing';
 
 @Component({
   selector: 'app-basket',
@@ -56,8 +57,8 @@ export class BasketComponent {
       };
 
       await this.http.post('http://localhost:8082/removeFromBasket', product).toPromise();
-      window.location.reload();
-    } catch (error) {
+      this.ngOnInit();
+    } catch (error) { 
       console.error('Błąd podczas usuwania produktu z koszyka', error);
     }
   }
