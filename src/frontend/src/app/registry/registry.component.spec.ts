@@ -4,6 +4,7 @@ import { MenuComponent } from './../menu/menu.component';
 import { BottomBarComponent } from './../bottom-bar/bottom-bar.component';
 import { RegistryComponent } from './registry.component';
 import { RouterTestingModule } from '@angular/router/testing';
+import { FormsModule } from '@angular/forms'; 
 
 describe('RegistryComponent', () => {
   let component: RegistryComponent;
@@ -11,7 +12,7 @@ describe('RegistryComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientModule, RouterTestingModule],
+      imports: [HttpClientModule, RouterTestingModule, FormsModule],
       declarations: [ RegistryComponent, MenuComponent, BottomBarComponent ]
     })
     .compileComponents();

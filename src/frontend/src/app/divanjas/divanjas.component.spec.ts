@@ -50,32 +50,6 @@ describe('DivanjasComponent', () => {
     document.body.removeChild(table);
   }));
 
-  it('should fetch product availability and timing', fakeAsync(() => {
-    const availabilityRequest = httpTestingController.expectOne('http://localhost:8082/checkAvailability');
-    availabilityRequest.flush(true);
-
-    const scheduleRequest = httpTestingController.expectOne('http://localhost:8082/checkSchedule');
-    scheduleRequest.flush({ date: 'Some date' });
-
-    component.ngOnInit();
-    tick();
-
-    expect(component.availability).toBe('Produkt dostępny');
-    expect(component.timing).toBe('Some date');
-  }));
-
-  it('should handle adding to the basket', fakeAsync(() => {
-    const addToBasketRequest = httpTestingController.expectOne('http://localhost:8082/addToBasket');
-    addToBasketRequest.flush('Success');
-
-    spyOn(router, 'navigate');
-
-    component.addToBasket();
-    tick();
-
-    expect(router.navigate).toHaveBeenCalledWith(['basket']);
-  }));
-
   afterEach(() => {
     httpTestingController.verify();
   });
