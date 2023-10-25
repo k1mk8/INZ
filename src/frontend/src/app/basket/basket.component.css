@@ -1,45 +1,55 @@
-.button-container {
-    display: flex;
-    justify-content: space-between;
-    margin: 2% 10% 0 10%;
+.basket {
+  font-size: 30px;
+  text-align: center;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.product-container {
+  width: 80%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.product-list {
+  list-style: none;
+  padding: 0;
+}
+
+.product-details {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px 0;
+  text-align: center;
+  background-color: #f9f9f9;
+  border-radius: 5px;
 }
 
 .ui.secondary.button {
-    width: 200px;
+  width: 100px;
+  margin-top: 10px;
 }
 
-.basket {
-    font-size: 25px;
-    text-align: center;
-    margin-top: 4%;
-    margin-bottom: 4%;
-    font-weight: bold;
+.ui.secondary.button.order-button {
+  width: 200px;
+  margin-top: 20px;
 }
 
-  .product-container {
-    width: 50%;
-    margin: 0 auto;
-  }
-  
-  .product-list {
-    list-style: none;
-    padding: 0;
-    text-align: center;
-  }
+.center-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2%;
+}
 
-  .product-details {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin: 10px auto;
-  }
-
-  .ui.secondary.button {
-    margin-top: 10px;
-  }
-  
-  .center-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 2%;
-  }
+.product-details .ui.secondary.button {
+  margin-top: 10px;
+}
+.finish {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2%;
+  font-size: 22px;
+}

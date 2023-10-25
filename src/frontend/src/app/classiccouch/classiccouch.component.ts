@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,  HostListener } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
@@ -10,19 +10,40 @@ import { firstValueFrom } from 'rxjs';
   styleUrls: ['./classiccouch.component.css']
 })
 export class ClassiccouchComponent {
-  constructor(private router: Router, private http: HttpClient, private cookieservice: CookieService) {}
+  constructor(public router: Router, private http: HttpClient, public cookieservice: CookieService) {}
 
   name: string = "Wersalka zwykła";
   timing: string = "";
   availability: string = 'Sprawdzanie dostepnosci';
+  productData = {
+    name: this.name
+  };
+
+  tableVisible = false;
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    const table = document.getElementById('myTable');
+    if (table) {
+      const rect = table.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      if (rect.top < windowHeight) {
+        this.tableVisible = true; 
+      }
+    }
+  }
 
   async ngOnInit() {
-    const productData = {
-      name: this.name
-    };
 
     try {
-      const availabilityResponse = await this.http.post<boolean>('http://localhost:8082/checkAvailability', productData).toPromise();
+      this.checkAvailability();
+      this.checkSchedule();
+    } catch (error) {
+      console.error('Błąd podczas pobierania danych', error);
+    }
+  }
+
+  async checkAvailability() {
+    const availabilityResponse = await this.http.post<boolean>('http://localhost:8082/checkAvailability', this.productData).toPromise();
       
       if (availabilityResponse) {
         console.log('Produkt dostępny');
@@ -31,8 +52,10 @@ export class ClassiccouchComponent {
         console.log('Produkt niedostępny');
         this.availability = "Produkt niedostępny";
       }
+  }
 
-      const scheduleResponse = await firstValueFrom(this.http.post<{ date: string }>('http://localhost:8082/checkSchedule', productData));
+  async checkSchedule() {
+    const scheduleResponse = await firstValueFrom(this.http.post<{ date: string }>('http://localhost:8082/checkSchedule', this.productData));
 
       if (scheduleResponse && scheduleResponse.date != null) {
         console.log('Czas oczekiwania wynosi: ', scheduleResponse.date);
@@ -41,26 +64,28 @@ export class ClassiccouchComponent {
         console.log('Czas oczekiwania wynosi ponad miesiąc');
         this.timing = "Czas oczekiwania wynosi ponad miesiąc";
       }
-    } catch (error) {
-      console.error('Błąd podczas pobierania danych', error);
-    }
   }
 
-  addToBasket() {
-    if (!this.cookieservice.check('SESSION_TOKEN'))
-    {
+  async addToBasket(): Promise<void> {
+    if (!this.cookieservice.check('SESSION_TOKEN')) { 
       this.router.navigate(['login']);
-      return;
+      return;   
     }
+
     const productData = {
       email: this.cookieservice.get('SESSION_TOKEN'),
       name: this.name,
       amount: 1
     };
-    this.http.post('http://localhost:8082/addToBasket', productData).subscribe();
-    this.router.navigate(['basket']);
-  }
 
+    try {
+      await this.http.post('http://localhost:8082/addToBasket', productData).toPromise();
+      this.router.navigate(['basket']);
+    } catch (error) {
+      console.error('Błąd podczas dodawania produktu do koszyka', error);
+    }
+  }
+  
   openImageInNewWindow() {
     window.open('../../assets/classiccouch.jpg', '_blank');
   }

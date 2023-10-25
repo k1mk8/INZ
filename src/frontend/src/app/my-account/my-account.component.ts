@@ -9,33 +9,30 @@ import { Router } from '@angular/router';
   styleUrls: ['./my-account.component.css']
 })
 export class MyAccountComponent {
-  constructor(private cookieService: CookieService, private http: HttpClient, private router: Router) {}
+  constructor(public cookieService: CookieService, private http: HttpClient, public router: Router) {}
 
   name: string = '';
   surname: string = '';
   number: string = '';
   email: string = '';
 
-  ngOnInit() {
+  async ngOnInit(): Promise<void> {
     this.email = this.cookieService.get('SESSION_TOKEN');
-    this.http.post('http://localhost:8082/clientByEmail', this.email).subscribe(
-      (response: any) => {
-        if (response != null)
-        {
-          console.log('Użytkownik zalogowany', response);
-          this.name = response.name;
-          this.surname = response.surname;
-          this.number = response.number;
-        }
-        else
-        {
-          console.log('Użytkownik niezalogowany');
-        }
-      },
-      (error) => {
-        console.error('Błąd podczas pobierania danych', error);
+
+    try {
+      const response: any = await this.http.post('http://localhost:8082/clientByEmail', this.email).toPromise();
+
+      if (response != null) {
+        console.log('Użytkownik zalogowany', response);
+        this.name = response.name;
+        this.surname = response.surname;
+        this.number = response.number;
+      } else {
+        console.log('Użytkownik niezalogowany');
       }
-    );
+    } catch (error) {
+      console.error('Błąd podczas pobierania danych', error);
+    }
   }
 
   deleteCookies(){

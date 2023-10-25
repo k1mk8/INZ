@@ -21,7 +21,7 @@ public class Order {
             SELECT * FROM "order"
             WHERE '%d' = client_id AND 'Aktywny Koszyk' != state 
             """, clientId);
-            postgreSQL.execute(selectSql);
+            postgreSQL.execute(selectSql, "select");
             while (postgreSQL.resultSet.next()) {
                 JSONObject jo = new JSONObject();
                 jo.put("id", postgreSQL.resultSet.getString("id"));
@@ -47,7 +47,7 @@ public class Order {
             ORDER BY id DESC
             LIMIT 1
             """);
-            postgreSQL.execute(selectSql);
+            postgreSQL.execute(selectSql, "select");
             Integer freeID = 0;
             if (postgreSQL.resultSet.next()) {
                 freeID = postgreSQL.resultSet.getInt("id") + 1;
@@ -62,7 +62,7 @@ public class Order {
             String insertSql = String.format("""
             INSERT INTO "order"(id, state, client_id, timestamp) VALUES (%d, '%s', '%s', '%s')
             """, freeID, "Aktywny Koszyk", clientId, strDate);
-            postgreSQL.execute(insertSql);
+            postgreSQL.execute(insertSql, "insert");
             postgreSQL.terminate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -79,7 +79,7 @@ public class Order {
             SELECT product_id, amount FROM BASKET
             WHERE '%d' = order_id
             """, orderId);
-            postgreSQL.execute(selectSql);
+            postgreSQL.execute(selectSql, "select");
             while (postgreSQL.resultSet.next()) {
                 JSONObject jo = new JSONObject();
                 jo.put("product_id", postgreSQL.resultSet.getString("product_id"));
@@ -103,7 +103,7 @@ public class Order {
             SELECT * FROM "order"
             WHERE '%d' = client_id AND 'Aktywny Koszyk' = state 
             """, clientId);
-            postgreSQL.execute(selectSql);
+            postgreSQL.execute(selectSql, "select");
             if (postgreSQL.resultSet.next()) {
                 clientBasket.put("id", postgreSQL.resultSet.getString("id"));
                 clientBasket.put("state", postgreSQL.resultSet.getString("state"));
@@ -123,8 +123,9 @@ public class Order {
             String insertSql = String.format("""
             INSERT INTO basket(order_id, product_id, amount) VALUES (%d, %d, %d)""", 
             orderId, productId, amount);
-            postgreSQL.execute(insertSql);
+            postgreSQL.execute(insertSql, "insert");
             postgreSQL.terminate();
+            Schedules.setSchedule(productId, orderId, postgreSQL);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -133,12 +134,14 @@ public class Order {
     public static void removeFromBasket(Integer orderId, Integer productId, PostgreSQL postgreSQL) {
         System.out.println("==== removeFromBasket init ====");
         try {
-            String removeSql = String.format("""
+            String deleteSql = String.format("""
             DELETE FROM basket
             WHERE order_id = %d AND product_id = %d""", 
             orderId, productId);
-            postgreSQL.execute(removeSql);
+            postgreSQL.execute(deleteSql, "delete");
             postgreSQL.terminate();
+            Schedules.removeSchedule(orderId, postgreSQL);
+            Schedules.updateSchedule(orderId, postgreSQL);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -153,7 +156,7 @@ public class Order {
             SELECT * FROM PRODUCT
             WHERE '%d' = id
             """, productId);
-            postgreSQL.execute(selectSql);
+            postgreSQL.execute(selectSql, "select");
             if (postgreSQL.resultSet.next()) {
                 Integer id = postgreSQL.resultSet.getInt("id");
                 String name = postgreSQL.resultSet.getString("name");
@@ -168,12 +171,9 @@ public class Order {
         return product;
     }
 
-    public static void order(JSONArray orderProductsInBucket, PostgreSQL postgreSQL) {
+    public static void order(Integer productId, Integer orderId, PostgreSQL postgreSQL) {
         System.out.println("==== order init ====");
-        for(int it = 0; it < orderProductsInBucket.length(); it++) {
-            System.out.println(orderProductsInBucket.getJSONObject(it));
-            Schedules.setSchedule(orderProductsInBucket.getJSONObject(it), postgreSQL);
-        }
+        Schedules.setSchedule(productId, orderId, postgreSQL);
     }
 
     public static void changeOrderStatus(Integer orderId, PostgreSQL postgreSQL) {
@@ -183,11 +183,32 @@ public class Order {
             UPDATE "order" SET state = '%s'
             WHERE id = '%d'
             """, "W trakcie realizacji", orderId);
-            postgreSQL.execute(updateSql);
+            postgreSQL.execute(updateSql, "update");
             postgreSQL.terminate();
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static String basketFinish(Integer orderId, PostgreSQL postgreSQL) {
+        System.out.println("==== basketFinish init ====");
+        String basketFinish = "";
+        try {
+            String selectSql = String.format("""
+            SELECT datetime FROM schedule
+            WHERE order_id = '%d'
+            ORDER BY datetime DESC
+            LIMIT 1
+            """, orderId);
+            postgreSQL.execute(selectSql, "select");
+            if (postgreSQL.resultSet.next()) {
+                basketFinish = postgreSQL.resultSet.getString("datetime");
+            }
+            postgreSQL.terminate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return basketFinish;
     }
 }
 

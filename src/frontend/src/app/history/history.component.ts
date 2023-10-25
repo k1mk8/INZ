@@ -2,9 +2,6 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
-import { concatMap } from 'rxjs/operators';
-import { firstValueFrom } from 'rxjs';
-
 @Component({
   selector: 'app-history',
   templateUrl: './history.component.html',
@@ -58,7 +55,7 @@ export class HistoryComponent {
         this.price[this.idx].push(value.price);
       }
   
-      this.idx += 1; // Zwiększ idx wewnątrz tej funkcji
+      this.idx += 1; 
     } catch (error) {
       console.error('Błąd podczas pobierania danych', error);
     }

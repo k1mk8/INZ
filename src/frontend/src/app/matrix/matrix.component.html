@@ -1,9 +1,14 @@
 <app-menu></app-menu>
 <h2>Matrix</h2>
 <body>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.2/semantic.min.css">
     <img src="../../assets/matrix.jpg" alt="venusfotel" (click)="openImageInNewWindow()">
-    <p class="wymiary"> Wymiary:</p>
-    <table>
+    <h3 class="wymiary"> Wymiary:</h3>
+    <table [ngClass]="{'show-on-scroll': tableVisible}" id="myTable">
+        <colgroup>
+            <col style="width: 50%;">
+            <col style="width: 50%;"> 
+        </colgroup>
         <tbody>
             <tr>
                 <td>
@@ -31,6 +36,4 @@
     </table>
     <div class="ui secondary button" *ngIf="availability === 'Produkt dostępny'" (click)="addToBasket()">Dodaj do koszyka</div>
 </body>
-<div class="bottom-bar">
-    <p class="bottom-bar-text">Praca inżynierska</p>
-</div>
+<app-bottom-bar></app-bottom-bar>
