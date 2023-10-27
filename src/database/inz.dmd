@@ -60,9 +60,10 @@ CREATE TABLE "order" (
 ALTER TABLE "order" ADD CONSTRAINT order_pk PRIMARY KEY ( id );
 
 CREATE TABLE product (
-    id    INTEGER NOT NULL,
-    price INTEGER NOT NULL,
-    name  VARCHAR(30) NOT NULL,
+    id    	INTEGER NOT NULL,
+    price 	INTEGER NOT NULL,
+    "type" 	VARCHAR(30) NOT NULL,
+    name  	VARCHAR(30) NOT NULL,
     description VARCHAR(1024)
 );
 

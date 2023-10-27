@@ -50,14 +50,14 @@ insert into "order" (id, state, client_id, "timestamp") values (7, 'W trakcie re
 
 -- product
 
-insert into product (id, name, price, description) values (1, 'Venus 3DL', 2000, 'Wygodna kanapa do spania z pojemnikiem na pościel. Wykonana na sprężynach typu bonell i piance wysokoelastycznej. Mechanizm wspomagający otwieranie. Poduszki z pianki profilowanej. Nóżki drewniane kolor venge.');
-insert into product (id, name, price, description) values (2, 'Oliwia III 3DL', 2200, 'Wygodna kanapa do spania z pojemnikiem na pościel. Wykonana na sprężynach typu bonell i piance wysokoelastycznej.');
-insert into product (id, name, price) values (3, 'Venus fotel', 1300);
-insert into product (id, name, price) values (4, 'Matrix', 800);
-insert into product (id, name, price) values (5, 'Sara', 1500);
-insert into product (id, name, price) values (6, 'Wersalka zwykła', 1200);
-insert into product (id, name, price, description) values (7, 'Tapczan Kuba', 1000, 'Wygodny tapczan pojedynczy do spania z pojemnikiem na pościel.');
-insert into product (id, name, price, description) values (8, 'Tapczan Jaś', 900, 'Wygodny tapczan pojedynczy do spania z pojemnikiem na pościel.');
+insert into product (id, name, "type", price, description) values (1, 'Venus 3DL', 'sofa', 2000, 'Wygodna kanapa do spania z pojemnikiem na pościel. Wykonana na sprężynach typu bonell i piance wysokoelastycznej. Mechanizm wspomagający otwieranie. Poduszki z pianki profilowanej. Nóżki drewniane kolor venge.');
+insert into product (id, name, "type", price, description) values (2, 'Oliwia III 3DL', 'sofa', 2200, 'Wygodna kanapa do spania z pojemnikiem na pościel. Wykonana na sprężynach typu bonell i piance wysokoelastycznej.');
+insert into product (id, name, "type", price) values (3, 'Venus fotel', 'fotel', 1300);
+insert into product (id, name, "type", price) values (4, 'Matrix', 'fotel', 800);
+insert into product (id, name, "type", price) values (5, 'Sara', 'wersalka', 1500);
+insert into product (id, name, "type", price) values (6, 'Wersalka zwykła', 'wersalka', 1200);
+insert into product (id, name, "type", price, description) values (7, 'Tapczan Kuba', 'tapczan', 1000, 'Wygodny tapczan pojedynczy do spania z pojemnikiem na pościel.');
+insert into product (id, name, "type", price, description) values (8, 'Tapczan Jaś', 'tapczan', 900, 'Wygodny tapczan pojedynczy do spania z pojemnikiem na pościel.');
 
 -- basket
 
