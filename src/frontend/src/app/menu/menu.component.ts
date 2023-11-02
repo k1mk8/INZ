@@ -27,7 +27,6 @@ export class MenuComponent {
   };
 
   rodzaje = Object.keys(this.rodzajeProduktow);
-  
   redirectToDetails(productId: string) {
     this.router.navigate(['/products/', productId]);
   }

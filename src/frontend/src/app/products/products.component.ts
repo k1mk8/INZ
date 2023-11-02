@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { firstValueFrom } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'app-products',
@@ -34,16 +35,20 @@ export class ProductsComponent {
   }
 
   async ngOnInit() {
-    this.route.paramMap.subscribe(params => {
-      this.name = params.get('id');}
-    );
-    try {
-      this.getProductsData();
-      this.checkAvailability();
-      this.checkSchedule();
-    } catch (error) {
-      console.error('Błąd podczas pobierania danych', error);
-    }
+    this.route.paramMap
+      .pipe(
+        distinctUntilChanged((prev, curr) => prev.get('id') === curr.get('id'))
+      )
+      .subscribe(params => {
+        this.name = params.get('id');
+        try {
+          this.getProductsData();
+          this.checkAvailability();
+          this.checkSchedule();
+        } catch (error) {
+          console.error('Błąd podczas pobierania danych', error);
+        }
+      });
   }
 
   async getProductsData(){
