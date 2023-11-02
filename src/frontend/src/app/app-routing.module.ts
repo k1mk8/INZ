@@ -8,6 +8,7 @@ import { RegistryComponent } from './registry/registry.component';
 import { BasketComponent } from './basket/basket.component';
 import { HistoryComponent } from './history/history.component';
 import { ProductsComponent } from './products/products.component';
+import { AdminComponent } from './admin/admin.component';
 
 const routes: Routes = [
   {
@@ -45,7 +46,11 @@ const routes: Routes = [
   {
     path: 'history',
     component: HistoryComponent
-  },            
+  },
+  {
+    path: 'admin',
+    component: AdminComponent
+  },
   {path:'**',redirectTo:"/"}
 ];
 

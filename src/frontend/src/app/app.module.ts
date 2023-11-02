@@ -17,6 +17,7 @@ import { HistoryComponent } from './history/history.component';
 import { ButtonsComponent } from './buttons/buttons.component';
 import { BottomBarComponent } from './bottom-bar/bottom-bar.component';
 import { ProductsComponent } from './products/products.component';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { ProductsComponent } from './products/products.component';
     ButtonsComponent,
     BottomBarComponent,
     ProductsComponent,
+    AdminComponent,
   ],
   imports: [
     BrowserModule,
