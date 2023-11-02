@@ -1,22 +1,25 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { firstValueFrom } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-matrix',
-  templateUrl: './matrix.component.html',
-  styleUrls: ['./matrix.component.css']
+  selector: 'app-products',
+  templateUrl: './products.component.html',
+  styleUrls: ['./products.component.css']
 })
-export class MatrixComponent {
-  constructor(public router: Router, private http: HttpClient, public cookieservice: CookieService) {}
-
-  name: string = "Matrix";
+export class ProductsComponent {
   timing: string = "";
+  space: string = "";
+  description: string = "";
+  price: string = "";
+  name: any;
   availability: string = 'Sprawdzanie dostepnosci';
 
   tableVisible = false;
+  constructor(public router: Router, public http: HttpClient, public cookieservice: CookieService, private route: ActivatedRoute) {}
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
@@ -29,10 +32,13 @@ export class MatrixComponent {
       }
     }
   }
-  
-  async ngOnInit() {
 
+  async ngOnInit() {
+    this.route.paramMap.subscribe(params => {
+      this.name = params.get('id');}
+    );
     try {
+      this.getProductsData();
       this.checkAvailability();
       this.checkSchedule();
     } catch (error) {
@@ -40,6 +46,22 @@ export class MatrixComponent {
     }
   }
 
+  async getProductsData(){
+
+    const productData = {
+      productName: this.name
+    };
+    const availabilityResponse: any = await this.http.post<boolean>('http://localhost:8082/getProductDetails', productData).toPromise();
+
+    if (availabilityResponse != null) {
+      console.log('Produkt istnieje', availabilityResponse);
+      this.price = availabilityResponse.price;
+      this.description = availabilityResponse.description;
+    } else {
+      console.log('Produkt nie istnieje');
+    }
+  } 
+  
   async checkAvailability() {
     const productData = {
       name: this.name
@@ -92,6 +114,7 @@ export class MatrixComponent {
   }
 
   openImageInNewWindow() {
-    window.open('../../assets/matrix.jpg', '_blank');
+    window.open(`../../assets/${this.name}.jpg`, '_blank');
   }
+  
 }

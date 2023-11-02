@@ -1,10 +1,9 @@
 <app-menu></app-menu>
-<h2> Oliwia III 3DL</h2>
+<h2> {{name}}</h2>
 <body>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.2/semantic.min.css">
-    <img src="../../assets/oliwiaIII3dl.jpg" alt="oliwiaIII3dl" (click)="openImageInNewWindow()">
-    <p class="opis">Opis:<br><br> Wygodna kanapa do spania z pojemnikiem na pościel. 
-        Wykonana na sprężynach typu bonell i piance wysokoelastycznej.</p>
+    <img src="../../assets/{{name}}.jpg" alt="venus3dl" (click)="openImageInNewWindow()">
+    <p class="opis">Opis:<br><br> {{description}}</p>
     <h3 class="wymiary"> Wymiary:</h3>
     <table [ngClass]="{'show-on-scroll': tableVisible}" id="myTable">
         <colgroup>
@@ -14,15 +13,9 @@
         <tbody>
             <tr>
                 <td>
-                    <span class="marker">kanapa:</span>
+                    <span class="marker">powierzchnia:</span>
                 </td>
-                <td>200 x 93 x 70 cm</td>
-            </tr>
-            <tr>
-                <td>
-                    <span class="marker">pow. spania:</span>
-                </td>
-                <td>200 x 140 cm</td>
+                <td>{{space}}</td>
             </tr>
             <tr>
                 <td>
@@ -39,6 +32,12 @@
                 <td>
                     <a class="marker"> {{ timing }}</a>
                 </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="marker">Cena:</span>
+                </td>
+                <td>{{price}} zł</td>
             </tr>
         </tbody>
     </table>
