@@ -14,6 +14,7 @@ export class LoginComponent {
   email: string = '';
   password: string = '';
   message: string = '';
+  isAdmin: boolean = false;
 
   async login(): Promise<void> { 
     const userData = {
@@ -24,11 +25,18 @@ export class LoginComponent {
     try {
       const response: any = await this.http.post('http://localhost:8082/login', userData).toPromise();
 
-      if (response === true) {
+      if (response === 1 || response === 2) {
         console.log('Logowanie zakończona sukcesem', response);
         this.cookieservice.set('SESSION_TOKEN', this.email, 1/24);
         this.message = 'Logowanie prawidłowe';
-        this.directToMyAccount();
+        if(response === 2){
+          this.cookieservice.set('SESSION_ADMIN', 'YES', 1/24);
+          this.directToAdmin();
+        }
+        else{
+          this.cookieservice.set('SESSION_ADMIN', 'NO', 1/24);
+          this.directToMyAccount();
+        }
       } else {
         this.message = 'Nieprawidłowy email lub hasło';
         console.log('Nieprawidłowy email lub hasło');
@@ -43,6 +51,9 @@ export class LoginComponent {
     this.router.navigate(['registry']); 
   }
   directToMyAccount() {
+    this.router.navigate(['myaccount']);
+  }
+  directToAdmin() {
     this.router.navigate(['admin']);
   }
 }

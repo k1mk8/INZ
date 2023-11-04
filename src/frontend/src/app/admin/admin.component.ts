@@ -80,4 +80,9 @@ export class AdminComponent {
       }
     }
   }
+
+  deleteCookies(){
+    this.cookieservice.deleteAll();
+    this.router.navigate(['login']);
+  }
 }

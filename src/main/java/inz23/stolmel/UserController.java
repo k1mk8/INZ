@@ -23,7 +23,7 @@ public class UserController {
   @PostMapping("/login")
   @ResponseBody
   @CrossOrigin(origins = APIaddress)
-  public boolean login(@RequestBody ObjectNode json) {
+  public int login(@RequestBody ObjectNode json) {
     return User.login(json.get("email").asText(), json.get("password").asText(), api);
   }
 
