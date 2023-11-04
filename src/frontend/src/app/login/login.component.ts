@@ -43,6 +43,6 @@ export class LoginComponent {
     this.router.navigate(['registry']); 
   }
   directToMyAccount() {
-    this.router.navigate(['myaccount']);
+    this.router.navigate(['admin']);
   }
 }

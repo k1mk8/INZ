@@ -53,4 +53,28 @@ public class ProductManager {
         }
         return professionsTime;
     }
+
+    public static JSONObject getProductDetails(Integer productId, PostgreSQL postgreSQL) {
+        System.out.println("==== getProductDetails init ====");
+        JSONObject productDetails = new JSONObject();
+        try {
+            String selectSql = String.format("""
+            SELECT * FROM product
+            WHERE '%d' = id""", productId);
+            postgreSQL.execute(selectSql, "select");
+
+            // Process and display the retrieved data
+            if (postgreSQL.resultSet.next()) {
+                productDetails.put("id", postgreSQL.resultSet.getInt("id"));
+                productDetails.put("price", postgreSQL.resultSet.getInt("price"));
+                productDetails.put("type", postgreSQL.resultSet.getString("type"));
+                productDetails.put("name", postgreSQL.resultSet.getString("name"));
+                productDetails.put("description", postgreSQL.resultSet.getString("description"));
+            }
+            postgreSQL.terminate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return productDetails;
+    }
 }
