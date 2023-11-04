@@ -9,6 +9,7 @@ import { BasketComponent } from './basket/basket.component';
 import { HistoryComponent } from './history/history.component';
 import { ProductsComponent } from './products/products.component';
 import { AdminComponent } from './admin/admin.component';
+import { AdminGuard } from './admin.guard';
 
 const routes: Routes = [
   {
@@ -49,7 +50,8 @@ const routes: Routes = [
   },
   {
     path: 'admin',
-    component: AdminComponent
+    component: AdminComponent,
+    canActivate: [AdminGuard]
   },
   {path:'**',redirectTo:"/"}
 ];
