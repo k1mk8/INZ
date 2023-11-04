@@ -17,7 +17,8 @@ public class User {
                 String number = postgreSQL.resultSet.getString("number");
                 String email = postgreSQL.resultSet.getString("email");
                 String hash = postgreSQL.resultSet.getString("hash");
-                client = new Client(id, name, surname, number, email, hash);
+                boolean isAdmin = postgreSQL.resultSet.getBoolean("is_admin");
+                client = new Client(id, name, surname, number, email, hash, isAdmin);
             }
             postgreSQL.terminate();
             System.out.println(client);
@@ -46,7 +47,8 @@ public class User {
                 String number = postgreSQL.resultSet.getString("number");
                 String email = postgreSQL.resultSet.getString("email");
                 String hash = postgreSQL.resultSet.getString("hash");
-                client = new Client(id, name, surname, number, email, hash);
+                boolean isAdmin = postgreSQL.resultSet.getBoolean("is_admin");
+                client = new Client(id, name, surname, number, email, hash, isAdmin);
             }
             postgreSQL.terminate();
         } catch (Exception e) {
@@ -81,8 +83,8 @@ public class User {
             return false;
         try {
             String insertSql = String.format("""
-                INSERT INTO client(id, \"name\", \"surname\", \"number\", \"email\", \"hash\") 
-                VALUES (%d, '%s', '%s', '%s', '%s', '%s')""", 
+                INSERT INTO client(id, 'name', 'surname', 'number', 'email', 'hash', 'is_admin') 
+                VALUES (%d, '%s', '%s', '%s', '%s', '%s', 'false')""", 
                 client.getId(), client.getName(), client.getSurname(), 
                 client.getNumber(), client.getEmail(), client.getHash());
             postgreSQL.execute(insertSql, "insert");

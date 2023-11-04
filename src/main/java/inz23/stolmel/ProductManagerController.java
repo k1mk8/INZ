@@ -25,4 +25,32 @@ public class ProductManagerController {
     return productDetails.toString();
   }
 
+  @PostMapping("/addProduct")
+  @CrossOrigin(origins = APIaddress)
+  @ResponseBody
+  public boolean addProduct(@RequestBody ObjectNode json) {
+    String productName = json.get("name").asText();
+    String productDimension = json.get("dimension").asText();
+    String productType = json.get("type").asText();
+    Integer productPrice = json.get("price").asInt();
+    String productDescription = json.get("description").asText();
+    return ProductManager.addProduct(productName, productDimension, 
+      productType, productPrice, productDescription, postgreSQL);
+  }
+
+  @PostMapping("/removeProduct")
+  @CrossOrigin(origins = APIaddress)
+  @ResponseBody
+  public void removeProduct(@RequestBody ObjectNode json) {
+    String productName = json.get("name").asText();
+    Integer id = ProductManager.getProductId(productName, postgreSQL);
+    ProductManager.removeProduct(id, postgreSQL);
+  }
+
+  @GetMapping("/getProducts")
+  @CrossOrigin(origins = APIaddress)
+  @ResponseBody
+  public String getProducts() {
+    return ProductManager.getProducts(postgreSQL).toString();
+  }
 }

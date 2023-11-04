@@ -10,16 +10,16 @@ insert into supplier (id, name) values (6, 'otula');
 
 -- CLIENTS
 
-insert into client (id, name, surname, "number", email, hash) values (1, 'Kamil', 'Slimak', '+48123456789', 'kamilslimak@gmail.com', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86'); 
-insert into client (id, name, surname, "number", email, hash) values (2, 'Lukasz', 'Konieczny', '+48223456789', 'lukaszkonieczny@gmail.com', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86'); 
-insert into client (id, name, surname, "number", email, hash) values (3, 'Michal', 'Nowak', '+48323456789', 'michalnowak@gmail.com', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86'); 
-insert into client (id, name, surname, "number", email, hash) values (4, 'Adam', 'Kaminski', '+48423456789', 'adamkaminski@gmail.com', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86'); 
-insert into client (id, name, surname, "number", email, hash) values (5, 'Piotr', 'Skowyrski', '+48523456789', 'piotrskowyrski@gmail.com', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86'); 
-insert into client (id, name, surname, "number", email, hash) values (6, 'Izabela', 'Ordan', '+48623456789', 'izabelaordan@gmail.com', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86'); 
-insert into client (id, name, surname, "number", email, hash) values (7, 'Marianna', 'Ogróż', '+48723456789', 'mariannaogroz@gmail.com', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86'); 
-insert into client (id, name, surname, "number", email, hash) values (8, 'Monika', 'Więcek', '+48823456789', 'monikawiecek@gmail.com', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86'); 
-insert into client (id, name, surname, "number", email, hash) values (9, 'Karolina', 'Akrys', '+48923456789', 'karolinaakrys@gmail.com', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86'); 
-insert into client (id, name, surname, "number", email, hash) values (10, 'Julia', 'Ziętak', '+48023456789', 'juliazietak@gmail.com', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86'); 
+insert into client (id, name, surname, "number", email, hash, is_admin) values (1, 'Kamil', 'Slimak', '+48123456789', 'kamilslimak@gmail.com', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86', false); 
+insert into client (id, name, surname, "number", email, hash, is_admin) values (2, 'Lukasz', 'Konieczny', '+48223456789', 'lukaszkonieczny@gmail.com', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86', true); 
+insert into client (id, name, surname, "number", email, hash, is_admin) values (3, 'Michal', 'Nowak', '+48323456789', 'michalnowak@gmail.com', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86', false); 
+insert into client (id, name, surname, "number", email, hash, is_admin) values (4, 'Adam', 'Kaminski', '+48423456789', 'adamkaminski@gmail.com', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86', false); 
+insert into client (id, name, surname, "number", email, hash, is_admin) values (5, 'Piotr', 'Skowyrski', '+48523456789', 'piotrskowyrski@gmail.com', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86', false); 
+insert into client (id, name, surname, "number", email, hash, is_admin) values (6, 'Izabela', 'Ordan', '+48623456789', 'izabelaordan@gmail.com', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86', false); 
+insert into client (id, name, surname, "number", email, hash, is_admin) values (7, 'Marianna', 'Ogróż', '+48723456789', 'mariannaogroz@gmail.com', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86', false); 
+insert into client (id, name, surname, "number", email, hash, is_admin) values (8, 'Monika', 'Więcek', '+48823456789', 'monikawiecek@gmail.com', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86', false); 
+insert into client (id, name, surname, "number", email, hash, is_admin) values (9, 'Karolina', 'Akrys', '+48923456789', 'karolinaakrys@gmail.com', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86', false); 
+insert into client (id, name, surname, "number", email, hash, is_admin) values (10, 'Julia', 'Ziętak', '+48023456789', 'juliazietak@gmail.com', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86', false); 
 
 -- employee
 
@@ -50,14 +50,14 @@ insert into "order" (id, state, client_id, "timestamp") values (7, 'W trakcie re
 
 -- product
 
-insert into product (id, name, price, description) values (1, 'Venus 3DL', 2000, 'Wygodna kanapa do spania z pojemnikiem na pościel. Wykonana na sprężynach typu bonell i piance wysokoelastycznej. Mechanizm wspomagający otwieranie. Poduszki z pianki profilowanej. Nóżki drewniane kolor venge.');
-insert into product (id, name, price, description) values (2, 'Oliwia III 3DL', 2200, 'Wygodna kanapa do spania z pojemnikiem na pościel. Wykonana na sprężynach typu bonell i piance wysokoelastycznej.');
-insert into product (id, name, price) values (3, 'Venus fotel', 1300);
-insert into product (id, name, price) values (4, 'Matrix', 800);
-insert into product (id, name, price) values (5, 'Sara', 1500);
-insert into product (id, name, price) values (6, 'Wersalka zwykła', 1200);
-insert into product (id, name, price, description) values (7, 'Tapczan Kuba', 1000, 'Wygodny tapczan pojedynczy do spania z pojemnikiem na pościel.');
-insert into product (id, name, price, description) values (8, 'Tapczan Jaś', 900, 'Wygodny tapczan pojedynczy do spania z pojemnikiem na pościel.');
+insert into product (id, name, "type", dimension, price, description) values (1, 'Venus 3DL', 'sofa', '235 x 92 x 85 cm', 2000, 'Wygodna kanapa do spania z pojemnikiem na pościel. Wykonana na sprężynach typu bonell i piance wysokoelastycznej. Mechanizm wspomagający otwieranie. Poduszki z pianki profilowanej. Nóżki drewniane kolor venge.');
+insert into product (id, name, "type", dimension, price, description) values (2, 'Oliwia III 3DL', 'sofa', '200 x 93 x 70 cm', 2200, 'Wygodna kanapa do spania z pojemnikiem na pościel. Wykonana na sprężynach typu bonell i piance wysokoelastycznej.');
+insert into product (id, name, "type", dimension, price) values (3, 'Venus fotel', 'fotel', '88 x 85 x 89 cm', 1300);
+insert into product (id, name, "type", dimension, price) values (4, 'Matrix', 'fotel', '96 x 95 x 85 cm', 800);
+insert into product (id, name, "type", dimension, price) values (5, 'Sara', 'wersalka', '190 x 94 cm', 1500);
+insert into product (id, name, "type", dimension, price) values (6, 'Wersalka zwykła', 'wersalka', '195 x 86 x 88 cm', 1200);
+insert into product (id, name, "type", dimension, price, description) values (7, 'Tapczan Kuba', 'tapczan', '190 x 80 cm', 1000, 'Wygodny tapczan pojedynczy do spania z pojemnikiem na pościel.');
+insert into product (id, name, "type", dimension, price, description) values (8, 'Tapczan Jaś', 'tapczan', '195 x 80 cm', 900, 'Wygodny tapczan pojedynczy do spania z pojemnikiem na pościel.');
 
 -- basket
 

@@ -70,11 +70,68 @@ public class ProductManager {
                 productDetails.put("type", postgreSQL.resultSet.getString("type"));
                 productDetails.put("name", postgreSQL.resultSet.getString("name"));
                 productDetails.put("description", postgreSQL.resultSet.getString("description"));
+                productDetails.put("dimension", postgreSQL.resultSet.getString("dimension"));
             }
             postgreSQL.terminate();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return productDetails;
+    }
+
+    public static boolean addProduct(String productName, String productDimension, 
+      String productType, Integer productPrice, String productDescription, PostgreSQL postgreSQL) {
+        System.out.println("==== addProduct init ====");
+        try {
+            String insertSql = String.format("""
+            INSERT INTO product(id, price, "type", dimension, name, description) 
+            VALUES ('%d', '%d', '%s', '%s', '%s', '%s')""", 10, productPrice, productType,
+                productDimension, productName, productDescription);
+            postgreSQL.execute(insertSql, "insert");
+            postgreSQL.terminate();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+
+    public static void removeProduct(Integer productId, PostgreSQL postgreSQL) {
+        System.out.println("==== removeProduct init ====");
+        try {
+            String deleteSql = String.format("""
+            DELETE FROM product
+            WHERE id = '%d'""", 
+            productId);
+            postgreSQL.execute(deleteSql, "delete");
+            postgreSQL.terminate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static JSONArray getProducts(PostgreSQL postgreSQL) {
+        System.out.println("==== getProducts init ====");
+        JSONArray products = new JSONArray();
+        try {
+            String selectSql = String.format("""
+            SELECT type, name 
+            FROM product
+            """);
+            postgreSQL.execute(selectSql, "select");
+
+            // Process and display the retrieved data
+            while (postgreSQL.resultSet.next()) {
+                JSONObject productDetails = new JSONObject();
+                productDetails.put("type", postgreSQL.resultSet.getString("type"));
+                productDetails.put("name", postgreSQL.resultSet.getString("name"));
+                products.put(productDetails);
+            }
+            postgreSQL.terminate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return products;
     }
 }
