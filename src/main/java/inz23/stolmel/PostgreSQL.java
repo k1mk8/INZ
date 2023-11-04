@@ -57,7 +57,9 @@ public class PostgreSQL {
 
     public void terminate() {
         try {
-            this.resultSet.close();
+            if(this.resultSet.isBeforeFirst()){
+                this.resultSet.close();
+            }
             this.connection.close();
             this.isFree = true;
         } catch (Exception e) {

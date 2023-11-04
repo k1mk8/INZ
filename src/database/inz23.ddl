@@ -50,14 +50,14 @@ insert into "order" (id, state, client_id, "timestamp") values (7, 'W trakcie re
 
 -- product
 
-insert into product (id, name, "type", price, description) values (1, 'Venus 3DL', 'sofa', 2000, 'Wygodna kanapa do spania z pojemnikiem na pościel. Wykonana na sprężynach typu bonell i piance wysokoelastycznej. Mechanizm wspomagający otwieranie. Poduszki z pianki profilowanej. Nóżki drewniane kolor venge.');
-insert into product (id, name, "type", price, description) values (2, 'Oliwia III 3DL', 'sofa', 2200, 'Wygodna kanapa do spania z pojemnikiem na pościel. Wykonana na sprężynach typu bonell i piance wysokoelastycznej.');
-insert into product (id, name, "type", price) values (3, 'Venus fotel', 'fotel', 1300);
-insert into product (id, name, "type", price) values (4, 'Matrix', 'fotel', 800);
-insert into product (id, name, "type", price) values (5, 'Sara', 'wersalka', 1500);
-insert into product (id, name, "type", price) values (6, 'Wersalka zwykła', 'wersalka', 1200);
-insert into product (id, name, "type", price, description) values (7, 'Tapczan Kuba', 'tapczan', 1000, 'Wygodny tapczan pojedynczy do spania z pojemnikiem na pościel.');
-insert into product (id, name, "type", price, description) values (8, 'Tapczan Jaś', 'tapczan', 900, 'Wygodny tapczan pojedynczy do spania z pojemnikiem na pościel.');
+insert into product (id, name, "type", dimension, price, description) values (1, 'Venus 3DL', 'sofa', '235 x 92 x 85 cm', 2000, 'Wygodna kanapa do spania z pojemnikiem na pościel. Wykonana na sprężynach typu bonell i piance wysokoelastycznej. Mechanizm wspomagający otwieranie. Poduszki z pianki profilowanej. Nóżki drewniane kolor venge.');
+insert into product (id, name, "type", dimension, price, description) values (2, 'Oliwia III 3DL', 'sofa', '200 x 93 x 70 cm', 2200, 'Wygodna kanapa do spania z pojemnikiem na pościel. Wykonana na sprężynach typu bonell i piance wysokoelastycznej.');
+insert into product (id, name, "type", dimension, price) values (3, 'Venus fotel', 'fotel', '88 x 85 x 89 cm', 1300);
+insert into product (id, name, "type", dimension, price) values (4, 'Matrix', 'fotel', '96 x 95 x 85 cm', 800);
+insert into product (id, name, "type", dimension, price) values (5, 'Sara', 'wersalka', '190 x 94 cm', 1500);
+insert into product (id, name, "type", dimension, price) values (6, 'Wersalka zwykła', 'wersalka', '195 x 86 x 88 cm', 1200);
+insert into product (id, name, "type", dimension, price, description) values (7, 'Tapczan Kuba', 'tapczan', '190 x 80 cm', 1000, 'Wygodny tapczan pojedynczy do spania z pojemnikiem na pościel.');
+insert into product (id, name, "type", dimension, price, description) values (8, 'Tapczan Jaś', 'tapczan', '195 x 80 cm', 900, 'Wygodny tapczan pojedynczy do spania z pojemnikiem na pościel.');
 
 -- basket
 

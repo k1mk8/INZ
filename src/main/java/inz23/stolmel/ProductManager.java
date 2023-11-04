@@ -77,4 +77,36 @@ public class ProductManager {
         }
         return productDetails;
     }
+
+    public static boolean addProduct(String productName, String productDimension, 
+      String productType, Integer productPrice, String productDescription, PostgreSQL postgreSQL) {
+        System.out.println("==== addProduct init ====");
+        try {
+            String insertSql = String.format("""
+            INSERT INTO product(id, price, "type", dimension, name, description) 
+            VALUES ('%d', '%d', '%s', '%s', '%s', '%s')""", 10, productPrice, productType,
+                productDimension, productName, productDescription);
+            postgreSQL.execute(insertSql, "insert");
+            postgreSQL.terminate();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+
+    public static void removeProduct(Integer productId, PostgreSQL postgreSQL) {
+        System.out.println("==== removeProduct init ====");
+        try {
+            String deleteSql = String.format("""
+            DELETE FROM product
+            WHERE id = '%d'""", 
+            productId);
+            postgreSQL.execute(deleteSql, "delete");
+            postgreSQL.terminate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
