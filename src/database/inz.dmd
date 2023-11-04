@@ -19,12 +19,13 @@ ALTER TABLE basket ADD CONSTRAINT basket_pk PRIMARY KEY ( order_id,
                                                           product_id );
 
 CREATE TABLE client (
-    id       INTEGER NOT NULL,
-    name     VARCHAR(30) NOT NULL,
-    surname  VARCHAR(30) NOT NULL,
-    "number" VARCHAR(20) NOT NULL,
-    email    VARCHAR(50) NOT NULL,
-    hash     VARCHAR(128) NOT NULL
+    id          INTEGER NOT NULL,
+    name        VARCHAR(30) NOT NULL,
+    surname     VARCHAR(30) NOT NULL,
+    "number"    VARCHAR(20) NOT NULL,
+    email       VARCHAR(50) NOT NULL,
+    hash        VARCHAR(128) NOT NULL,
+    is_admin    BOOLEAN NOT NULL
 );
 
 ALTER TABLE client ADD CONSTRAINT client_pk PRIMARY KEY ( id );
