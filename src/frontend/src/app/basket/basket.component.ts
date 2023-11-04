@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
-import { concatMap } from 'rxjs/operators';
-import { tick } from '@angular/core/testing';
 
 @Component({
   selector: 'app-basket',

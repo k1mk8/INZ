@@ -1,40 +1,55 @@
 <body>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.2/semantic.min.css">
     <app-menu></app-menu>
-    <div class="button-container">
-        <div class="ui secondary button" [routerLink]="['/admin']">Panel administratora</div>
-    </div>
-    <div class="addProduct">
-        <h2>Dodaj produkt</h2>
-        <form (ngSubmit)="registerProduct()">
-          <div>
-            <label for="registerType">Typ mebla:</label>
-            <input type="text" id="registerType" name="registerType" [(ngModel)]="registerType" required>
-          </div>
-          <div>
-            <label for="registerName">Nazwa mebla:</label>
-            <input type="text" id="registerName" name="registerName" [(ngModel)]="registerName" required>
-          </div>
-          <div>
-            <label for="registerDimensions">Wymiary:</label>
-            <input type="text" id="registerDimensions" name="registerDimensions" [(ngModel)]="registerDimensions" required>
-          </div>
-          <div>
-            <label for="registerDescription">Opis:</label>
-            <input type="text" id="registerDescription" name="registerDescription" [(ngModel)]="registerDescription" required>
-          </div>
-          <div>
-            <label for="registerPrice">Cena:</label>
-            <input type="text" id="registerPrice" name="registerPrice" [(ngModel)]="registerPrice" required>
-          </div>
-          <div>
-            <label for="registerImage">Zdjęcie (tylko JPG):</label>
-            <input type="file" id="registerImage" name="registerImage" accept="image/jpeg" (change)="onImageSelected($event)">
-          </div>
-          <div class="error-message" *ngIf="message">
-            {{ message }}
-          </div>
-          <button type="submit">Dodaj produkt</button>
-        </form>
+    <div class="ui grid">
+      <div class="eight wide column">
+        <div class="addProduct">
+          <h2>Dodaj produkt</h2>
+          <form (ngSubmit)="registerProduct()">
+            <div>
+              <label for="registerType">Typ mebla:</label>
+              <input type="text" id="registerType" name="registerType" [(ngModel)]="registerType" required>
+            </div>
+            <div>
+              <label for="registerName">Nazwa mebla:</label>
+              <input type="text" id="registerName" name="registerName" [(ngModel)]="registerName" required>
+            </div>
+            <div>
+              <label for="registerDimensions">Wymiary:</label>
+              <input type="text" id="registerDimensions" name="registerDimensions" [(ngModel)]="registerDimensions" required>
+            </div>
+            <div>
+              <label for="registerDescription">Opis:</label>
+              <input type="text" id="registerDescription" name="registerDescription" [(ngModel)]="registerDescription">
+            </div>
+            <div>
+              <label for="registerPrice">Cena:</label>
+              <input type="text" id="registerPrice" name="registerPrice" [(ngModel)]="registerPrice" required>
+            </div>
+            <div>
+              <label for="registerImage">Zdjęcie (tylko JPG):</label>
+              <input type="file" id="registerImage" name="registerImage" accept="image/jpeg" (change)="onImageSelected($event)">
+            </div>
+            <div class="error-message" *ngIf="message">
+              {{ message }}
+            </div>
+            <button type="submit">Dodaj produkt</button>
+          </form>
+        </div>
       </div>
+      <div class="eight wide column">
+        <div class="product-container">
+          <h2>Usuń produkt</h2>
+          <ul class="product-list">
+            <li *ngFor="let product of type; let i = index">
+              <div class="product-details">
+                <p>Typ produktu: {{ product }} ||| Nazwa produktu: {{ name[i] }}</p>
+                <div class="ui secondary button" (click)="removeProduct(name[i])">Usuń</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
 </body>
 <app-bottom-bar></app-bottom-bar>

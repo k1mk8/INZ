@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-admin',
@@ -8,13 +9,27 @@ import { Router } from '@angular/router';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent {
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private router: Router, private http: HttpClient, private cookieservice: CookieService) {}
   registerDimensions: string = '';
   registerPrice: string = '';
   registerType: string = '';
   registerName: string = '';
   registerDescription: string = '';
   message: string = '';
+  type: string[] = [];
+  name: string[] = [];
+
+  async ngOnInit(): Promise<void> {
+    try {
+      const orderResponse: any = await this.http.get('http://localhost:8082/getProducts').toPromise();
+        for (const value of orderResponse) {
+          this.type.push(value.type);
+          this.name.push(value.name);
+        }
+    } catch (error) {
+      console.error('Błąd podczas pobierania produktów', error);
+    }
+  }
 
   async registerProduct(): Promise<void> {
     const userData = {
@@ -30,8 +45,8 @@ export class AdminComponent {
 
       if (response === true) {
         console.log('Rejestracja produktu zakończona sukcesem', response);
-        this.message = 'rejestracja prawidłoa prawidłowe';
-        this.router.navigate(['admin']);
+        this.message = 'rejestracja produktu zakończona sukcesem';
+        window.location.reload();
       } else {
         this.message = 'Produkt o takiej nazwie istnieje w systemie';
         console.log('Produkt o takiej nazwie istnieje w systemie');
@@ -41,6 +56,20 @@ export class AdminComponent {
       this.message = 'Błąd podczas rejestracji produktu. Proszę spróbować ponownie.';
     }
   }
+  
+  async removeProduct(name: string): Promise<void> {
+    try {
+      const product = {
+        name: name
+      };
+
+      await this.http.post('http://localhost:8082/removeProduct', product).toPromise();
+      window.location.reload();
+    } catch (error) { 
+      console.error('Błąd podczas usuwania produktu z oferty', error);
+    }
+  }
+
   onImageSelected(event: any) {
     const selectedFile = event.target.files[0];
     if (selectedFile) {
