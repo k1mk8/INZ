@@ -70,6 +70,7 @@ public class ProductManager {
                 productDetails.put("type", postgreSQL.resultSet.getString("type"));
                 productDetails.put("name", postgreSQL.resultSet.getString("name"));
                 productDetails.put("description", postgreSQL.resultSet.getString("description"));
+                productDetails.put("dimension", postgreSQL.resultSet.getString("dimension"));
             }
             postgreSQL.terminate();
         } catch (Exception e) {
@@ -108,5 +109,29 @@ public class ProductManager {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static JSONArray getProducts(PostgreSQL postgreSQL) {
+        System.out.println("==== getProducts init ====");
+        JSONArray products = new JSONArray();
+        try {
+            String selectSql = String.format("""
+            SELECT type, name 
+            FROM product
+            """);
+            postgreSQL.execute(selectSql, "select");
+
+            // Process and display the retrieved data
+            while (postgreSQL.resultSet.next()) {
+                JSONObject productDetails = new JSONObject();
+                productDetails.put("type", postgreSQL.resultSet.getString("type"));
+                productDetails.put("name", postgreSQL.resultSet.getString("name"));
+                products.put(productDetails);
+            }
+            postgreSQL.terminate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return products;
     }
 }

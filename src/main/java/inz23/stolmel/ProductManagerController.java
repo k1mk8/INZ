@@ -46,4 +46,11 @@ public class ProductManagerController {
     Integer id = ProductManager.getProductId(productName, postgreSQL);
     ProductManager.removeProduct(id, postgreSQL);
   }
+
+  @GetMapping("/getProducts")
+  @CrossOrigin(origins = APIaddress)
+  @ResponseBody
+  public String getProducts() {
+    return ProductManager.getProducts(postgreSQL).toString();
+  }
 }
