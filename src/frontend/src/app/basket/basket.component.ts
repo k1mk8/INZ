@@ -16,17 +16,39 @@ export class BasketComponent {
   name: string[] = [];
   price: string[] = [];
   basket: string = "";
+  response: any = null;
   
   async ngOnInit(): Promise<void> {
+    try {
+      this.response = await this.getBasketOfClient();
+
+      if (this.response != null) {
+        await this.getProductsFromOrder(this.response);
+      } else {
+        console.log('Koszyk jest pusty');
+        this.basket = 'Pusty';
+      }
+    } catch (error) {
+      console.error('Błąd podczas pobierania danych', error);
+    }
+  }
+
+  async getBasketOfClient() {
     try {
       const client = {
         email: this.cookieservice.get('SESSION_TOKEN')
       };
 
       const response: any = await this.http.post('http://localhost:8082/getBasketOfClient', client).toPromise();
+      return response;
+    } catch (error) {
+      console.error('Błąd podczas pobierania danych', error);
+    }
+  }
 
-      if (response != null) {
-        this.id = response.id;
+  async getProductsFromOrder(response: any) {
+    try {
+      this.id = response.id;
         this.timestamp = response.basketFinish;
         const order = {
           order_id: response.id
@@ -38,10 +60,6 @@ export class BasketComponent {
           this.name.push(value.name);
           this.price.push(value.price);
         }
-      } else {
-        console.log('Koszyk jest pusty');
-        this.basket = 'Pusty';
-      }
     } catch (error) {
       console.error('Błąd podczas pobierania danych', error);
     }
@@ -55,7 +73,13 @@ export class BasketComponent {
       };
 
       await this.http.post('http://localhost:8082/removeFromBasket', product).toPromise();
-      window.location.reload();
+      const index = this.name.indexOf(name);
+      if (index !== -1) {
+        this.name.splice(index, 1);
+        this.price.splice(index, 1);
+        this.response = await this.getBasketOfClient();
+        await this.getProductsFromOrder(this.response);
+      }
     } catch (error) { 
       console.error('Błąd podczas usuwania produktu z koszyka', error);
     }

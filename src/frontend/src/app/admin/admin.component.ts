@@ -41,7 +41,7 @@ export class AdminComponent {
       type: this.registerType,
       name: this.registerName,
       description: this.registerDescription,
-      image: this.registerImage
+      image: this.registerImage  
     };
 
     try {
@@ -50,7 +50,7 @@ export class AdminComponent {
       if (response === true) {
         console.log('Rejestracja produktu zakończona sukcesem', response);
         this.message = 'rejestracja produktu zakończona sukcesem';
-        window.location.reload();
+        this.router.navigate(['/products', this.registerName]);
       } else {
         this.message = 'Produkt o takiej nazwie istnieje w systemie';
         console.log('Produkt o takiej nazwie istnieje w systemie');
@@ -66,9 +66,12 @@ export class AdminComponent {
       const product = {
         name: name
       };
-
       await this.http.post('http://localhost:8082/removeProduct', product).toPromise();
-      window.location.reload();
+      const index = this.name.indexOf(name);
+      if (index !== -1) {
+        this.type.splice(index, 1);
+        this.name.splice(index, 1);
+      }
     } catch (error) { 
       console.error('Błąd podczas usuwania produktu z oferty', error);
     }
