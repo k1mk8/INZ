@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -8,18 +8,19 @@ import { Router } from '@angular/router';
   templateUrl: './my-account.component.html',
   styleUrls: ['./my-account.component.css']
 })
-export class MyAccountComponent {
+export class MyAccountComponent implements OnInit {
   constructor(public cookieService: CookieService, private http: HttpClient, public router: Router) {}
 
-  name: string = '';
-  surname: string = '';
-  number: string = '';
-  email: string = '';
+  name = '';
+  surname = '';
+  number = '';
+  email = '';
 
   async ngOnInit(): Promise<void> {
     this.email = this.cookieService.get('SESSION_TOKEN');
 
     try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const response: any = await this.http.post('http://localhost:8082/clientByEmail', this.email).toPromise();
 
       if (response != null) {

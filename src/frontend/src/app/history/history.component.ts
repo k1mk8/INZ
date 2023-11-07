@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
@@ -7,7 +7,7 @@ import { CookieService } from 'ngx-cookie-service';
   templateUrl: './history.component.html',
   styleUrls: ['./history.component.css']
 })
-export class HistoryComponent {
+export class HistoryComponent implements OnInit {
   constructor(private router: Router, private http: HttpClient, private cookieservice: CookieService) {}
 
   id: string[] = [];
@@ -17,7 +17,7 @@ export class HistoryComponent {
   name: string[][] = [];
   price: string[][] = [];
 
-  idx: number = 0;
+  idx = 0;
   
   async ngOnInit() {
     const client = {
@@ -27,6 +27,7 @@ export class HistoryComponent {
     try {
       const response = await this.http.post('http://localhost:8082/getOrders', client).toPromise();
   
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       for (const element of response as any[]) {
         this.id.push(element.id);
         this.state.push(element.state);
@@ -46,10 +47,12 @@ export class HistoryComponent {
     }
   }
   
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async handleInnerSubscribe(id: any) {
     try {
       const innerResponse = await this.http.post('http://localhost:8082/getProductsFromOrder', id).toPromise();
   
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       for (const value of innerResponse as any[]) {
         this.name[this.idx].push(value.name);
         this.price[this.idx].push(value.price);

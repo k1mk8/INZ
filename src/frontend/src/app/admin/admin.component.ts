@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit  } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
@@ -8,22 +8,23 @@ import { CookieService } from 'ngx-cookie-service';
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css']
 })
-export class AdminComponent {
+export class AdminComponent implements OnInit {
   constructor(private router: Router, private http: HttpClient, private cookieservice: CookieService) {
     this.registerImage = null;
   }
-  registerDimensions: string = '';
-  registerPrice: string = '';
-  registerType: string = '';
-  registerName: string = '';
-  registerDescription: string = '';
-  message: string = '';
+  registerDimensions = '';
+  registerPrice = '';
+  registerType = '';
+  registerName = '';
+  registerDescription = '';
+  message = '';
   registerImage: File | null;
   type: string[] = [];
   name: string[] = [];
 
   async ngOnInit(): Promise<void> {
     try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const orderResponse: any = await this.http.get('http://localhost:8082/getProducts').toPromise();
         for (const value of orderResponse) {
           this.type.push(value.type);
@@ -45,6 +46,7 @@ export class AdminComponent {
     };
 
     try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const response: any = await this.http.post('http://localhost:8082/addProduct', userData).toPromise();
 
       if (response === true) {
@@ -77,6 +79,7 @@ export class AdminComponent {
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onImageSelected(event: any) {
     const selectedFile = event.target.files[0];
     this.registerImage = selectedFile;

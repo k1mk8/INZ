@@ -9,12 +9,12 @@ import { Router } from '@angular/router';
 })
 export class RegistryComponent {
   constructor(private http: HttpClient, private router: Router) {}
-  registerEmail: string = '';
-  registerPassword: string = '';
-  registerFirstName: string = '';
-  registerLastName: string = '';
-  registerPhoneNumber: string = '';
-  message: string = '';
+  registerEmail = '';
+  registerPassword = '';
+  registerFirstName = '';
+  registerLastName = '';
+  registerPhoneNumber = '';
+  message = '';
 
   async register(): Promise<void> {
     const userData = {
@@ -26,6 +26,7 @@ export class RegistryComponent {
     };
 
     try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const response: any = await this.http.post('http://localhost:8082/register', userData).toPromise();
 
       if (response === true) {

@@ -1,4 +1,4 @@
-import { Component, HostListener} from '@angular/core';
+import { Component, HostListener, OnInit} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
@@ -11,13 +11,14 @@ import { distinctUntilChanged } from 'rxjs/operators';
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
-export class ProductsComponent {
-  timing: string = "";
-  space: string = "";
-  description: string = "";
-  price: string = "";
+export class ProductsComponent implements OnInit {
+  timing = "";
+  space = "";
+  description = "";
+  price = "";
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   name: any;
-  availability: string = 'Sprawdzanie dostepnosci';
+  availability = 'Sprawdzanie dostepnosci';
 
   tableVisible = false;
   constructor(public router: Router, public http: HttpClient, public cookieservice: CookieService, private route: ActivatedRoute) {}
@@ -56,6 +57,7 @@ export class ProductsComponent {
     const productData = {
       productName: this.name
     };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const availabilityResponse: any = await this.http.post<boolean>('http://localhost:8082/getProductDetails', productData).toPromise();
 
     if (availabilityResponse != null) {

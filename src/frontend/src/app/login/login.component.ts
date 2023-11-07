@@ -11,10 +11,10 @@ import { CookieService } from 'ngx-cookie-service';
 export class LoginComponent {
   constructor(private router: Router, private http: HttpClient, private cookieservice: CookieService) {}
   
-  email: string = '';
-  password: string = '';
-  message: string = '';
-  isAdmin: boolean = false;
+  email = '';
+  password = '';
+  message = '';
+  isAdmin = false;
 
   async login(): Promise<void> { 
     const userData = {
@@ -23,6 +23,7 @@ export class LoginComponent {
     };
 
     try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const response: any = await this.http.post('http://localhost:8082/login', userData).toPromise();
 
       if (response === 1 || response === 2) {

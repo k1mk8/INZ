@@ -91,7 +91,7 @@ public class User {
             return false;
         try {
             String insertSql = String.format("""
-                INSERT INTO client(id, 'name', 'surname', 'number', 'email', 'hash', 'is_admin') 
+                INSERT INTO client(id, name, surname, number, email, hash, is_admin) 
                 VALUES (%d, '%s', '%s', '%s', '%s', '%s', 'false')""", 
                 client.getId(), client.getName(), client.getSurname(), 
                 client.getNumber(), client.getEmail(), client.getHash());

@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router} from '@angular/router';
 import { Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 
@@ -15,11 +15,9 @@ interface RodzajeProduktow {
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
-export class MenuComponent {
+export class MenuComponent implements OnInit {
   constructor(protected cookieService: CookieService, private router: Router, private location: Location, private http: HttpClient) {
   }
-  menuContent: any;
-  name: string = "Venus 3DL";
   rodzajeProduktow: RodzajeProduktow = {
     sofa: [],
     fotel: [],
@@ -31,6 +29,7 @@ export class MenuComponent {
 
   async ngOnInit(): Promise<void> {
     try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const orderResponse: any = await this.http.get('http://localhost:8082/getProducts').toPromise();
         for (const value of orderResponse) {
           this.addProduct(value.type, value.name);

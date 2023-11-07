@@ -43,6 +43,6 @@
             </tr>
         </tbody>
     </table>
-    <div class="ui secondary button" *ngIf="availability === 'Produkt dostępny' && this.cookieservice.get('SESSION_ADMIN') != 'YES'" (click)="addToBasket()">Dodaj do koszyka</div>
+    <div class="ui secondary button" *ngIf="availability === 'Produkt dostępny' && this.cookieservice.get('SESSION_ADMIN') !== 'YES'" (click)="addToBasket()">Dodaj do koszyka</div>
 </body>
 <app-bottom-bar></app-bottom-bar>

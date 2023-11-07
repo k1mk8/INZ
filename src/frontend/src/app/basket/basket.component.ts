@@ -11,13 +11,15 @@ import { CookieService } from 'ngx-cookie-service';
 export class BasketComponent {
   constructor(private router: Router, private http: HttpClient, private cookieservice: CookieService) {}
 
-  id: string = "";
-  timestamp: string = "";
+  id = "";
+  timestamp = "";
   name: string[] = [];
   price: string[] = [];
-  basket: string = "";
+  basket = "";
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   response: any = null;
   
+  // eslint-disable-next-line @angular-eslint/use-lifecycle-interface
   async ngOnInit(): Promise<void> {
     try {
       this.response = await this.getBasketOfClient();
@@ -39,6 +41,7 @@ export class BasketComponent {
         email: this.cookieservice.get('SESSION_TOKEN')
       };
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const response: any = await this.http.post('http://localhost:8082/getBasketOfClient', client).toPromise();
       return response;
     } catch (error) {
@@ -46,6 +49,7 @@ export class BasketComponent {
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async getProductsFromOrder(response: any) {
     try {
       this.id = response.id;
@@ -54,6 +58,7 @@ export class BasketComponent {
           order_id: response.id
         };
 
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const orderResponse: any = await this.http.post('http://localhost:8082/getProductsFromOrder', order).toPromise();
 
         for (const value of orderResponse) {
@@ -91,6 +96,7 @@ export class BasketComponent {
         id: this.id
       };
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const response: any = await this.http.post('http://localhost:8082/order', basket).toPromise();
 
       console.log('Zamówienie zostało złożone:', response);

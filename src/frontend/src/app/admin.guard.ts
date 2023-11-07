@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { CanActivate, Router, UrlTree } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
@@ -9,8 +9,6 @@ export class AdminGuard implements CanActivate {
   constructor(private cookieService: CookieService, private router: Router) {}
 
   canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
   ): boolean | UrlTree {
     // Odczytaj status admina z ciasteczka
     const isAdmin = this.cookieService.get('SESSION_ADMIN');
