@@ -62,6 +62,7 @@ export class ProductsComponent {
       console.log('Produkt istnieje', availabilityResponse);
       this.price = availabilityResponse.price;
       this.description = availabilityResponse.description;
+      this.space = availabilityResponse.dimension;
     } else {
       console.log('Produkt nie istnieje');
     }

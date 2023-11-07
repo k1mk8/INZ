@@ -46,4 +46,7 @@ export class LoginComponent {
       this.message = 'Błąd podczas logowania'; 
     }
   }
+  directToRegistry(){
+    this.router.navigate(['registry']);
+  }
 }
