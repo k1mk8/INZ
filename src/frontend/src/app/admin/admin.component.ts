@@ -9,13 +9,16 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent {
-  constructor(private router: Router, private http: HttpClient, private cookieservice: CookieService) {}
+  constructor(private router: Router, private http: HttpClient, private cookieservice: CookieService) {
+    this.registerImage = null;
+  }
   registerDimensions: string = '';
   registerPrice: string = '';
   registerType: string = '';
   registerName: string = '';
   registerDescription: string = '';
   message: string = '';
+  registerImage: File | null;
   type: string[] = [];
   name: string[] = [];
 
@@ -37,7 +40,8 @@ export class AdminComponent {
       price: this.registerPrice,
       type: this.registerType,
       name: this.registerName,
-      description: this.registerDescription
+      description: this.registerDescription,
+      image: this.registerImage
     };
 
     try {
@@ -72,6 +76,7 @@ export class AdminComponent {
 
   onImageSelected(event: any) {
     const selectedFile = event.target.files[0];
+    this.registerImage = selectedFile;
     if (selectedFile) {
       if (selectedFile.type === 'image/jpeg') {
         console.log('Zdjęcie zostało wybrane:', selectedFile);
