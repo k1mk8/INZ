@@ -33,7 +33,7 @@ export class MenuComponent implements OnInit {
       const orderResponse: any = await this.http.get('http://localhost:8082/getProducts').toPromise();
         for (const value of orderResponse) {
           this.addProduct(value.type, value.name);
-        }
+        } 
     } catch (error) {
       console.error('Błąd podczas pobierania produktów', error);
     }

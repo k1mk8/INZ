@@ -90,7 +90,7 @@ export class BasketComponent {
     }
   }
 
-  async order(): Promise<void> {
+  async order(): Promise<void> { 
     try {
       const basket = {
         id: this.id
