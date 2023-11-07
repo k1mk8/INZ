@@ -31,11 +31,11 @@ export class LoginComponent {
         this.message = 'Logowanie prawidłowe';
         if(response === 2){
           this.cookieservice.set('SESSION_ADMIN', 'YES', 1/24);
-          this.directToAdmin();
+          this.router.navigate(['admin']);
         }
         else{
           this.cookieservice.set('SESSION_ADMIN', 'NO', 1/24);
-          this.directToMyAccount();
+          this.router.navigate(['myaccount']);
         }
       } else {
         this.message = 'Nieprawidłowy email lub hasło';
@@ -45,15 +45,5 @@ export class LoginComponent {
       console.error('Błąd podczas logowania', error);
       this.message = 'Błąd podczas logowania'; 
     }
-  }
-  
-  directToRegistry() {
-    this.router.navigate(['registry']); 
-  }
-  directToMyAccount() {
-    this.router.navigate(['myaccount']);
-  }
-  directToAdmin() {
-    this.router.navigate(['admin']);
   }
 }
