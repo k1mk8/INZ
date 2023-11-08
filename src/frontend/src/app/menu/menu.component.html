@@ -40,9 +40,13 @@
         [routerLink]="['/contact']">
         Kontakt
       </div> 
-      <div class="ui secondary button" style="width: 200px;" [title]="'myaccount'" *ngIf="this.cookieService.get('SESSION_TOKEN')"
+      <div class="ui secondary button" style="width: 200px;" [title]="'myaccount'" *ngIf="this.cookieService.get('SESSION_ADMIN') === 'NO'"
         [routerLink]="['/myaccount']">
         Moje konto
+      </div>
+      <div class="ui secondary button" style="width: 200px;" [title]="'admin'" *ngIf="this.cookieService.get('SESSION_ADMIN') === 'YES'"
+        [routerLink]="['/admin']">
+        Admin
       </div> 
       <div class="ui secondary button" style="width: 200px;" [title]="'login'" *ngIf="!this.cookieService.get('SESSION_TOKEN')"
         [routerLink]="['/login']">

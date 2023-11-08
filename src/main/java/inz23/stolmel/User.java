@@ -29,9 +29,10 @@ public class User {
         return client;
     }
 
-    public static boolean login (String getEmail, String getPassword, PostgreSQL postgreSQL) {
+    public static int login (String getEmail, String getPassword, PostgreSQL postgreSQL) {
         System.out.println("==== login init ====");
 
+        boolean isAdminRet = false;
         String getHash = SHA512.hash(getPassword);
         
         Client client = null;
@@ -48,13 +49,20 @@ public class User {
                 String email = postgreSQL.resultSet.getString("email");
                 String hash = postgreSQL.resultSet.getString("hash");
                 boolean isAdmin = postgreSQL.resultSet.getBoolean("is_admin");
+                isAdminRet = isAdmin;
                 client = new Client(id, name, surname, number, email, hash, isAdmin);
             }
             postgreSQL.terminate();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return (client == null ? false : true);
+        if(client != null && isAdminRet == true){
+            return 2;
+        }
+        else if(client != null && isAdminRet == false){
+            return 1;
+        }
+        else return 0;
     }
 
     public static int getFreeClientId(PostgreSQL postgreSQL) {
@@ -83,7 +91,7 @@ public class User {
             return false;
         try {
             String insertSql = String.format("""
-                INSERT INTO client(id, 'name', 'surname', 'number', 'email', 'hash', 'is_admin') 
+                INSERT INTO client(id, name, surname, number, email, hash, is_admin) 
                 VALUES (%d, '%s', '%s', '%s', '%s', '%s', 'false')""", 
                 client.getId(), client.getName(), client.getSurname(), 
                 client.getNumber(), client.getEmail(), client.getHash());
