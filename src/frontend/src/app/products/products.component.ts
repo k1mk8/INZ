@@ -104,7 +104,6 @@ export class ProductsComponent implements OnInit {
   async addToBasket(): Promise<void> {
     if (!this.cookieservice.check('SESSION_TOKEN')) {
       this.router.navigate(['login']);
-      return;
     }
 
     const productData = {

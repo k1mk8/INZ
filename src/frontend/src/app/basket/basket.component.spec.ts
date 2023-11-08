@@ -35,12 +35,6 @@ describe('BasketComponent', () => {
       id: 'testId',
       basketFinish: '2023-10-24',
     };
-
-    const mockOrderResponse = [
-      { name: 'Product 1', price: '10.00' },
-      { name: 'Product 2', price: '20.00' },
-    ];
-    const client = { email: 'test@example.com' };
     component.ngOnInit();
     const clientReq = httpTestingController.expectOne('http://localhost:8082/getBasketOfClient');
     expect(clientReq.request.method).toBe('POST');
@@ -55,14 +49,14 @@ describe('BasketComponent', () => {
   });
 
   it('should handle an empty basket', () => {
-    const client = { email: 'lukaszkonieczny@gmail.com' };
+    const client = { email: 'john@example.com' };
     component.ngOnInit();
     const clientReq = httpTestingController.expectOne('http://localhost:8082/getBasketOfClient');
     expect(clientReq.request.method).toBe('POST'); 
     expect(clientReq.request.body).toEqual(client);
-    clientReq.flush(client);
+    clientReq.flush(client); 
 
-    expect(component.basket).toBe('');
+    expect(component.basket).toBe(''); 
 
     httpTestingController.verify();
   });
@@ -79,7 +73,6 @@ describe('BasketComponent', () => {
   });
 
   it('should place an order', () => { 
-    const basket = { id: 'testId' };
     component.order();
     const orderReq = httpTestingController.expectOne('http://localhost:8082/order');
     expect(orderReq.request.method).toBe('POST');

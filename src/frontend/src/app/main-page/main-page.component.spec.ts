@@ -3,6 +3,7 @@ import { MenuComponent } from './../menu/menu.component';
 import { BottomBarComponent } from './../bottom-bar/bottom-bar.component';
 import { MainPageComponent } from './main-page.component';
 import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('MainPageComponent', () => {
   let component: MainPageComponent;
@@ -10,7 +11,7 @@ describe('MainPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
+      imports: [RouterTestingModule, HttpClientTestingModule],
       declarations: [ MainPageComponent, MenuComponent, BottomBarComponent ]
     })
     .compileComponents();
@@ -21,6 +22,6 @@ describe('MainPageComponent', () => {
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(component).toBeTruthy(); 
   });
 });
