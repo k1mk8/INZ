@@ -3,6 +3,7 @@ package com.example.application;
 import java.util.ArrayList;
 import java.util.List;
 import org.json.*;
+import java.util.Base64;
 
 
 public class ProductManager {
@@ -71,6 +72,7 @@ public class ProductManager {
                 productDetails.put("name", postgreSQL.resultSet.getString("name"));
                 productDetails.put("description", postgreSQL.resultSet.getString("description"));
                 productDetails.put("dimension", postgreSQL.resultSet.getString("dimension"));
+                productDetails.put("image", Base64.getEncoder().encodeToString(Base64.getDecoder().decode(postgreSQL.resultSet.getBytes("image"))));
             }
             postgreSQL.terminate();
         } catch (Exception e) {
@@ -80,13 +82,13 @@ public class ProductManager {
     }
 
     public static boolean addProduct(String productName, String productDimension, 
-      String productType, Integer productPrice, String productDescription, PostgreSQL postgreSQL) {
+      String productType, Integer productPrice, String productDescription, String productImage, PostgreSQL postgreSQL) {
         System.out.println("==== addProduct init ====");
         try {
             String insertSql = String.format("""
-            INSERT INTO product(id, price, "type", dimension, name, description) 
-            VALUES ('%d', '%d', '%s', '%s', '%s', '%s')""", 10, productPrice, productType,
-                productDimension, productName, productDescription);
+            INSERT INTO product(id, price, "type", dimension, name, description, image) 
+            VALUES ('%d', '%d', '%s', '%s', '%s', '%s', '%s')""", 10, productPrice, productType,
+                productDimension, productName, productDescription, productImage);
             postgreSQL.execute(insertSql, "insert");
             postgreSQL.terminate();
         } catch (Exception e) {

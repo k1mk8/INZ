@@ -66,7 +66,8 @@ CREATE TABLE product (
     "type" 	    VARCHAR(30) NOT NULL,
     dimension 	VARCHAR(30) NOT NULL,
     name  	    VARCHAR(30) NOT NULL,
-    description VARCHAR(1024)
+    description VARCHAR(1024),
+    image       BYTEA       NOT NULL
 );
 
 ALTER TABLE product ADD CONSTRAINT product_pk PRIMARY KEY ( id );

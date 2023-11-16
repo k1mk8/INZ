@@ -16,6 +16,7 @@ export class ProductsComponent implements OnInit {
   space = "";
   description = "";
   price = "";
+  image = "";
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   name: any;
   availability = 'Sprawdzanie dostepnosci';
@@ -65,6 +66,7 @@ export class ProductsComponent implements OnInit {
       this.price = availabilityResponse.price;
       this.description = availabilityResponse.description;
       this.space = availabilityResponse.dimension;
+      this.image = availabilityResponse.image;
     } else {
       console.log('Produkt nie istnieje');
     }
@@ -121,7 +123,24 @@ export class ProductsComponent implements OnInit {
   }
 
   openImageInNewWindow() {
-    window.open(`../../assets/${this.name}.jpg`, '_blank');
+    if (this.image && this.image.length > 0) {
+      const byteCharacters = atob(this.image);
+      const byteNumbers = new Array(byteCharacters.length);
+  
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+  
+      const byteArray = new Uint8Array(byteNumbers);
+      const blob = new Blob([byteArray], { type: 'image/jpeg' });
+  
+      const imageUrl = URL.createObjectURL(blob);
+  
+      window.open(imageUrl, '_blank');
+    } else {
+      console.error("Image data is missing or empty.");
+    }
   }
+  
   
 }

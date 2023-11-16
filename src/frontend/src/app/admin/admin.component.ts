@@ -1,5 +1,5 @@
 import { Component, OnInit  } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -10,7 +10,6 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class AdminComponent implements OnInit {
   constructor(private router: Router, private http: HttpClient, private cookieservice: CookieService) {
-    this.registerImage = null;
   }
   registerDimensions = '';
   registerPrice = '';
@@ -18,7 +17,7 @@ export class AdminComponent implements OnInit {
   registerName = '';
   registerDescription = '';
   message = '';
-  registerImage: File | null;
+  registerImage = '';
   type: string[] = [];
   name: string[] = [];
 
@@ -36,18 +35,17 @@ export class AdminComponent implements OnInit {
   }
 
   async registerProduct(): Promise<void> {
-    const userData = {
+    const productData = {
       dimension: this.registerDimensions,
       price: this.registerPrice,
       type: this.registerType,
       name: this.registerName,
       description: this.registerDescription,
-      image: this.registerImage  
+      image: this.registerImage
     };
-
     try {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const response: any = await this.http.post('http://localhost:8082/addProduct', userData).toPromise();
+      const response: any = await this.http.post('http://localhost:8082/addProduct', productData).toPromise();
 
       if (response === true) {
         console.log('Rejestracja produktu zakończona sukcesem', response);
@@ -82,10 +80,18 @@ export class AdminComponent implements OnInit {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onImageSelected(event: any) {
     const selectedFile = event.target.files[0];
-    this.registerImage = selectedFile;
     if (selectedFile) {
       if (selectedFile.type === 'image/jpeg') {
         console.log('Zdjęcie zostało wybrane:', selectedFile);
+        const reader = new FileReader();
+
+        console.log('test');
+        reader.onloadend = () => {
+          // 'result' contains the Base64-encoded image
+          this.registerImage = reader.result as string;
+        };
+        console.log(this.registerImage);
+        reader.readAsDataURL(selectedFile);
       } else {
         console.log('Wybrany plik nie jest w formacie JPG.');
       }

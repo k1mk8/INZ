@@ -2,7 +2,7 @@
 <h2> {{name}}</h2>
 <body>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.2/semantic.min.css">
-    <img src="../../assets/{{name}}.jpg" alt="venus3dl" (click)="openImageInNewWindow()">
+    <img src="{{'data:image/jpg;base64,' + image}}" (click)="openImageInNewWindow()">
     <p class="opis">Opis:<br><br> {{description}}</p>
     <h3 class="wymiary"> Wymiary:</h3>
     <table [ngClass]="{'show-on-scroll': tableVisible}" id="myTable">

@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+
+import jakarta.websocket.Decoder.Binary;
+
 import org.json.*;
 
 @RestController
@@ -34,8 +37,11 @@ public class ProductManagerController {
     String productType = json.get("type").asText();
     Integer productPrice = json.get("price").asInt();
     String productDescription = json.get("description").asText();
+    String productImage = json.get("image").asText();
+    // cut off the data:image/png;base64, from the string
+    productImage = productImage.substring(23);
     return ProductManager.addProduct(productName, productDimension, 
-      productType, productPrice, productDescription, postgreSQL);
+      productType, productPrice, productDescription, productImage, postgreSQL);
   }
 
   @PostMapping("/removeProduct")
