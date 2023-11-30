@@ -40,17 +40,19 @@ public class ProductManagerController {
     String productImage = json.get("image").asText();
     // cut off the data:image/png;base64, from the string
     productImage = productImage.substring(23);
-    return ProductManager.addProduct(productName, productDimension, 
+    Integer freeId = ProductManager.getFreeProductId(postgreSQL);
+    return ProductManager.addProduct(freeId, productName, productDimension, 
       productType, productPrice, productDescription, productImage, postgreSQL);
   }
 
-  @PostMapping("/removeProduct")
+  @PostMapping("/manageProductStatus")
   @CrossOrigin(origins = APIaddress)
   @ResponseBody
-  public void removeProduct(@RequestBody ObjectNode json) {
+  public void manageProductStatus(@RequestBody ObjectNode json) {
     String productName = json.get("name").asText();
+    boolean newStatus = json.get("newStatus").asBoolean();
     Integer id = ProductManager.getProductId(productName, postgreSQL);
-    ProductManager.removeProduct(id, postgreSQL);
+    ProductManager.manageProductStatus(id, newStatus, postgreSQL);
   }
 
   @GetMapping("/getProducts")

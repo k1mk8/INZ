@@ -81,14 +81,35 @@ public class ProductManager {
         return productDetails;
     }
 
-    public static boolean addProduct(String productName, String productDimension, 
+    public static boolean addProduct(Integer freeId, String productName, String productDimension, 
       String productType, Integer productPrice, String productDescription, String productImage, PostgreSQL postgreSQL) {
         System.out.println("==== addProduct init ====");
         try {
             String insertSql = String.format("""
-            INSERT INTO product(id, price, "type", dimension, name, description, image) 
-            VALUES ('%d', '%d', '%s', '%s', '%s', '%s', '%s')""", 10, productPrice, productType,
+            INSERT INTO product(id, is_active, price, "type", dimension, name, description, image) 
+            VALUES ('%d', '%b', '%d', '%s', '%s', '%s', '%s', '%s')""", freeId, true, productPrice, productType,
                 productDimension, productName, productDescription, productImage);
+            postgreSQL.execute(insertSql, "insert");
+            postgreSQL.terminate();
+            //TO DO this is a mock part
+            Integer freeComponentId = ProductManager.getFreeProductComponentsId(postgreSQL);
+            addProductComponents(freeComponentId, "stelaz", freeId, "stolarz", 5, postgreSQL);
+            //
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean addProductComponents(Integer id, String componentName, Integer productId,
+        String profession, Integer time_needed, PostgreSQL postgreSQL) {
+        System.out.println("==== addProductComponents init ====");
+        try {
+            String insertSql = String.format("""
+            INSERT INTO product_component(id, name, product_id, profession, time_needed) 
+            VALUES ('%d', '%s', '%d', '%s', '%d')""", id, componentName, productId, profession,
+                time_needed);
             postgreSQL.execute(insertSql, "insert");
             postgreSQL.terminate();
         } catch (Exception e) {
@@ -98,15 +119,14 @@ public class ProductManager {
         return true;
     }
 
-
-    public static void removeProduct(Integer productId, PostgreSQL postgreSQL) {
-        System.out.println("==== removeProduct init ====");
+    public static void manageProductStatus(Integer productId, boolean newStatus, PostgreSQL postgreSQL) {
+        System.out.println("==== manageProductStatus init ====");
         try {
-            String deleteSql = String.format("""
-            DELETE FROM product
+            String updateSql = String.format("""
+            UPDATE product SET is_active = '%b'
             WHERE id = '%d'""", 
-            productId);
-            postgreSQL.execute(deleteSql, "delete");
+            newStatus, productId);
+            postgreSQL.execute(updateSql, "update");
             postgreSQL.terminate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -118,7 +138,7 @@ public class ProductManager {
         JSONArray products = new JSONArray();
         try {
             String selectSql = String.format("""
-            SELECT type, name 
+            SELECT type, name, is_active
             FROM product
             """);
             postgreSQL.execute(selectSql, "select");
@@ -128,6 +148,7 @@ public class ProductManager {
                 JSONObject productDetails = new JSONObject();
                 productDetails.put("type", postgreSQL.resultSet.getString("type"));
                 productDetails.put("name", postgreSQL.resultSet.getString("name"));
+                productDetails.put("is_active", postgreSQL.resultSet.getString("is_active"));
                 products.put(productDetails);
             }
             postgreSQL.terminate();
@@ -135,5 +156,53 @@ public class ProductManager {
             e.printStackTrace();
         }
         return products;
+    }
+
+    public static Integer getFreeProductId(PostgreSQL postgreSQL) {
+        System.out.println("==== getFreeProductId init ====");
+        JSONArray products = new JSONArray();
+        Integer freeId = 0;
+        try {
+            String selectSql = String.format("""
+            SELECT id
+            FROM product
+            ORDER BY id DESC
+            LIMIT 1
+            """);
+            postgreSQL.execute(selectSql, "select");
+
+            // Process and display the retrieved data
+            if (postgreSQL.resultSet.next()) {
+                freeId = postgreSQL.resultSet.getInt("id");
+            }
+            postgreSQL.terminate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return freeId + 1;
+    }
+
+    public static Integer getFreeProductComponentsId(PostgreSQL postgreSQL) {
+        System.out.println("==== getFreeProductId init ====");
+        JSONArray products = new JSONArray();
+        Integer freeId = 0;
+        try {
+            String selectSql = String.format("""
+            SELECT id
+            FROM product_component
+            ORDER BY id DESC
+            LIMIT 1
+            """);
+            postgreSQL.execute(selectSql, "select");
+
+            // Process and display the retrieved data
+            if (postgreSQL.resultSet.next()) {
+                freeId = postgreSQL.resultSet.getInt("id");
+            }
+            postgreSQL.terminate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return freeId + 1;
     }
 }
