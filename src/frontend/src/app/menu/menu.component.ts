@@ -32,7 +32,9 @@ export class MenuComponent implements OnInit {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const orderResponse: any = await this.http.get('http://localhost:8082/getProducts').toPromise();
         for (const value of orderResponse) {
-          this.addProduct(value.type, value.name);
+          if(value.is_active === "t"){
+            this.addProduct(value.type, value.name);
+          }
         } 
     } catch (error) {
       console.error('Błąd podczas pobierania produktów', error);
