@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.stream.Collectors;
+import java.util.concurrent.locks.ReentrantLock;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,23 +18,18 @@ public class PostgreSQL {
     private final String DB_URL = "jdbc:postgresql://inz23_db:5432/postgres";
     private final String DB_USER = "postgres";
     private final String DB_PASSWORD = "postgres";
-    public boolean isFree = true;
+    private ReentrantLock lock = new ReentrantLock();
     public PreparedStatement selectStatement = null;
     public ResultSet resultSet = null;
     public Connection connection = null;
 
     public void execute(String query, String queryType) {
+        lock.lock();
         try {
             System.out.println("==== query init ====");
 
             // Load the PostgreSQL JDBC driver
             Class.forName("org.postgresql.Driver");
-            
-            while (!this.isFree){
-                System.out.println("sleep");
-                Thread.sleep(100);
-            }
-            this.isFree = false;
 
             // Establish a connection to the PostgreSQL database
             this.connection = DriverManager.getConnection(this.DB_URL, this.DB_USER, this.DB_PASSWORD);
@@ -57,9 +53,11 @@ public class PostgreSQL {
 
     public void terminate() {
         try {
-            this.resultSet.close();
+            if(this.resultSet.isBeforeFirst()){
+                this.resultSet.close();
+            }
             this.connection.close();
-            this.isFree = true;
+            lock.unlock();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -23,7 +23,7 @@ public class UserController {
   @PostMapping("/login")
   @ResponseBody
   @CrossOrigin(origins = APIaddress)
-  public boolean login(@RequestBody ObjectNode json) {
+  public int login(@RequestBody ObjectNode json) {
     return User.login(json.get("email").asText(), json.get("password").asText(), api);
   }
 
@@ -37,7 +37,8 @@ public class UserController {
     String number = json.get("number").asText();
     String email = json.get("email").asText();
     String hash = SHA512.hash(json.get("password").asText());
-    Client client = new Client(id, name, surname, number, email, hash);
+    boolean isAdmin = false;
+    Client client = new Client(id, name, surname, number, email, hash, isAdmin);
     return User.register(client, api);
   }
 

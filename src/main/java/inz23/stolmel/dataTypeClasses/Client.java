@@ -8,6 +8,7 @@ public class Client {
 	private String number;
 	private String email;
 	private String hash;
+	private boolean isAdmin;
 
 	public Client() {
 		this.id = -1;
@@ -16,15 +17,17 @@ public class Client {
 		this.number = "";
 		this.email = "";
 		this.hash = "";
+		this.isAdmin = false;
 	}
 
-	public Client(int id, String name, String surname, String number, String email, String hash) {
+	public Client(int id, String name, String surname, String number, String email, String hash, boolean isAdmin) {
 		this.id = id;
 		this.name = name;
 		this.surname = surname;
 		this.number = number;
 		this.email = email;
 		this.hash = hash;
+		this.isAdmin = isAdmin;
 	}
 
 	public int getId() {
@@ -51,6 +54,10 @@ public class Client {
 		return hash;
 	}
 
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+
 	private void setId(int id) {
 		this.id = id;
 	}
@@ -75,10 +82,14 @@ public class Client {
 		this.hash = hash;
 	}
 
+	private void isAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+
 	@Override
     public String toString() {
         return String.format("""
-		{"id":"%d", "name":"%s", "surname":"%s", "number":"%s", "email":"%s", "hash":"%s"}""", 
-		this.id, this.name, this.surname, this.number, this.email, this.hash);
+		{"id":"%d", "name":"%s", "surname":"%s", "number":"%s", "email":"%s", "hash":"%s", "is_admin":"%b"}""", 
+		this.id, this.name, this.surname, this.number, this.email, this.hash, this.isAdmin);
     }
 }

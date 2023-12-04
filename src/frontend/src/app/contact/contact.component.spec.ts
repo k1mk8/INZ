@@ -3,20 +3,24 @@ import { MenuComponent } from './../menu/menu.component';
 import { BottomBarComponent } from './../bottom-bar/bottom-bar.component';
 import { ContactComponent } from './contact.component';
 import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 describe('ContactComponent', () => {
   let component: ContactComponent;
   let fixture: ComponentFixture<ContactComponent>;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  let httpTestingController: HttpTestingController;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
+      imports: [RouterTestingModule, HttpClientTestingModule],
       declarations: [ ContactComponent, MenuComponent, BottomBarComponent ]
     })
     .compileComponents();
 
     fixture = TestBed.createComponent(ContactComponent);
     component = fixture.componentInstance;
+    httpTestingController = TestBed.inject(HttpTestingController);
     fixture.detectChanges();
   });
 

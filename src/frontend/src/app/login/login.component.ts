@@ -11,9 +11,10 @@ import { CookieService } from 'ngx-cookie-service';
 export class LoginComponent {
   constructor(private router: Router, private http: HttpClient, private cookieservice: CookieService) {}
   
-  email: string = '';
-  password: string = '';
-  message: string = '';
+  email = '';
+  password = '';
+  message = '';
+  isAdmin = false;
 
   async login(): Promise<void> { 
     const userData = {
@@ -22,13 +23,21 @@ export class LoginComponent {
     };
 
     try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const response: any = await this.http.post('http://localhost:8082/login', userData).toPromise();
 
-      if (response === true) {
+      if (response === 1 || response === 2) {
         console.log('Logowanie zakończona sukcesem', response);
         this.cookieservice.set('SESSION_TOKEN', this.email, 1/24);
         this.message = 'Logowanie prawidłowe';
-        this.directToMyAccount();
+        if(response === 2){
+          this.cookieservice.set('SESSION_ADMIN', 'YES', 1/24);
+          this.router.navigate(['admin']);
+        }
+        else{
+          this.cookieservice.set('SESSION_ADMIN', 'NO', 1/24);
+          this.router.navigate(['myaccount']);
+        }
       } else {
         this.message = 'Nieprawidłowy email lub hasło';
         console.log('Nieprawidłowy email lub hasło');
@@ -38,11 +47,7 @@ export class LoginComponent {
       this.message = 'Błąd podczas logowania'; 
     }
   }
-  
-  directToRegistry() {
-    this.router.navigate(['registry']); 
-  }
-  directToMyAccount() {
-    this.router.navigate(['myaccount']);
+  directToRegistry(){
+    this.router.navigate(['registry']);
   }
 }
