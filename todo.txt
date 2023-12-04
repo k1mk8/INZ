@@ -1,1 +1,1 @@
-interface , package, bin, hibernate
+interface, package, bin, hibernate
