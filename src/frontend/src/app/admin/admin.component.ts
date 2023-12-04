@@ -26,8 +26,10 @@ export class AdminComponent implements OnInit {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const orderResponse: any = await this.http.get('http://localhost:8082/getProducts').toPromise();
         for (const value of orderResponse) {
-          this.type.push(value.type);
-          this.name.push(value.name);
+          if(value.is_active === "t"){
+            this.type.push(value.type);
+            this.name.push(value.name);
+          }
         }
     } catch (error) {
       console.error('Błąd podczas pobierania produktów', error);
@@ -64,9 +66,10 @@ export class AdminComponent implements OnInit {
   async removeProduct(name: string): Promise<void> {
     try {
       const product = {
-        name: name
+        name: name,
+        newStatus: false
       };
-      await this.http.post('http://localhost:8082/removeProduct', product).toPromise();
+      await this.http.post('http://localhost:8082/manageProductStatus', product).toPromise();
       const index = this.name.indexOf(name);
       if (index !== -1) {
         this.type.splice(index, 1);

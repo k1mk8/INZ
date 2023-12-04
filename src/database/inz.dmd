@@ -61,13 +61,14 @@ CREATE TABLE "order" (
 ALTER TABLE "order" ADD CONSTRAINT order_pk PRIMARY KEY ( id );
 
 CREATE TABLE product (
-    id    	    INTEGER NOT NULL,
-    price 	    INTEGER NOT NULL,
-    "type" 	    VARCHAR(30) NOT NULL,
-    dimension 	VARCHAR(30) NOT NULL,
-    name  	    VARCHAR(30) NOT NULL,
+    id    	    INTEGER 		NOT NULL,
+    is_active	BOOLEAN			NOT NULL,
+    price 	    INTEGER 		NOT NULL,
+    "type" 	    VARCHAR(30) 	NOT NULL,
+    dimension 	VARCHAR(30) 	NOT NULL,
+    name  	    VARCHAR(30) 	NOT NULL,
     description VARCHAR(1024),
-    image       BYTEA       NOT NULL
+    image       BYTEA       	NOT NULL
 );
 
 ALTER TABLE product ADD CONSTRAINT product_pk PRIMARY KEY ( id );
