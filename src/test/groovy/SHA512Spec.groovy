@@ -1,5 +1,5 @@
 import spock.lang.Specification
-import com.example.application.SHA512;
+import inz23.stolmel.sha.*
 
 class SHA512Spec extends Specification {
 

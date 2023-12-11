@@ -1,4 +1,4 @@
-package com.example.application;
+package inz23.stolmel.dataTypeClasses;
 
 public class Product {
 

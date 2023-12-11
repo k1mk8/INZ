@@ -1,4 +1,7 @@
-package com.example.application;
+package inz23.stolmel.user;
+import inz23.stolmel.dataTypeClasses.*;
+import inz23.stolmel.postgreSQL.*;
+import inz23.stolmel.sha.*;
 
 public class User {
 

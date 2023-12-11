@@ -1,4 +1,4 @@
-package com.example.application;
+package inz23.stolmel.sha;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
