@@ -93,7 +93,7 @@ public class ProductManager {
                 productDimension, productName, productDescription, productImage);
             postgreSQL.execute(insertSql, "insert");
             postgreSQL.terminate();
-            //TO DO this is a mock part
+            //TODO this is a mock part
             Integer freeComponentId = ProductManager.getFreeProductComponentsId(postgreSQL);
             addProductComponents(freeComponentId, "stelaz", freeId, "stolarz", 5, postgreSQL);
             //
@@ -162,7 +162,6 @@ public class ProductManager {
 
     public static Integer getFreeProductId(PostgreSQL postgreSQL) {
         System.out.println("==== getFreeProductId init ====");
-        JSONArray products = new JSONArray();
         Integer freeId = 0;
         try {
             String selectSql = String.format("""
@@ -186,7 +185,6 @@ public class ProductManager {
 
     public static Integer getFreeProductComponentsId(PostgreSQL postgreSQL) {
         System.out.println("==== getFreeProductId init ====");
-        JSONArray products = new JSONArray();
         Integer freeId = 0;
         try {
             String selectSql = String.format("""
