@@ -18,7 +18,7 @@ public class PostgreSQL {
     public ResultSet resultSet = null;
     public Connection connection = null;
 
-    public  PostgreSQL() {
+    public PostgreSQL() {
     }
 
     public void execute(String query, String queryType) {
@@ -37,10 +37,9 @@ public class PostgreSQL {
             this.selectStatement = connection.prepareStatement(query);
 
             // Execute the SELECT query and get the result set
-            if(queryType == "select"){
+            if (queryType == "select") {
                 this.resultSet = this.selectStatement.executeQuery();
-            }
-            else {
+            } else {
                 this.selectStatement.execute();
             }
             System.out.println("==== query executed ====");
@@ -51,7 +50,7 @@ public class PostgreSQL {
 
     public void terminate() {
         try {
-            if(this.resultSet.isBeforeFirst()){
+            if (this.resultSet.isBeforeFirst()) {
                 this.resultSet.close();
             }
             this.connection.close();
@@ -61,7 +60,3 @@ public class PostgreSQL {
         }
     }
 }
-
-
-
-

@@ -1,4 +1,5 @@
 package inz23.stolmel.schedule;
+
 import inz23.stolmel.postgreSQL.*;
 import inz23.stolmel.product.*;
 
@@ -16,10 +17,12 @@ import org.json.*;
 public class SchedulesController {
 
   private final PostgreSQL postgreSQL;
+
   @Autowired
   public SchedulesController(PostgreSQL postgreSQL) {
-      this.postgreSQL = postgreSQL;
+    this.postgreSQL = postgreSQL;
   }
+
   private final String APIaddress = "http://localhost:4200";
 
   @PostMapping("/checkAvailability")
@@ -29,7 +32,7 @@ public class SchedulesController {
     int id = ProductManager.getProductId(json.get("name").asText(), postgreSQL);
     boolean materialAvailability = Schedules.checkMaterialsAvailability(id, postgreSQL);
     System.out.println(String.format("Poduct availability: %b", materialAvailability));
-    return  materialAvailability;
+    return materialAvailability;
   }
 
   @PostMapping("/checkSchedule")
@@ -39,7 +42,8 @@ public class SchedulesController {
     int id = ProductManager.getProductId(json.get("name").asText(), postgreSQL);
     List<JSONObject> neededProfessionsTime = ProductManager.getNeededProfessions(id, postgreSQL);
     List<JSONObject> ListOfTimestampsAndEmployees = Schedules.getLastHourOfTasks(neededProfessionsTime, postgreSQL);
-    String lastTimestamp = ListOfTimestampsAndEmployees.get(ListOfTimestampsAndEmployees.size()-1).get("timestamp").toString();
+    String lastTimestamp = ListOfTimestampsAndEmployees.get(ListOfTimestampsAndEmployees.size() - 1).get("timestamp")
+        .toString();
     System.out.println(String.format("==== Delivery time: %s ====", lastTimestamp));
     return String.format("{\"date\":\"%s\"}", lastTimestamp);
   }

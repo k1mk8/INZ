@@ -1,4 +1,5 @@
 package inz23.stolmel.product;
+
 import inz23.stolmel.postgreSQL.*;
 
 import java.util.ArrayList;
@@ -7,7 +8,6 @@ import org.json.*;
 
 import java.util.Base64;
 
-
 public class ProductManager {
 
     public static int getProductId(String productName, PostgreSQL postgreSQL) {
@@ -15,8 +15,8 @@ public class ProductManager {
         int id = -1;
         try {
             String selectSql = String.format("""
-            SELECT id FROM PRODUCT
-            WHERE name = '%s'""", productName);
+                    SELECT id FROM PRODUCT
+                    WHERE name = '%s'""", productName);
             postgreSQL.execute(selectSql, "select");
 
             // Process and display the retrieved data
@@ -30,14 +30,14 @@ public class ProductManager {
         }
         return id;
     }
-    
+
     public static List<JSONObject> getNeededProfessions(Integer productId, PostgreSQL postgreSQL) {
         System.out.println("==== getNeededProfession init ====");
         List<JSONObject> professionsTime = new ArrayList<JSONObject>();
         try {
             String selectSql = String.format("""
-            SELECT Profession, Time_needed FROM PRODUCT_COMPONENT
-            WHERE '%s' = Product_id""", productId);
+                    SELECT Profession, Time_needed FROM PRODUCT_COMPONENT
+                    WHERE '%s' = Product_id""", productId);
             postgreSQL.execute(selectSql, "select");
 
             // Process and display the retrieved data
@@ -62,8 +62,8 @@ public class ProductManager {
         JSONObject productDetails = new JSONObject();
         try {
             String selectSql = String.format("""
-            SELECT * FROM product
-            WHERE '%d' = id""", productId);
+                    SELECT * FROM product
+                    WHERE '%d' = id""", productId);
             postgreSQL.execute(selectSql, "select");
 
             // Process and display the retrieved data
@@ -74,7 +74,8 @@ public class ProductManager {
                 productDetails.put("name", postgreSQL.resultSet.getString("name"));
                 productDetails.put("description", postgreSQL.resultSet.getString("description"));
                 productDetails.put("dimension", postgreSQL.resultSet.getString("dimension"));
-                productDetails.put("image", Base64.getEncoder().encodeToString(Base64.getDecoder().decode(postgreSQL.resultSet.getBytes("image"))));
+                productDetails.put("image", Base64.getEncoder()
+                        .encodeToString(Base64.getDecoder().decode(postgreSQL.resultSet.getBytes("image"))));
             }
             postgreSQL.terminate();
         } catch (Exception e) {
@@ -83,17 +84,18 @@ public class ProductManager {
         return productDetails;
     }
 
-    public static boolean addProduct(Integer freeId, String productName, String productDimension, 
-      String productType, Integer productPrice, String productDescription, String productImage, PostgreSQL postgreSQL) {
+    public static boolean addProduct(Integer freeId, String productName, String productDimension,
+            String productType, Integer productPrice, String productDescription, String productImage,
+            PostgreSQL postgreSQL) {
         System.out.println("==== addProduct init ====");
         try {
             String insertSql = String.format("""
-            INSERT INTO product(id, is_active, price, "type", dimension, name, description, image) 
-            VALUES ('%d', '%b', '%d', '%s', '%s', '%s', '%s', '%s')""", freeId, true, productPrice, productType,
-                productDimension, productName, productDescription, productImage);
+                    INSERT INTO product(id, is_active, price, "type", dimension, name, description, image)
+                    VALUES ('%d', '%b', '%d', '%s', '%s', '%s', '%s', '%s')""", freeId, true, productPrice, productType,
+                    productDimension, productName, productDescription, productImage);
             postgreSQL.execute(insertSql, "insert");
             postgreSQL.terminate();
-            //TODO this is a mock part
+            // TODO this is a mock part
             Integer freeComponentId = ProductManager.getFreeProductComponentsId(postgreSQL);
             addProductComponents(freeComponentId, "stelaz", freeId, "stolarz", 5, postgreSQL);
             //
@@ -105,13 +107,13 @@ public class ProductManager {
     }
 
     public static boolean addProductComponents(Integer id, String componentName, Integer productId,
-        String profession, Integer time_needed, PostgreSQL postgreSQL) {
+            String profession, Integer time_needed, PostgreSQL postgreSQL) {
         System.out.println("==== addProductComponents init ====");
         try {
             String insertSql = String.format("""
-            INSERT INTO product_component(id, name, product_id, profession, time_needed) 
-            VALUES ('%d', '%s', '%d', '%s', '%d')""", id, componentName, productId, profession,
-                time_needed);
+                    INSERT INTO product_component(id, name, product_id, profession, time_needed)
+                    VALUES ('%d', '%s', '%d', '%s', '%d')""", id, componentName, productId, profession,
+                    time_needed);
             postgreSQL.execute(insertSql, "insert");
             postgreSQL.terminate();
         } catch (Exception e) {
@@ -125,9 +127,9 @@ public class ProductManager {
         System.out.println("==== manageProductStatus init ====");
         try {
             String updateSql = String.format("""
-            UPDATE product SET is_active = '%b'
-            WHERE id = '%d'""", 
-            newStatus, productId);
+                    UPDATE product SET is_active = '%b'
+                    WHERE id = '%d'""",
+                    newStatus, productId);
             postgreSQL.execute(updateSql, "update");
             postgreSQL.terminate();
         } catch (Exception e) {
@@ -140,9 +142,9 @@ public class ProductManager {
         JSONArray products = new JSONArray();
         try {
             String selectSql = String.format("""
-            SELECT type, name, is_active
-            FROM product
-            """);
+                    SELECT type, name, is_active
+                    FROM product
+                    """);
             postgreSQL.execute(selectSql, "select");
 
             // Process and display the retrieved data
@@ -165,11 +167,11 @@ public class ProductManager {
         Integer freeId = 0;
         try {
             String selectSql = String.format("""
-            SELECT id
-            FROM product
-            ORDER BY id DESC
-            LIMIT 1
-            """);
+                    SELECT id
+                    FROM product
+                    ORDER BY id DESC
+                    LIMIT 1
+                    """);
             postgreSQL.execute(selectSql, "select");
 
             // Process and display the retrieved data
@@ -188,11 +190,11 @@ public class ProductManager {
         Integer freeId = 0;
         try {
             String selectSql = String.format("""
-            SELECT id
-            FROM product_component
-            ORDER BY id DESC
-            LIMIT 1
-            """);
+                    SELECT id
+                    FROM product_component
+                    ORDER BY id DESC
+                    LIMIT 1
+                    """);
             postgreSQL.execute(selectSql, "select");
 
             // Process and display the retrieved data

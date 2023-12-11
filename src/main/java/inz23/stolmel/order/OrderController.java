@@ -1,4 +1,5 @@
 package inz23.stolmel.order;
+
 import inz23.stolmel.postgreSQL.*;
 import inz23.stolmel.user.*;
 import inz23.stolmel.product.*;
@@ -18,9 +19,10 @@ import org.json.*;
 public class OrderController {
 
   private final PostgreSQL postgreSQL;
+
   @Autowired
   public OrderController(PostgreSQL postgreSQL) {
-      this.postgreSQL = postgreSQL;
+    this.postgreSQL = postgreSQL;
   }
 
   private final String APIaddress = "http://localhost:4200";
@@ -41,7 +43,7 @@ public class OrderController {
   public String getProductsFromOrder(@RequestBody ObjectNode json) {
     JSONArray orderProductsInBucket = Order.getProductIdsFromOrder(json.get("order_id").asInt(), postgreSQL);
     JSONArray orderProducts = new JSONArray();
-    for(int it = 0; it < orderProductsInBucket.length(); it++) {
+    for (int it = 0; it < orderProductsInBucket.length(); it++) {
       Integer product_id = orderProductsInBucket.getJSONObject(it).getInt("product_id");
       Integer amount = orderProductsInBucket.getJSONObject(it).getInt("amount");
       Product product = Order.getProductFromId(product_id, postgreSQL);
