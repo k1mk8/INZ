@@ -46,9 +46,8 @@ public class Schedules {
         try {
             for (int i = 0; i < professionsTime.size(); i++) {
                 // drivers cannot finish their work until it is done
-                // (when they drive they cannot come back with the cargo)
-                // TODO !!!!!!!!!!! pracownicy mogą być w różnej kolejności - sprawdzić czy nie trzeba sortować po zawodzie
-                // json powinien zalatwic sprawe zamiast reference of professions
+                // (when they depart they cannot come back with the cargo)
+                // TODO shipment for the whole basket instead of shipment for each element
                 String profession = professionsTime.get(i).get("Profession").toString();
                 Integer time = Integer.valueOf(professionsTime.get(i).get("Time_needed").toString());
                 System.out.println(professionsTime.get(i));
@@ -66,7 +65,7 @@ public class Schedules {
                     while (postgreSQL.resultSet.next()) {
                         JSONObject jo = new JSONObject();
                         jo.put("timestamp", postgreSQL.resultSet.getString("datetime"));
-                        jo.put("employeeId", postgreSQL.resultSet.getString("id"));
+                        jo.put("employeeId", postgreSQL.resultSet.getInt("id"));
                         hoursForTasks.add(jo);
                     }
                     postgreSQL.terminate();
@@ -109,7 +108,7 @@ public class Schedules {
                     while (postgreSQL.resultSet.next()) {
                         JSONObject jo = new JSONObject();
                         jo.put("timestamp", postgreSQL.resultSet.getString("datetime"));
-                        jo.put("employeeId", postgreSQL.resultSet.getString("id"));
+                        jo.put("employeeId", postgreSQL.resultSet.getInt("id"));
                         hoursForTasks.add(jo);
                     }
                     postgreSQL.terminate();
