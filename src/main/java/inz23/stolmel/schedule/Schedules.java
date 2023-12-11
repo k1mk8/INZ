@@ -1,9 +1,12 @@
-package com.example.application;
+package inz23.stolmel.schedule;
+
+import inz23.stolmel.postgreSQL.*;
+import inz23.stolmel.product.*;
+import inz23.stolmel.order.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import org.json.*;
-
 
 public class Schedules {
 
@@ -11,9 +14,9 @@ public class Schedules {
         System.out.println("==== checkMaterialsAvaiability init ====");
         try {
             String selectSql = String.format("""
-            SELECT id, amount FROM GOODS
-            WHERE '%s' = product_id AND '1' = is_available
-            """, productId, "select");
+                    SELECT id, amount FROM GOODS
+                    WHERE '%s' = product_id AND '1' = is_available
+                    """, productId, "select");
             postgreSQL.execute(selectSql, "select");
             if (postgreSQL.resultSet.next()) {
                 postgreSQL.terminate();
@@ -43,47 +46,45 @@ public class Schedules {
         try {
             for (int i = 0; i < professionsTime.size(); i++) {
                 // drivers cannot finish their work until it is done
-                // (when they drive they cannot come back with the cargo)
-                // TODO !!!!!!!!!!! pracownicy mogą być w różnej kolejności - sprawdzić czy nie trzeba sortować po zawodzie
-                // json powinien zalatwic sprawe zamiast reference of professions
+                // (when they depart they cannot come back with the cargo)
+                // TODO shipment for the whole basket instead of shipment for each element
                 String profession = professionsTime.get(i).get("Profession").toString();
                 Integer time = Integer.valueOf(professionsTime.get(i).get("Time_needed").toString());
                 System.out.println(professionsTime.get(i));
                 System.out.println(!profession.equals("kierowca"));
-                if(!profession.equals("kierowca")) {
+                if (!profession.equals("kierowca")) {
                     String selectSql = String.format("""
-                    SELECT DISTINCT ON (datetime) datetime, EMPLOYEE.id FROM SCHEDULE
-                    INNER JOIN EMPLOYEE ON Employee_id = EMPLOYEE.id
-                    WHERE profession = '%s' AND order_id is null
-                    AND datetime > '%s'
-                    GROUP BY EMPLOYEE.id, datetime
-                    ORDER BY datetime LIMIT '%s'""", 
-                    profession, lastTimeOfSchedule.get(referenceOfProfessions.get(idx)), time);
-                    postgreSQL.execute(selectSql, "select");
-                    while (postgreSQL.resultSet.next()) {
-                        JSONObject jo = new JSONObject();
-                        jo.put("timestamp", postgreSQL.resultSet.getString("datetime"));
-                        jo.put("employeeId", postgreSQL.resultSet.getString("id"));
-                        hoursForTasks.add(jo);
-                    }
-                    postgreSQL.terminate();
-                }
-                else {
-                    // If the delivery is longer than the single shift it can be longer than a day
-                    String selectSql = String.format("""
-                    SELECT DATE(a.datetime) AS date, a.id FROM
-                    (
                             SELECT DISTINCT ON (datetime) datetime, EMPLOYEE.id FROM SCHEDULE
                             INNER JOIN EMPLOYEE ON Employee_id = EMPLOYEE.id
                             WHERE profession = '%s' AND order_id is null
                             AND datetime > '%s'
                             GROUP BY EMPLOYEE.id, datetime
-                            ORDER BY datetime
-                    ) a
-                    GROUP BY date, a.id
-                    HAVING COUNT(a.datetime) >= '%s'
-                    ORDER BY date
-                    """, profession, lastTimeOfSchedule.get(referenceOfProfessions.get(idx)), time);
+                            ORDER BY datetime LIMIT '%s'""",
+                            profession, lastTimeOfSchedule.get(referenceOfProfessions.get(idx)), time);
+                    postgreSQL.execute(selectSql, "select");
+                    while (postgreSQL.resultSet.next()) {
+                        JSONObject jo = new JSONObject();
+                        jo.put("timestamp", postgreSQL.resultSet.getString("datetime"));
+                        jo.put("employeeId", postgreSQL.resultSet.getInt("id"));
+                        hoursForTasks.add(jo);
+                    }
+                    postgreSQL.terminate();
+                } else {
+                    // If the delivery is longer than the single shift it can be longer than a day
+                    String selectSql = String.format("""
+                            SELECT DATE(a.datetime) AS date, a.id FROM
+                            (
+                                    SELECT DISTINCT ON (datetime) datetime, EMPLOYEE.id FROM SCHEDULE
+                                    INNER JOIN EMPLOYEE ON Employee_id = EMPLOYEE.id
+                                    WHERE profession = '%s' AND order_id is null
+                                    AND datetime > '%s'
+                                    GROUP BY EMPLOYEE.id, datetime
+                                    ORDER BY datetime
+                            ) a
+                            GROUP BY date, a.id
+                            HAVING COUNT(a.datetime) >= '%s'
+                            ORDER BY date
+                            """, profession, lastTimeOfSchedule.get(referenceOfProfessions.get(idx)), time);
                     postgreSQL.execute(selectSql, "select");
                     String date = "";
                     int id = -1;
@@ -94,19 +95,19 @@ public class Schedules {
                     }
                     postgreSQL.terminate();
                     selectSql = String.format(
-                    """
-                            SELECT DISTINCT ON (datetime) datetime, EMPLOYEE.id FROM SCHEDULE
-                            INNER JOIN EMPLOYEE ON Employee_id = EMPLOYEE.id
-                            WHERE employee.id = '%s' AND order_id is null
-                            AND DATE(datetime) = '%s' AND datetime > '%s'
-                            GROUP BY EMPLOYEE.id, datetime
-                            ORDER BY datetime LIMIT '%s'
-                    """, id, date, lastTimeOfSchedule.get(referenceOfProfessions.get(idx)), time);
+                            """
+                                            SELECT DISTINCT ON (datetime) datetime, EMPLOYEE.id FROM SCHEDULE
+                                            INNER JOIN EMPLOYEE ON Employee_id = EMPLOYEE.id
+                                            WHERE employee.id = '%s' AND order_id is null
+                                            AND DATE(datetime) = '%s' AND datetime > '%s'
+                                            GROUP BY EMPLOYEE.id, datetime
+                                            ORDER BY datetime LIMIT '%s'
+                                    """, id, date, lastTimeOfSchedule.get(referenceOfProfessions.get(idx)), time);
                     postgreSQL.execute(selectSql, "select");
                     while (postgreSQL.resultSet.next()) {
                         JSONObject jo = new JSONObject();
                         jo.put("timestamp", postgreSQL.resultSet.getString("datetime"));
-                        jo.put("employeeId", postgreSQL.resultSet.getString("id"));
+                        jo.put("employeeId", postgreSQL.resultSet.getInt("id"));
                         hoursForTasks.add(jo);
                     }
                     postgreSQL.terminate();
@@ -124,13 +125,14 @@ public class Schedules {
     public static void setHoursForEmployees(List<JSONObject> professionsTime, Integer orderId, PostgreSQL postgreSQL) {
         System.out.println("==== setHoursForEmployees init ====");
         try {
-            for(Integer i = 0; i < professionsTime.size(); i++) {
-                //single task
+            for (Integer i = 0; i < professionsTime.size(); i++) {
+                // single task
                 String updateSql = String.format("""
-                UPDATE SCHEDULE
-                SET order_id = '%d'
-                WHERE datetime = '%s' AND employee_id = '%s'
-                """, orderId, professionsTime.get(i).get("timestamp"), professionsTime.get(i).get("employeeId"));
+                        UPDATE SCHEDULE
+                        SET order_id = '%d'
+                        WHERE datetime = '%s' AND employee_id = '%s'
+                        """, orderId, professionsTime.get(i).get("timestamp"),
+                        professionsTime.get(i).get("employeeId"));
                 postgreSQL.execute(updateSql, "update");
                 postgreSQL.terminate();
             }
@@ -151,10 +153,10 @@ public class Schedules {
         System.out.println("==== removeSchedule init ====");
         try {
             String updateSql = String.format("""
-                UPDATE SCHEDULE
-                SET order_id = null
-                WHERE order_id = '%d'
-                """, orderId);
+                    UPDATE SCHEDULE
+                    SET order_id = null
+                    WHERE order_id = '%d'
+                    """, orderId);
             postgreSQL.execute(updateSql, "update");
             postgreSQL.terminate();
         } catch (Exception e) {
@@ -164,9 +166,9 @@ public class Schedules {
 
     public static void updateSchedule(Integer orderId, PostgreSQL postgreSQL) {
         System.out.println("==== updateSchedule init ====");
-        try {            
+        try {
             JSONArray orderProductsInBucket = Order.getProductIdsFromOrder(orderId, postgreSQL);
-            for(int it = 0; it < orderProductsInBucket.length(); it++) {
+            for (int it = 0; it < orderProductsInBucket.length(); it++) {
                 System.out.println(orderProductsInBucket.getJSONObject(it));
                 Integer product_id = orderProductsInBucket.getJSONObject(it).getInt("product_id");
                 Schedules.setSchedule(product_id, orderId, postgreSQL);
@@ -176,4 +178,3 @@ public class Schedules {
         }
     }
 }
-

@@ -1,4 +1,4 @@
-package com.example.application;
+package inz23.stolmel.dataTypeClasses;
 
 public class Client {
 
@@ -87,9 +87,22 @@ public class Client {
 	}
 
 	@Override
-    public String toString() {
-        return String.format("""
-		{"id":"%d", "name":"%s", "surname":"%s", "number":"%s", "email":"%s", "hash":"%s", "is_admin":"%b"}""", 
-		this.id, this.name, this.surname, this.number, this.email, this.hash, this.isAdmin);
-    }
+	public String toString() {
+		return String.format("""
+				{"id":"%d", "name":"%s", "surname":"%s", "number":"%s", "email":"%s", "hash":"%s", "is_admin":"%b"}""",
+				this.id, this.name, this.surname, this.number, this.email, this.hash, this.isAdmin);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		Client otherClient = (Client) obj;
+
+		return id == otherClient.getId() &&
+				name == otherClient.getName() &&
+				surname == otherClient.getSurname() &&
+				number == otherClient.getNumber() &&
+				email == otherClient.getEmail() &&
+				hash == otherClient.getHash() &&
+				isAdmin == otherClient.isAdmin();
+	}
 }

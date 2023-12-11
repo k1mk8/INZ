@@ -1,4 +1,4 @@
-package com.example.application;
+package inz23.stolmel.sha;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -6,7 +6,7 @@ import java.security.NoSuchAlgorithmException;
 public class SHA512 {
     public static String hash(String input) {
         System.out.println("==== Hash init ====");
-        String hash = null;   
+        String hash = null;
         try {
             // Create a SHA-512 MessageDigest instance
             MessageDigest sha512Digest = MessageDigest.getInstance("SHA-512");
@@ -30,7 +30,7 @@ public class SHA512 {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        
+
         System.out.println("==== Hash done ====");
         return hash;
     }

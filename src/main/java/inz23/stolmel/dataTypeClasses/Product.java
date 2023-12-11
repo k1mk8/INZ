@@ -1,4 +1,4 @@
-package com.example.application;
+package inz23.stolmel.dataTypeClasses;
 
 public class Product {
 
@@ -43,8 +43,17 @@ public class Product {
 	}
 
 	@Override
-    public String toString() {
-        return String.format("""
-		{"id":"%d", "name":"%s", "price":"%s"}""", this.id, this.name, this.price);
-    }
+	public String toString() {
+		return String.format("""
+				{"id":"%d", "name":"%s", "price":"%s"}""", this.id, this.name, this.price);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		Product otherProduct = (Product) obj;
+
+		return id == otherProduct.getId() &&
+				name == otherProduct.getName() &&
+				price == otherProduct.getPrice();
+	}
 }

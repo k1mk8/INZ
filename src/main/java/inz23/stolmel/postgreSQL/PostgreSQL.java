@@ -1,18 +1,13 @@
-package com.example.application;
+package inz23.stolmel.postgreSQL;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.stream.Collectors;
+import org.springframework.context.annotation.Configuration;
 import java.util.concurrent.locks.ReentrantLock;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import java.util.ArrayList;
-import java.util.List;
-import org.json.*;
 
-
+@Configuration
 public class PostgreSQL {
 
     private final String DB_URL = "jdbc:postgresql://inz23_db:5432/postgres";
@@ -22,6 +17,9 @@ public class PostgreSQL {
     public PreparedStatement selectStatement = null;
     public ResultSet resultSet = null;
     public Connection connection = null;
+
+    public PostgreSQL() {
+    }
 
     public void execute(String query, String queryType) {
         lock.lock();
@@ -39,10 +37,9 @@ public class PostgreSQL {
             this.selectStatement = connection.prepareStatement(query);
 
             // Execute the SELECT query and get the result set
-            if(queryType == "select"){
+            if (queryType == "select") {
                 this.resultSet = this.selectStatement.executeQuery();
-            }
-            else {
+            } else {
                 this.selectStatement.execute();
             }
             System.out.println("==== query executed ====");
@@ -53,7 +50,7 @@ public class PostgreSQL {
 
     public void terminate() {
         try {
-            if(this.resultSet.isBeforeFirst()){
+            if (this.resultSet.isBeforeFirst()) {
                 this.resultSet.close();
             }
             this.connection.close();
@@ -63,7 +60,3 @@ public class PostgreSQL {
         }
     }
 }
-
-
-
-
