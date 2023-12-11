@@ -47,4 +47,13 @@ public class Product {
 		return String.format("""
 				{"id":"%d", "name":"%s", "price":"%s"}""", this.id, this.name, this.price);
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		Product otherProduct = (Product) obj;
+
+		return id == otherProduct.getId() &&
+				name == otherProduct.getName() &&
+				price == otherProduct.getPrice();
+	}
 }

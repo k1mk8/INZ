@@ -26,7 +26,7 @@ public class Order {
             postgreSQL.execute(selectSql, "select");
             while (postgreSQL.resultSet.next()) {
                 JSONObject jo = new JSONObject();
-                jo.put("id", postgreSQL.resultSet.getString("id"));
+                jo.put("id", postgreSQL.resultSet.getInt("id"));
                 jo.put("state", postgreSQL.resultSet.getString("state"));
                 jo.put("timestamp", postgreSQL.resultSet.getString("timestamp"));
                 clientOrders.put(jo);
@@ -39,23 +39,12 @@ public class Order {
         return clientOrders;
     }
 
-    public static JSONObject createOrderForClient(Integer clientId, PostgreSQL postgreSQL) {
+    public static JSONObject createOrderForClient(Integer clientId, Integer freeId, PostgreSQL postgreSQL) {
         System.out.println("==== createOrderForClient init ====");
 
         JSONObject clientBasket = new JSONObject();
         try {
-            String selectSql = String.format("""
-            SELECT id FROM "order"
-            ORDER BY id DESC
-            LIMIT 1
-            """);
-            postgreSQL.execute(selectSql, "select");
-            Integer freeID = 0;
-            if (postgreSQL.resultSet.next()) {
-                freeID = postgreSQL.resultSet.getInt("id") + 1;
-            }
-            postgreSQL.terminate();
-            clientBasket.put("id", freeID);
+            clientBasket.put("id", freeId);
             clientBasket.put("state", "Aktywny Koszyk");
             clientBasket.put("client_id", clientId);
             clientBasket.put("timestamp", strDate);
@@ -63,13 +52,34 @@ public class Order {
             System.out.println("==== inserting order init ====");
             String insertSql = String.format("""
             INSERT INTO "order"(id, state, client_id, timestamp) VALUES (%d, '%s', '%s', '%s')
-            """, freeID, "Aktywny Koszyk", clientId, strDate);
+            """, freeId, "Aktywny Koszyk", clientId, strDate);
             postgreSQL.execute(insertSql, "insert");
             postgreSQL.terminate();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return clientBasket;
+    }
+
+    public static Integer getFreeOrderId(PostgreSQL postgreSQL) {
+        System.out.println("==== getFreeOrderId init ====");
+        Integer freeId = -1;
+        try {
+            String selectSql = String.format("""
+            SELECT id FROM "order"
+            ORDER BY id DESC
+            LIMIT 1
+            """);
+            postgreSQL.execute(selectSql, "select");
+            if (postgreSQL.resultSet.next()) {
+                freeId = postgreSQL.resultSet.getInt("id") + 1;
+            }
+            postgreSQL.terminate();
+            System.out.println(freeId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return freeId;
     }
 
     public static JSONArray getProductIdsFromOrder(Integer orderId, PostgreSQL postgreSQL) {
@@ -84,8 +94,8 @@ public class Order {
             postgreSQL.execute(selectSql, "select");
             while (postgreSQL.resultSet.next()) {
                 JSONObject jo = new JSONObject();
-                jo.put("product_id", postgreSQL.resultSet.getString("product_id"));
-                jo.put("amount", postgreSQL.resultSet.getString("amount"));
+                jo.put("product_id", postgreSQL.resultSet.getInt("product_id"));
+                jo.put("amount", postgreSQL.resultSet.getInt("amount"));
                 orderProducts.put(jo);
             }
             postgreSQL.terminate();
@@ -107,7 +117,7 @@ public class Order {
             """, clientId);
             postgreSQL.execute(selectSql, "select");
             if (postgreSQL.resultSet.next()) {
-                clientBasket.put("id", postgreSQL.resultSet.getString("id"));
+                clientBasket.put("id", postgreSQL.resultSet.getInt("id"));
                 clientBasket.put("state", postgreSQL.resultSet.getString("state"));
                 clientBasket.put("timestamp", postgreSQL.resultSet.getString("timestamp"));
             }

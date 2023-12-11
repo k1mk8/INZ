@@ -1,167 +1,136 @@
 import spock.lang.Specification
+import groovy.json.JsonOutput
 import java.sql.ResultSet
 import inz23.stolmel.dataTypeClasses.*
 import inz23.stolmel.postgreSQL.*
+import inz23.stolmel.order.*
 
 class OrderSpec extends Specification {
 
-    def postgreSQL = new PostgreSQL()
+    def order = new Order()
+    def postgreSQL = Mock(PostgreSQL)
     def resultSet = Mock(ResultSet)
 
-    def "getClientByEmail test"() {
+    def "getOrdersOfClient test"() {
         given:
-        def id = 1
-        def name = "lukasz"
-        def surname = "konieczny"
-        def number = "+48123456789"
-        def email = "lukaszkonieczny@gmail.com"
-        def hash = "b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86"
-        def isAdmin = false
+        def clientId = 1
 
         1 * resultSet.next() >> true
-        1 * resultSet.getInt("id") >> id
-        1 * resultSet.getString("name") >> name
-        1 * resultSet.getString("surname") >> surname
-        1 * resultSet.getString("number") >> number
-        1 * resultSet.getString("email") >> email
-        1 * resultSet.getString("hash") >> hash
-        1 * resultSet.getBoolean("is_admin") >> isAdmin
+        1 * resultSet.getInt("id") >> 1
+        1 * resultSet.getString("state") >> "Aktywny Koszyk"
+        1 * resultSet.getString("timestamp") >> "2023-09-01 23:59"
+        1 * resultSet.next() >> true
+        1 * resultSet.getInt("id") >> 2
+        1 * resultSet.getString("state") >> "W trakcie realizacji"
+        1 * resultSet.getString("timestamp") >> "2023-08-11 16:10"
         1 * resultSet.next() >> false
 
         postgreSQL.resultSet = resultSet
 
+        def jsonArray = [
+            ["id": 1, "state": "Aktywny Koszyk", "timestamp": "2023-09-01 23:59"],
+            ["id": 2, "state": "W trakcie realizacji", "timestamp": "2023-08-11 16:10"]
+        ]
+        def jsonString = JsonOutput.toJson(jsonArray)
+
         expect:
-        user.getClientByEmail("email", postgreSQL) == new Client(id, name, surname, number, email, hash, isAdmin)
+        order.getOrdersOfClient(clientId, postgreSQL).toString() == jsonString
     }
 
-    def "login test"() {
+    def "createOrderForClient test"() {
         given:
-        def id = 1
-        def name = "lukasz"
-        def surname = "konieczny"
-        def number = "+48123456789"
-        def email = "lukaszkonieczny@gmail.com"
-        def hash = "b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86"
-        def isAdmin = false
+        def clientId = 5
+        def orderId = 12
+
+        def jsonObject = ["id": orderId, "state": "Aktywny Koszyk", "client_id": clientId, "timestamp":order.strDate]
+        def jsonString = JsonOutput.toJson(jsonObject)
+
+        expect:
+        order.createOrderForClient(clientId, orderId, postgreSQL).toString() == jsonString
+    }
+
+    def "getFreeOrderId test"() {
+        given:
+        def id = 12
 
         1 * resultSet.next() >> true
         1 * resultSet.getInt("id") >> id
-        1 * resultSet.getString("name") >> name
-        1 * resultSet.getString("surname") >> surname
-        1 * resultSet.getString("number") >> number
-        1 * resultSet.getString("email") >> email
-        1 * resultSet.getString("hash") >> hash
-        1 * resultSet.getBoolean("is_admin") >> isAdmin
-        1 * resultSet.next() >> false
 
         postgreSQL.resultSet = resultSet
 
         expect:
-        user.login(email, "password", postgreSQL) == 1
+        order.getFreeOrderId(postgreSQL) == id + 1
     }
 
-    def "login test2"() {
+    def "getProductIdsFromOrder test"() {
         given:
-        def id = 1
-        def name = "lukasz"
-        def surname = "konieczny"
-        def number = "+48123456789"
-        def email = "lukaszkonieczny@gmail.com"
-        def hash = "b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86"
-        def isAdmin = true
+        def orderId = 12
 
         1 * resultSet.next() >> true
-        1 * resultSet.getInt("id") >> id
-        1 * resultSet.getString("name") >> name
-        1 * resultSet.getString("surname") >> surname
-        1 * resultSet.getString("number") >> number
-        1 * resultSet.getString("email") >> email
-        1 * resultSet.getString("hash") >> hash
-        1 * resultSet.getBoolean("is_admin") >> isAdmin
+        1 * resultSet.getInt("product_id") >> 1
+        1 * resultSet.getInt("amount") >> 1
+        1 * resultSet.next() >> true
+        1 * resultSet.getInt("product_id") >> 5
+        1 * resultSet.getInt("amount") >> 3
         1 * resultSet.next() >> false
 
         postgreSQL.resultSet = resultSet
-
-        expect:
-        user.login(email, "password", postgreSQL) == 2
-    }
-
-    def "login test 3"() {
-        given:
-        def email = "lukaszkonieczny@gmail.com"
-        1 * resultSet.next() >> false
-        postgreSQL.resultSet = resultSet
-
-        expect:
-        user.login(email, "password", postgreSQL) == 0
-    }
-
-    def "getFreeClientId test"() {
-        given:
-        def id = 18
-
-        1 * resultSet.next() >> true
-        1 * resultSet.getInt("id") >> id
-        1 * resultSet.next() >> false
-
-        postgreSQL.resultSet = resultSet
-
-        expect:
-        user.getFreeClientId(postgreSQL) == id + 1
-    }
-
-    def "register test"() {
-        given:
-        def id = 1
-        def name = "lukasz"
-        def surname = "konieczny"
-        def number = "+48123456789"
-        def email = "lukaszkonieczny@gmail.com"
-        def hash = "b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86"
-        def isAdmin = true
-        def Client client = new Client(id, name, surname, number, email, hash, isAdmin)
-
-        1 * resultSet.next() >> true
-        1 * resultSet.getInt("id") >> id
-        1 * resultSet.getString("name") >> name
-        1 * resultSet.getString("surname") >> surname
-        1 * resultSet.getString("number") >> number
-        1 * resultSet.getString("email") >> email
-        1 * resultSet.getString("hash") >> hash
-        1 * resultSet.getBoolean("is_admin") >> isAdmin
-        1 * resultSet.next() >> false
         
-        postgreSQL.resultSet = resultSet
+        def jsonArray = [
+            ["amount": 1, "product_id": 1],
+            ["amount": 3, "product_id": 5]
+        ]
+        def jsonString = JsonOutput.toJson(jsonArray)
 
         expect:
-        user.register(client, postgreSQL) == true
+        order.getProductIdsFromOrder(orderId, postgreSQL).toString() == jsonString
     }
 
-    def "register test 2"() {
+    def "getBasketOfClient test"() {
         given:
-        def id = 1
-        def name = "lukasz"
-        def surname = "konieczny"
-        def number = "+48123456789"
-        def email = "lukaszkonieczny@gmail.com"
-        def hash = "b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86"
-        def isAdmin = true
-        def Client client = new Client(id, name, surname, number, email, hash, isAdmin)
+        def clientId = 12
 
-        1 * resultSet.next() >> false
         1 * resultSet.next() >> true
-        1 * resultSet.getInt("id") >> id
-        1 * resultSet.getString("name") >> name
-        1 * resultSet.getString("surname") >> surname
-        1 * resultSet.getString("number") >> number
-        1 * resultSet.getString("email") >> email
-        1 * resultSet.getString("hash") >> hash
-        1 * resultSet.getBoolean("is_admin") >> isAdmin
-        1 * resultSet.next() >> false
+        1 * resultSet.getInt("id") >> 1
+        1 * resultSet.getString("state") >> "Aktywny Koszyk"
+        1 * resultSet.getString("timestamp") >> "2023-09-01 23:59"
+
+        postgreSQL.resultSet = resultSet
         
+        def jsonObject = ["id": 1, "state": "Aktywny Koszyk", "timestamp": "2023-09-01 23:59"]
+        def jsonString = JsonOutput.toJson(jsonObject)
+
+        expect:
+        order.getBasketOfClient(clientId, postgreSQL).toString() == jsonString
+    }
+
+    def "getProductFromId test"() {
+        given:
+        def productId = 1
+
+        1 * resultSet.next() >> true
+        1 * resultSet.getInt("id") >> 1
+        1 * resultSet.getString("name") >> "mebel"
+        1 * resultSet.getString("price") >> "1233"
+
+        postgreSQL.resultSet = resultSet
+        
+        def product = new Product(1, "mebel", "1233")
+
+        expect:
+        order.getProductFromId(productId, postgreSQL) == product
+    }
+
+    def "basketFinish test"() {
+        given:
+        def orderId = 1
+
+        1 * resultSet.next() >> true
+        1 * resultSet.getString("datetime") >> "2023-09-01 23:59"
+
         postgreSQL.resultSet = resultSet
 
         expect:
-        user.register(client, postgreSQL) == true
+        order.basketFinish(orderId, postgreSQL) == "2023-09-01 23:59"
     }
 }

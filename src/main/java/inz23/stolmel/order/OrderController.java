@@ -76,7 +76,7 @@ public class OrderController {
     Client client = User.getClientByEmail(json.get("email").asText(), postgreSQL);
     JSONObject clientBasket = Order.getBasketOfClient(client.getId(), postgreSQL);
     if (!clientBasket.has("id")) {
-      Order.createOrderForClient(client.getId(), postgreSQL);
+      Order.createOrderForClient(client.getId(), Order.getFreeOrderId(postgreSQL), postgreSQL);
       clientBasket = Order.getBasketOfClient(client.getId(), postgreSQL);
     }
     Integer productId = ProductManager.getProductId(json.get("name").asText(), postgreSQL);
