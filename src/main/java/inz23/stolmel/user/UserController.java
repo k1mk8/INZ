@@ -1,4 +1,5 @@
 package inz23.stolmel.user;
+
 import inz23.stolmel.postgreSQL.*;
 import inz23.stolmel.dataTypeClasses.*;
 import inz23.stolmel.sha.*;
@@ -11,15 +12,16 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
 
-
 @RestController
 public class UserController {
 
   private final PostgreSQL postgreSQL;
+
   @Autowired
   public UserController(PostgreSQL postgreSQL) {
-      this.postgreSQL = postgreSQL;
+    this.postgreSQL = postgreSQL;
   }
+
   private final String APIaddress = "http://localhost:4200";
 
   @PostMapping("/clientByEmail")
@@ -48,6 +50,9 @@ public class UserController {
     String hash = SHA512.hash(json.get("password").asText());
     boolean isAdmin = false;
     Client client = new Client(id, name, surname, number, email, hash, isAdmin);
+    // check if user already exists
+    if (User.getClientByEmail(client.getEmail(), postgreSQL) != null)
+      return false;
     return User.register(client, postgreSQL);
   }
 

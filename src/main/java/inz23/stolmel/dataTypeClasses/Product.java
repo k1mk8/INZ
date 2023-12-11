@@ -43,8 +43,8 @@ public class Product {
 	}
 
 	@Override
-    public String toString() {
-        return String.format("""
-		{"id":"%d", "name":"%s", "price":"%s"}""", this.id, this.name, this.price);
-    }
+	public String toString() {
+		return String.format("""
+				{"id":"%d", "name":"%s", "price":"%s"}""", this.id, this.name, this.price);
+	}
 }

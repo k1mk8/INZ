@@ -2,12 +2,10 @@ import spock.lang.Specification
 import java.sql.ResultSet
 import inz23.stolmel.dataTypeClasses.*
 import inz23.stolmel.postgreSQL.*
-import inz23.stolmel.user.*
 
-class UserSpec extends Specification {
+class OrderSpec extends Specification {
 
-    def user = new User()
-    def postgreSQL = Mock(PostgreSQL)
+    def postgreSQL = new PostgreSQL()
     def resultSet = Mock(ResultSet)
 
     def "getClientByEmail test"() {
@@ -151,10 +149,19 @@ class UserSpec extends Specification {
         def Client client = new Client(id, name, surname, number, email, hash, isAdmin)
 
         1 * resultSet.next() >> false
+        1 * resultSet.next() >> true
+        1 * resultSet.getInt("id") >> id
+        1 * resultSet.getString("name") >> name
+        1 * resultSet.getString("surname") >> surname
+        1 * resultSet.getString("number") >> number
+        1 * resultSet.getString("email") >> email
+        1 * resultSet.getString("hash") >> hash
+        1 * resultSet.getBoolean("is_admin") >> isAdmin
+        1 * resultSet.next() >> false
         
         postgreSQL.resultSet = resultSet
 
         expect:
-        user.register(client, postgreSQL) == false
+        user.register(client, postgreSQL) == true
     }
 }

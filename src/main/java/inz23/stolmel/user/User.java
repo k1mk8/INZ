@@ -1,11 +1,12 @@
 package inz23.stolmel.user;
+
 import inz23.stolmel.dataTypeClasses.*;
 import inz23.stolmel.postgreSQL.*;
 import inz23.stolmel.sha.*;
 
 public class User {
 
-  public static Client getClientByEmail(String getEmail, PostgreSQL postgreSQL) {
+    public static Client getClientByEmail(String getEmail, PostgreSQL postgreSQL) {
         System.out.println("==== getCLientByEmail init ====");
         Client client = null;
         try {
@@ -32,15 +33,16 @@ public class User {
         return client;
     }
 
-    public static int login (String getEmail, String getPassword, PostgreSQL postgreSQL) {
+    public static int login(String getEmail, String getPassword, PostgreSQL postgreSQL) {
         System.out.println("==== login init ====");
 
         boolean isAdminRet = false;
         String getHash = SHA512.hash(getPassword);
-        
+
         Client client = null;
         try {
-            String selectSql = String.format("SELECT * FROM client WHERE email = '%s' AND hash = '%s'", getEmail, getHash);
+            String selectSql = String.format("SELECT * FROM client WHERE email = '%s' AND hash = '%s'", getEmail,
+                    getHash);
             postgreSQL.execute(selectSql, "select");
 
             // Process and display the retrieved data
@@ -59,13 +61,12 @@ public class User {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if(client != null && isAdminRet == true){
+        if (client != null && isAdminRet == true) {
             return 2;
-        }
-        else if(client != null && isAdminRet == false){
+        } else if (client != null && isAdminRet == false) {
             return 1;
-        }
-        else return 0;
+        } else
+            return 0;
     }
 
     public static int getFreeClientId(PostgreSQL postgreSQL) {
@@ -87,23 +88,20 @@ public class User {
         return id + 1;
     }
 
-    public static boolean register (Client client, PostgreSQL postgreSQL) {
+    public static boolean register(Client client, PostgreSQL postgreSQL) {
         System.out.println("==== register init ====");
-        
-        if (getClientByEmail(client.getEmail(), postgreSQL) != null)
-            return false;
         try {
             String insertSql = String.format("""
-                INSERT INTO client(id, name, surname, number, email, hash, is_admin) 
-                VALUES (%d, '%s', '%s', '%s', '%s', '%s', 'false')""", 
-                client.getId(), client.getName(), client.getSurname(), 
-                client.getNumber(), client.getEmail(), client.getHash());
+                    INSERT INTO client(id, name, surname, number, email, hash, is_admin)
+                    VALUES (%d, '%s', '%s', '%s', '%s', '%s', 'false')""",
+                    client.getId(), client.getName(), client.getSurname(),
+                    client.getNumber(), client.getEmail(), client.getHash());
             postgreSQL.execute(insertSql, "insert");
             postgreSQL.terminate();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return (getClientByEmail(client.getEmail(), postgreSQL) != null ? true : false );
+        return (getClientByEmail(client.getEmail(), postgreSQL) != null ? true : false);
     }
 
 }
