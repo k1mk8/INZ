@@ -11,28 +11,28 @@
   
   .name {
     text-align: center;
-    font-size: 48px;
-    margin: 20px;
+    font-size: 25px;
+    margin-top: 100px;
   }
   
   .contact {
     font-size: 36px;
-    margin: 20px 0;
+    margin: 10px 0;
   }
   
   a.email, a.telefon, a.adres {
     font-weight: bold;
-    margin-top: 20px;
-    font-size: 24px;
+    margin-top: 5px;
+    font-size: 20px;
   }
   
   a.value-email, a.value-telefon, a.value-adres {
     margin-left: 10px;
-    font-size: 24px;
+    font-size: 20px;
   }
   
   .space {
-    margin-top: 20px;
+    margin-top: 5px;
   }
 
   iframe {

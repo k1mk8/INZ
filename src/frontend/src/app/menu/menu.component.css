@@ -13,6 +13,20 @@ h1.page-title {
     margin: 0;
 }
 
+
+.ui.menu.centered-menu {
+  background-color: hsl(213, 85%, 87%);
+}
+.labels{
+    font-size: 20px;
+    font-display: bold;
+    color:  hsl(213, 85%, 34%);
+}
+
+.ui.secondary.button{
+    background-color: hsl(213, 85%, 87%);
+}
+
 h2.name {
     font-size: 25px;
     text-align: center;

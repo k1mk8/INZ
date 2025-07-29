@@ -1,0 +1,209 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');
+
+:root {
+  --parisian-blue-rgb: 0, 114, 187;
+  --muted-orange: #D9822B;
+  --gray-dark: #333;
+
+  --max-line-width: 600px;
+  --line-height: 1.75;
+  --letter-spacing: 0.5px;
+
+  --transition-fast: 0.2s ease-out;
+  --transition-medium: 0.4s ease;
+  --pulse-duration: 5s;
+  --bg-gradient-start: #ffffff;
+  --bg-gradient-end: #f9fafb;
+}
+
+* {
+  box-sizing: border-box;
+  transition: all var(--transition-fast);
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  color: var(--gray-dark);
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+}
+
+/* animacja pojawiania się */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* pulsowanie ramki */
+@keyframes pulseBorder {
+  0%   { border-color: rgba(var(--parisian-blue-rgb), 0.2); }
+  50%  { border-color: rgba(var(--parisian-blue-rgb), 0.4); }
+  100% { border-color: rgba(var(--parisian-blue-rgb), 0.2); }
+}
+
+/* Wrapper wszystkich bloków */
+.about-container {
+  padding: 0 1rem;
+  padding-left: 8%;
+  padding-right: 8%;
+}
+
+/* Każdy blok treści */
+.about-block {
+  max-width: var(--max-line-width);
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border: 2px solid rgba(var(--parisian-blue-rgb), 0.2);
+  border-radius: 12px;
+  line-height: var(--line-height);
+  letter-spacing: var(--letter-spacing);
+  font-weight: 300;
+
+  position: relative;
+  overflow: hidden;
+  animation: fadeInUp 0.6s both;
+  animation-fill-mode: backwards;
+  animation-timing-function: ease-out;
+  animation: fadeInUp 0.6s both, pulseBorder var(--pulse-duration) ease-in-out infinite;
+  transition: all var(--transition-medium);
+}
+
+/* Delaye dla kolejnych sekcji */
+.about-block:nth-of-type(1) { animation-delay: 0.2s; }
+.about-block:nth-of-type(2) { animation-delay: 0.4s; }
+.about-block:nth-of-type(3) { animation-delay: 0.6s; }
+
+/* Lift i cień przy hover */
+.about-block:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  border-color: rgba(var(--parisian-blue-rgb), 0.6);
+}
+
+/* Subtelne tło przy hover */
+.about-block::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(var(--parisian-blue-rgb), 0.03);
+  opacity: 0;
+  transition: opacity var(--transition-medium);
+  border-radius: 12px;
+}
+
+.about-block:hover::before {
+  opacity: 1;
+}
+
+/* Nagłówki wewnątrz bloków */
+.about-block h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 1rem;
+  color: rgba(var(--parisian-blue-rgb), 0.6);
+  position: relative;
+}
+
+.about-block h2::after {
+  content: '';
+  width: 50px;
+  height: 4px;
+  background: rgba(var(--parisian-blue-rgb), 0.6);
+  display: block;
+  margin-top: 6px;
+  border-radius: 2px;
+  transition: width var(--transition-medium);
+}
+
+.about-block h2:hover::after {
+  width: 80px;
+}
+
+/* Tekst i listy w blokach */
+.about-block p,
+.about-block ul,
+.call-to-action {
+  margin: 0 auto 1.5rem;
+}
+
+.about-block ul {
+  list-style: none;
+  padding: 0;
+}
+
+.about-block li {
+  position: relative;
+  padding-left: 1.5em;
+  margin-bottom: 0.75em;
+}
+
+.about-block li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0.4em;
+  width: 0.6em; height: 0.2em;
+  background: var(--muted-orange);
+  border-radius: 2px;
+}
+
+/* Wyróżnienia w paragrafach */
+.about-block p strong {
+  color: rgba(var(--parisian-blue-rgb),1);
+  position: relative;
+}
+
+.about-block p strong::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border: 1px dashed rgba(var(--parisian-blue-rgb),1);
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.about-block p strong:hover::before {
+  opacity: 1;
+}
+
+/* Linki */
+.about-block a,
+.call-to-action a {
+  color: var(--muted-orange);
+  text-decoration: none;
+  font-weight: 600;
+  position: relative;
+}
+
+.about-block a::after,
+.call-to-action a::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: -2px;
+  height: 2px;
+  background: var(--muted-orange);
+  width: 0;
+  transition: width var(--transition-fast);
+}
+
+.about-block a:hover::after,
+.call-to-action a:hover::after {
+  width: 100%;
+}
+
+/* CTA pod sekcjami */
+.call-to-action {
+  max-width: var(--max-line-width);
+  margin: 2rem auto;
+  text-align: center;
+  line-height: var(--line-height);
+}
+
+/* Responsywność */
+@media (max-width: 600px) {
+  .about-block h2 { font-size: 1.5rem; }
+}

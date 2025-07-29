@@ -1,56 +1,32 @@
-<h1 class="page-title">Producent mebli wypoczynkowych</h1>
-
 <head>
     <title>Semantic-UI Menu Button Content</title>
-    <link rel="stylesheet" href=
-"https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.css" integrity="sha512-KXol4x3sVoO+8ZsWPFI/r5KBVB/ssCGB5tsv2nVOKwLg33wTFP3fmnXa47FdSVIshVTgsYk/1734xSk9aFIa4A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <div class="ui inverted menu centered-menu">
     <div class="item">
-      <img src="../../assets/stolmel.png" [routerLink]="['/main']" alt="Stolmel Logo" style="width: 60px; height: auto;" >
-      <div class="ui simple dropdown item">
-        <div class="ui secondary button" style="width: 200px;">Sofy</div>
-        <i class="dropdown icon"></i>
-        <div class="menu">
-          <div class="item" *ngFor="let produkt of rodzajeProduktow['sofa']" (click)="redirectToDetails(produkt)">{{produkt}}</div>
-        </div>
+      <div class="item logo">
+        <img src="../../assets/EC.png" [routerLink]="['/main']" alt="EC Logo" style="width: 150px; height: auto; margin-right: 15%;" >
       </div>
-      <div class="ui simple dropdown item">
-        <div class="ui secondary button" style="width: 200px;">Fotele</div>
-        <i class="dropdown icon"></i>
-        <div class="menu">
-          <div class="item" *ngFor="let produkt of rodzajeProduktow['fotel']" (click)="redirectToDetails(produkt)">{{produkt}}</div>
-        </div>
+      <div class="item" style="flex:1 1 auto;"></div>
+      <div class="ui secondary button" style="width: 200px;" [title]="'myaccount'"
+        [routerLink]="['/news']">
+      <a class="labels">Aktualności</a>
       </div>
-      <div class="ui simple dropdown item">
-        <div class="ui secondary button" style="width: 200px;">Wersalki</div>
-        <i class="dropdown icon"></i>
-        <div class="menu">
-          <div class="item" *ngFor="let produkt of rodzajeProduktow['wersalka']" (click)="redirectToDetails(produkt)">{{produkt}}</div>
-        </div>
+      <div class="ui secondary button" style="width: 200px;" [title]="'myaccount'"
+        [routerLink]="['/portfolio']">
+        <a class="labels">Portfolio</a>
       </div>
-      <div class="ui simple dropdown item">
-        <div class="ui secondary button" style="width: 200px;">Łoża sypialne</div>
-        <i class="dropdown icon"></i>
-        <div class="menu">
-          <div class="item" *ngFor="let produkt of rodzajeProduktow['tapczan']" (click)="redirectToDetails(produkt)">{{produkt}}</div>
-        </div>
+      <div class="ui secondary button" style="width: 200px;" [title]="'myaccount'"
+        [routerLink]="['/aboutus']">
+        <a class="labels">O nas</a>
       </div>
       <div class="ui secondary button" style="width: 200px;" [title]="'contact'"
         [routerLink]="['/contact']">
-        Kontakt
+        <a class="labels">Kontakt</a>
       </div> 
-      <div class="ui secondary button" style="width: 200px;" [title]="'myaccount'" *ngIf="this.cookieService.get('SESSION_ADMIN') === 'NO'"
-        [routerLink]="['/myaccount']">
-        Moje konto
-      </div>
       <div class="ui secondary button" style="width: 200px;" [title]="'admin'" *ngIf="this.cookieService.get('SESSION_ADMIN') === 'YES'"
         [routerLink]="['/admin']">
-        Admin
-      </div> 
-      <div class="ui secondary button" style="width: 200px;" [title]="'login'" *ngIf="!this.cookieService.get('SESSION_TOKEN')"
-        [routerLink]="['/login']">
-        Logowanie
+        <a class="labels">Admin</a>
       </div> 
 </div>
 </div>

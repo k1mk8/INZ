@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ContactComponent } from './contact/contact.component';
 import { MainPageComponent } from './main-page/main-page.component';
-import { MyAccountComponent } from './my-account/my-account.component';
+import { NewsComponent } from './news/news.component';
 import { LoginComponent } from './login/login.component';
 import { RegistryComponent } from './registry/registry.component';
-import { BasketComponent } from './basket/basket.component';
-import { HistoryComponent } from './history/history.component';
+import { AboutusComponent } from './aboutus/aboutus.component';
+import { PortfolioComponent } from './portfolio/portfolio.component';
 import { ProductsComponent } from './products/products.component';
 import { AdminComponent } from './admin/admin.component';
 import { AdminGuard } from './admin.guard';
@@ -25,8 +25,8 @@ const routes: Routes = [
     component: MainPageComponent
   },
   {
-    path: 'myaccount',
-    component: MyAccountComponent
+    path: 'news',
+    component: NewsComponent
   }, 
   {
     path: 'login',
@@ -41,12 +41,12 @@ const routes: Routes = [
     component: ProductsComponent
   }, 
   {
-    path: 'basket',
-    component: BasketComponent
+    path: 'aboutus',
+    component: AboutusComponent
   }, 
   {
-    path: 'history',
-    component: HistoryComponent
+    path: 'portfolio',
+    component: PortfolioComponent
   },
   {
     path: 'admin',

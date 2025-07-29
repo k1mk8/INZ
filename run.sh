@@ -1,6 +1,6 @@
-sudo docker-compose down
+sudo docker compose down
 ./gradlew build
 sleep 1
-sudo docker-compose build
+sudo docker compose build
 sleep 1
-sudo docker-compose up
+sudo docker compose up
