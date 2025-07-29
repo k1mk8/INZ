@@ -1,7 +1,15 @@
-import { Component, OnInit  } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+
+interface News {
+  id: number;
+  title: string;
+  content: string;
+  published_at?: string;
+  is_published: boolean;
+}
 
 @Component({
   selector: 'app-admin',
@@ -9,100 +17,101 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
-  constructor(private router: Router, private http: HttpClient, private cookieservice: CookieService) {
-  }
-  registerDimensions = '';
-  registerPrice = '';
-  registerType = '';
-  registerName = '';
-  registerDescription = '';
-  message = '';
-  registerImage = '';
-  type: string[] = [];
-  name: string[] = [];
+  newsList: News[] = [];
+  pagedItems: News[] = [];
+  loadingList = false;
+  currentPage = 0;
+  pageSize = 10;
+  totalPages = 0;
 
-  async ngOnInit(): Promise<void> {
-    try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const orderResponse: any = await this.http.get('http://localhost:8082/getProducts').toPromise();
-        for (const value of orderResponse) {
-          if(value.is_active === "t"){
-            this.type.push(value.type);
-            this.name.push(value.name);
-          }
-        }
-    } catch (error) {
-      console.error('Błąd podczas pobierania produktów', error);
-    }
+  formModel = { title: '', content: '', publishedDate: '', isPublished: false };
+  editingId: number | null = null;
+  private baseUrl = 'http://localhost:8082/admin/news';
+
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private cookieService: CookieService
+  ) {}
+
+  ngOnInit(): void {
+    this.loadNews();
   }
 
-  async registerProduct(): Promise<void> {
-    const productData = {
-      dimension: this.registerDimensions,
-      price: this.registerPrice,
-      type: this.registerType,
-      name: this.registerName,
-      description: this.registerDescription,
-      image: this.registerImage
-    };
-    try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const response: any = await this.http.post('http://localhost:8082/addProduct', productData).toPromise();
-
-      if (response === true) {
-        console.log('Rejestracja produktu zakończona sukcesem', response);
-        this.message = 'rejestracja produktu zakończona sukcesem';
-        this.router.navigate(['/products', this.registerName]);
-      } else {
-        this.message = 'Produkt o takiej nazwie istnieje w systemie';
-        console.log('Produkt o takiej nazwie istnieje w systemie');
-      }
-    } catch (error) {
-      console.error('Błąd podczas rejestracji', error);
-      this.message = 'Błąd podczas rejestracji produktu. Proszę spróbować ponownie.';
-    }
-  }
-  
-  async removeProduct(name: string): Promise<void> {
-    try {
-      const product = {
-        name: name,
-        newStatus: false
-      };
-      await this.http.post('http://localhost:8082/manageProductStatus', product).toPromise();
-      const index = this.name.indexOf(name);
-      if (index !== -1) {
-        this.type.splice(index, 1);
-        this.name.splice(index, 1);
-      }
-    } catch (error) { 
-      console.error('Błąd podczas usuwania produktu z oferty', error);
-    }
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onImageSelected(event: any) {
-    const selectedFile = event.target.files[0];
-    if (selectedFile) {
-      if (selectedFile.type === 'image/jpeg') {
-        console.log('Zdjęcie zostało wybrane:', selectedFile);
-        const reader = new FileReader();
-
-        console.log('test');
-        reader.onloadend = () => {
-          // 'result' contains the Base64-encoded image
-          this.registerImage = reader.result as string;
-        };
-        console.log(this.registerImage);
-        reader.readAsDataURL(selectedFile);
-      } else {
-        console.log('Wybrany plik nie jest w formacie JPG.');
-      }
-    }
-  }
-
-  deleteCookies(){
-    this.cookieservice.deleteAll();
+  deleteCookies(): void {
+    this.cookieService.deleteAll();
     this.router.navigate(['login']);
+  }
+
+  loadNews(): void {
+    this.loadingList = true;
+    this.http.get<News[]>(this.baseUrl).subscribe({
+      next: data => {
+        this.newsList = data;
+        this.totalPages = Math.ceil(this.newsList.length / this.pageSize);
+        this.setPagedItems();
+        this.loadingList = false;
+      },
+      error: () => { this.loadingList = false; alert('Błąd przy ładowaniu listy'); }
+    });
+  }
+
+  setPagedItems(): void {
+    const start = this.currentPage * this.pageSize;
+    this.pagedItems = this.newsList.slice(start, start + this.pageSize);
+  }
+
+  prevPage(): void {
+    if (this.currentPage > 0) {
+      this.currentPage--;
+      this.setPagedItems();
+    }
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages - 1) {
+      this.currentPage++;
+      this.setPagedItems();
+    }
+  }
+
+  onSubmit(): void {
+    const payload = {
+      title: this.formModel.title,
+      content: this.formModel.content,
+      is_published: this.formModel.isPublished,
+      published_at: this.formModel.publishedDate
+        ? new Date(this.formModel.publishedDate).toISOString()
+        : null
+    };
+    const request$ = this.editingId === null
+      ? this.http.post(this.baseUrl, payload)
+      : this.http.put(`${this.baseUrl}/${this.editingId}`, payload);
+    request$.subscribe({ next: () => { this.resetForm(); this.loadNews(); },
+      error: () => alert(this.editingId === null ? 'Błąd przy dodawaniu' : 'Błąd przy edycji')
+    });
+  }
+
+  startEdit(item: News): void {
+    this.editingId = item.id;
+    this.formModel = {
+      title: item.title,
+      content: item.content,
+      isPublished: item.is_published,
+      publishedDate: item.published_at ? item.published_at.slice(0,10) : ''
+    };
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  deleteNews(id: number): void {
+    if (!confirm('Na pewno usunąć?')) return;
+    this.http.delete(`${this.baseUrl}/${id}`).subscribe({ next: () => this.loadNews(), error: () => alert('Błąd przy usuwaniu') });
+  }
+
+  cancelEdit(): void { this.resetForm(); }
+
+  private resetForm(): void {
+    this.editingId = null;
+    this.formModel = { title: '', content: '', publishedDate: '', isPublished: false };
   }
 }

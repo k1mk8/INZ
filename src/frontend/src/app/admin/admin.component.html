@@ -1,58 +1,92 @@
 <body>
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.2/semantic.min.css">
-    <app-menu></app-menu>
-    <div class="logout">
-      <div (click)="deleteCookies()" class="ui secondary button">Wyloguj się</div>
-    </div>
-    <div class="ui grid">
-      <div class="eight wide column">
-        <div class="addProduct">
-          <h2>Dodaj produkt</h2>
-          <form (ngSubmit)="registerProduct()">
-            <div>
-              <label for="registerType">Typ mebla:</label>
-              <input type="text" id="registerType" name="registerType" [(ngModel)]="registerType" required>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.2/semantic.min.css">
+
+  <app-menu></app-menu>
+
+  <!-- Logout button centered at top -->
+  <div class="logout-container">
+    <button class="ui secondary button logout-btn" (click)="deleteCookies()">Wyloguj się</button>
+  </div>
+
+  <div class="admin-wrapper">
+    <div class="admin-container">
+      <!-- Formularz -->
+      <section class="form-panel ui segment card-anim">
+        <h2 class="ui header center">
+          {{ editingId === null ? 'Dodaj nową aktualność' : 'Edytuj aktualność' }}
+        </h2>
+        <form class="ui form" (ngSubmit)="onSubmit()" #newsForm="ngForm">
+          <div class="field">
+            <label>Tytuł</label>
+            <input name="title" [(ngModel)]="formModel.title" required placeholder="Tytuł..." />
+          </div>
+          <div class="field">
+            <label>Treść</label>
+            <textarea name="content" [(ngModel)]="formModel.content" required rows="6" placeholder="Treść..."></textarea>
+          </div>
+          <div class="two fields">
+            <div class="field">
+              <label>Data publikacji</label>
+              <input type="date" name="publishedDate" [(ngModel)]="formModel.publishedDate" />
             </div>
-            <div>
-              <label for="registerName">Nazwa mebla:</label>
-              <input type="text" id="registerName" name="registerName" [(ngModel)]="registerName" required>
+            <div class="field">
+              <label>Opublikowane</label>
+              <select name="isPublished" [(ngModel)]="formModel.isPublished">
+                <option [ngValue]="true">Tak</option>
+                <option [ngValue]="false">Nie</option>
+              </select>
             </div>
-            <div>
-              <label for="registerDimensions">Wymiary:</label>
-              <input type="text" id="registerDimensions" name="registerDimensions" [(ngModel)]="registerDimensions" required>
-            </div>
-            <div>
-              <label for="registerDescription">Opis:</label>
-              <input type="text" id="registerDescription" name="registerDescription" [(ngModel)]="registerDescription">
-            </div>
-            <div>
-              <label for="registerPrice">Cena:</label>
-              <input type="text" id="registerPrice" name="registerPrice" [(ngModel)]="registerPrice" required>
-            </div>
-            <div>
-              <label for="registerImage">Zdjęcie (tylko JPG):</label>
-              <input type="file" id="registerImage" name="registerImage" accept="image/jpeg" (change)="onImageSelected($event)">
-            </div>
-            <div class="error-message" *ngIf="message">
-              {{ message }}
-            </div>
-            <button type="submit">Dodaj produkt</button>
-          </form>
-        </div>
-      </div>
-      <div class="eight wide column">
-        <div class="product-container">
-          <h2>Usuń produkt</h2>
-          <ul class="product-list">
-            <li *ngFor="let product of type; let i = index">
-              <div class="product-details">
-                <p>Typ produktu: {{ product }} ||| Nazwa produktu: {{ name[i] }}</p>
-                <div class="ui secondary button" (click)="removeProduct(name[i])">Usuń</div>
+          </div>
+          <div class="button-row">
+            <button class="ui primary button" type="submit" [disabled]="newsForm.invalid">
+              {{ editingId === null ? 'Dodaj' : 'Zapisz zmiany' }}
+            </button>
+            <button
+              *ngIf="editingId !== null"
+              type="button"
+              class="ui button"
+              (click)="cancelEdit()"
+            >
+              Anuluj
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Lista -->
+      <section class="list-panel ui segment card-anim">
+        <h2 class="ui header center">Lista aktualności</h2>
+        <div *ngIf="loadingList" class="ui active inline loader"></div>
+        <div *ngIf="!loadingList">
+          <div class="news-list">
+            <div *ngFor="let item of pagedItems" class="item item-row">
+              <div class="content">
+                <a class="header">{{ item.title }}</a>
+                <div class="description">
+                  <small>{{ item.published_at | date:'dd.MM.yyyy' }}</small>
+                </div>
               </div>
-            </li>
-          </ul>
+              <div class="right floated content">
+                <button class="ui mini icon button" (click)="startEdit(item)">
+                  <i class="edit icon"></i>
+                </button>
+                <button class="ui mini red icon button" (click)="deleteNews(item.id)">
+                  <i class="trash icon"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Paginacja -->
+          <div class="pagination-controls">
+            <button class="ui button" (click)="prevPage()" [disabled]="currentPage===0">Poprzednia</button>
+            <span>Strona {{ currentPage+1 }} / {{ totalPages }}</span>
+            <button class="ui button" (click)="nextPage()" [disabled]="currentPage>=totalPages-1">Następna</button>
+          </div>
         </div>
-      </div>
+      </section>
     </div>
+  </div>
+
+  <app-bottom-bar></app-bottom-bar>
 </body>
-<app-bottom-bar></app-bottom-bar>

@@ -33,40 +33,6 @@ describe('AdminComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should initialize type and name arrays', () => {
-    expect(component.type).toEqual([]);
-    expect(component.name).toEqual([]); 
-  });
-
-  it('should fetch products on ngOnInit', fakeAsync(() => {
-    const mockData = [
-      { type: 'sofa', name: 'Sofa1' },
-      { type: 'fotel', name: 'Fotel1' },
-    ];
-
-    component.ngOnInit();
-
-    const req = httpTestingController.expectOne('http://localhost:8082/getProducts');
-    req.flush(mockData);
-
-    tick();
-    expect(component.type).toEqual(['sofa', 'fotel']); 
-    expect(component.name).toEqual(['Sofa1', 'Fotel1']);
-  }));
-
-  it('should remove a product from type and name arrays in removeProduct', async () => { 
-    component.type = ['Type1', 'Type2']; 
-    component.name = ['Product1', 'Product2']; 
-  
-    
-    const httpPostSpy = spyOn(component['http'], 'post').and.returnValue(of(true));
-    await component.removeProduct('Product1');
-  
-    httpPostSpy.calls.mostRecent().returnValue.subscribe(() => {
-      expect(component.type).not.toContain('Type1');
-      expect(component.name).not.toContain('Product1');  
-    });
-  });
 
   it('should delete all cookies and navigate to login page in deleteCookies', () => {
     const cookieService = TestBed.inject(CookieService);

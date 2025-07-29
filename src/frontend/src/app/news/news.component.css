@@ -1,56 +1,147 @@
-.center-container {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 40vh;
-  }
+:root {
+  --parisian-blue: #7ec8e3;
+  --midnight-blue: #2a3d66;
+  --light-gray: #f5f7fa;
+  --text-dark: #333;
+  --white: #fff;
+  --transition: 0.4s ease;
+  --radius: 12px;
+}
 
-.contact {
-    font-size: 30px; 
-    text-align: center;
-    font-weight: bold;
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
-  
-  a.email, a.telefon, a.adres {
-    font-size: 25px; /* Zwiększ rozmiar tekstu */
-    margin-top: 2%;
-    align-content: center;
-    color: #000; /* Kolor tekstu (czarny) */
-    text-align: right; /* Wyrównaj do prawej strony */
-  }
-  
-  a.value-email, a.value-telefon, a.value-adres {
-    font-size: 25px; /* Zwiększ rozmiar tekstu */
-    margin-top: 2%;
-    align-content: center;
-    color: #000; /* Kolor tekstu (czarny) */
-    text-align: left; /* Wyrównaj do lewej strony */
-  }
-  
-  /* Stylizacja odstępów "space" */
-  h2.space {
-    margin-top: 2%; /* Zwiększ odstęp */
-    margin-bottom: 2%; /* Zwiększ odstęp */
-  }
-  
-  /* Stylizacja przycisku "Wyloguj się" */
-  .ui.secondary.button {
-    width: 200px;
-    margin-top: 3%;
-  }
+body {
+  background: var(--light-gray);
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+}
 
-  .contact {
-    margin-top: 2%;
-    margin-bottom: 2%;
-    align-items: center;
-  }
+.news-section {
+  max-width: 960px;
+  margin: 4rem auto;
+  padding: 0 1rem;
+}
 
-  .logout {
-    margin-top: 3%;
+.section-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.page-title {
+  font-size: 2.8rem;
+  color: var(--midnight-blue);
+  margin: 0;
+}
+.section-subtitle {
+  color: var(--text-dark);
+  opacity: 0.7;
+  margin-top: 0.5rem;
+}
+
+.status {
+  text-align: center;
+  margin: 2rem 0;
+  color: var(--text-dark);
+}
+.status.error {
+  color: #c00;
+}
+
+/* Paginacja */
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.nav {
+  background: var(--midnight-blue);
+  border: none;
+  color: var(--white);
+  font-size: 1.5rem;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background var(--transition);
+  margin: 0 1rem;
+}
+
+.nav:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.nav:not(:disabled):hover {
+  background: var(--parisian-blue);
+}
+
+.dots {
+  display: flex;
+}
+.dots span {
+  width: 12px; height: 12px;
+  margin: 0 6px;
+  background: rgba(0,0,0,0.2);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background var(--transition);
+}
+.dots span.active,
+.dots span:hover {
+  background: var(--parisian-blue);
+}
+
+/* Grid aktualności */
+
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Karta */
+
+.card {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.card-header {
+  background: var(--parisian-blue);
+  padding: 1rem;
+  color: var(--white);
+}
+.news-title {
+  font-size: 1.2rem;
+  margin: 0 0 0.3rem;
+}
+.news-meta {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+.card-body {
+  padding: 1rem;
+  color: var(--text-dark);
+  flex: 1;
+  overflow: auto;
+}
+
+/* Prosta animacja wejścia przy każdej stronie */
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
+}

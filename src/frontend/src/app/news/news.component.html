@@ -1,4 +1,39 @@
 <body>
-    <app-menu></app-menu>
-    <app-bottom-bar></app-bottom-bar>
+  <app-menu></app-menu>
+
+  <section class="news-section">
+    <div class="section-header">
+      <h1 class="page-title">Aktualności</h1>
+      <p class="section-subtitle">Bądź na bieżąco z najnowszymi informacjami</p>
+    </div>
+
+    <div *ngIf="loading" class="status">Ładowanie…</div>
+    <div *ngIf="error" class="status error">{{ error }}</div>
+
+    <div *ngIf="!loading && !error" class="pagination-controls">
+      <button class="nav" (click)="prevPage()" [disabled]="currentPage===0">‹</button>
+      <div class="dots">
+        <span *ngFor="let _ of [].constructor(pageCount); let idx = index"
+              (click)="goTo(idx)"
+              [class.active]="idx === currentPage"></span>
+      </div>
+      <button class="nav" (click)="nextPage()" [disabled]="currentPage>=pageCount-1">›</button>
+    </div>
+
+    <div *ngIf="!loading && !error" class="news-grid">
+      <article *ngFor="let item of pagedNews" class="card fade-in">
+        <div class="card-header">
+          <h2 class="news-title">{{ item.title }}</h2>
+          <time *ngIf="item.published_at" class="news-meta">
+            {{ item.published_at | date:'dd.MM.yyyy' }}
+          </time>
+        </div>
+        <div class="card-body">
+          <p class="news-content">{{ item.content }}</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <app-bottom-bar></app-bottom-bar>
 </body>
