@@ -4,7 +4,6 @@ import { ContactComponent } from './contact/contact.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import { NewsComponent } from './news/news.component';
 import { LoginComponent } from './login/login.component';
-import { RegistryComponent } from './registry/registry.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { PortfolioComponent } from './portfolio/portfolio.component';
 import { ProductsComponent } from './products/products.component';
@@ -31,10 +30,6 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
-  }, 
-  {
-    path: 'registry',
-    component: RegistryComponent
   }, 
   {
     path: 'products/:id',

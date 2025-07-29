@@ -9,7 +9,6 @@ import { MainPageComponent } from './main-page/main-page.component';
 import { NewsComponent } from './news/news.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
-import { RegistryComponent } from './registry/registry.component';
 import { MenuComponent } from './menu/menu.component';
 import {CookieService} from 'ngx-cookie-service';
 import { AboutusComponent } from './aboutus/aboutus.component';
@@ -26,7 +25,6 @@ import { AdminComponent } from './admin/admin.component';
     MainPageComponent,
     NewsComponent,
     LoginComponent,
-    RegistryComponent,
     MenuComponent,
     AboutusComponent,
     PortfolioComponent,

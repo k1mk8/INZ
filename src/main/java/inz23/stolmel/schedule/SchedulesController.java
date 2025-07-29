@@ -25,26 +25,4 @@ public class SchedulesController {
 
   private final String APIaddress = "http://localhost:4200";
 
-  @PostMapping("/checkAvailability")
-  @CrossOrigin(origins = APIaddress)
-  @ResponseBody
-  public boolean checkMaterialsAvailability(@RequestBody ObjectNode json) {
-    int id = ProductManager.getProductId(json.get("name").asText(), postgreSQL);
-    boolean materialAvailability = Schedules.checkMaterialsAvailability(id, postgreSQL);
-    System.out.println(String.format("Poduct availability: %b", materialAvailability));
-    return materialAvailability;
-  }
-
-  @PostMapping("/checkSchedule")
-  @CrossOrigin(origins = APIaddress)
-  @ResponseBody
-  public String getLastHourOfTasks(@RequestBody ObjectNode json) {
-    int id = ProductManager.getProductId(json.get("name").asText(), postgreSQL);
-    List<JSONObject> neededProfessionsTime = ProductManager.getNeededProfessions(id, postgreSQL);
-    List<JSONObject> ListOfTimestampsAndEmployees = Schedules.getLastHourOfTasks(neededProfessionsTime, postgreSQL);
-    String lastTimestamp = ListOfTimestampsAndEmployees.get(ListOfTimestampsAndEmployees.size() - 1).get("timestamp")
-        .toString();
-    System.out.println(String.format("==== Delivery time: %s ====", lastTimestamp));
-    return String.format("{\"date\":\"%s\"}", lastTimestamp);
-  }
 }

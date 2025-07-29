@@ -9,45 +9,41 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  constructor(private router: Router, private http: HttpClient, private cookieservice: CookieService) {}
-  
   email = '';
   password = '';
   message = '';
-  isAdmin = false;
 
-  async login(): Promise<void> { 
-    const userData = {
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private cookieservice: CookieService
+  ) {}
+
+  async login(): Promise<void> {
+    this.message = '';
+    const payload = {
       email: this.email,
       password: this.password
     };
-
     try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const response: any = await this.http.post('http://localhost:8082/login', userData).toPromise();
+      const response = await this.http.post<boolean>(
+        'http://localhost:8082/login',
+        payload
+      ).toPromise();
 
-      if (response === 1 || response === 2) {
-        console.log('Logowanie zakończona sukcesem', response);
-        this.cookieservice.set('SESSION_TOKEN', this.email, 1/24);
-        this.message = 'Logowanie prawidłowe';
-        if(response === 2){
+      if (response != null) {
+        if(response){
+          this.cookieservice.set('SESSION_TOKEN', this.email, 1/24);
           this.cookieservice.set('SESSION_ADMIN', 'YES', 1/24);
           this.router.navigate(['admin']);
         }
         else{
-          this.cookieservice.set('SESSION_ADMIN', 'NO', 1/24);
-          this.router.navigate(['myaccount']);
+          this.message = 'Nieprawidłowy email lub hasło';
         }
-      } else {
-        this.message = 'Nieprawidłowy email lub hasło';
-        console.log('Nieprawidłowy email lub hasło');
-      }
+      } 
     } catch (error) {
       console.error('Błąd podczas logowania', error);
-      this.message = 'Błąd podczas logowania'; 
+      this.message = 'Błąd podczas logowania';
     }
-  }
-  directToRegistry(){
-    this.router.navigate(['registry']);
   }
 }

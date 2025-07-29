@@ -24,36 +24,11 @@ public class UserController {
 
   private final String APIaddress = "http://localhost:4200";
 
-  @PostMapping("/clientByEmail")
-  @ResponseBody
-  @CrossOrigin(origins = APIaddress)
-  public Client getClientByEmail(@RequestBody String email) {
-    return User.getClientByEmail(email, postgreSQL);
-  }
-
   @PostMapping("/login")
   @ResponseBody
   @CrossOrigin(origins = APIaddress)
-  public int login(@RequestBody ObjectNode json) {
+  public boolean login(@RequestBody ObjectNode json) {
     return User.login(json.get("email").asText(), json.get("password").asText(), postgreSQL);
-  }
-
-  @PostMapping("/register")
-  @ResponseBody
-  @CrossOrigin(origins = APIaddress)
-  public boolean register(@RequestBody ObjectNode json) {
-    int id = User.getFreeClientId(postgreSQL) + 1;
-    String name = json.get("name").asText();
-    String surname = json.get("surname").asText();
-    String number = json.get("number").asText();
-    String email = json.get("email").asText();
-    String hash = SHA512.hash(json.get("password").asText());
-    boolean isAdmin = false;
-    Client client = new Client(id, name, surname, number, email, hash, isAdmin);
-    // check if user already exists
-    if (User.getClientByEmail(client.getEmail(), postgreSQL) != null)
-      return false;
-    return User.register(client, postgreSQL);
   }
 
 }
