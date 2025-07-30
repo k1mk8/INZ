@@ -104,7 +104,7 @@ body {
   text-transform: uppercase;
   letter-spacing: 2px;
   margin-bottom: 1rem;
-  color: rgba(var(--parisian-blue-rgb), 0.6);
+  color: rgb(0, 15, 142);
   position: relative;
 }
 

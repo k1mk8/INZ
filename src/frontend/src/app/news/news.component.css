@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+
 :root {
   --parisian-blue: #7ec8e3;
   --midnight-blue: #2a3d66;
@@ -7,6 +9,7 @@
   --transition: 0.4s ease;
   --radius: 12px;
 }
+
 
 body {
   background: var(--light-gray);
@@ -26,7 +29,7 @@ body {
 }
 .page-title {
   font-size: 2.8rem;
-  color: var(--midnight-blue);
+  color: rgb(0, 15, 142);
   margin: 0;
 }
 .section-subtitle {
@@ -118,6 +121,7 @@ body {
 .news-title {
   font-size: 1.2rem;
   margin: 0 0 0.3rem;
+  color: rgb(0, 15, 142);
 }
 .news-meta {
   font-size: 0.85rem;

@@ -1,7 +1,7 @@
 :root {
   --accent: #009bdf;
-  --bg: #f9f9f9;
-  --section-alt: #eef6fb;
+  --bg: #ffffff;
+  --section-alt: #ffffff;
   --text: #333;
   --card-bg: #fff;
   --radius: 12px;
@@ -69,6 +69,7 @@ section.team-container {
   border-top: 4px solid var(--accent);
   border-radius: var(--radius);
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  background-color: #ffffff;
   padding: 2rem;
   opacity: 0;
   transform: translateY(20px);
@@ -100,11 +101,12 @@ section.team-container {
 .card h3 {
   font-size: 3rem;
   margin-bottom: 0.75rem;
-  color: var(--accent);
+  color: rgb(0, 15, 142);
 }
 .card p {
   font-size: 2.2rem;
   margin-bottom: 0.5rem;
+  color: rgb(0, 15, 142);
 }
 
 .card h4 {

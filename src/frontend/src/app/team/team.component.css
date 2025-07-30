@@ -78,11 +78,15 @@ section.team-container {
 .card h3 {
   font-size: 1.2rem;
   margin-bottom: 0.75rem;
-  color: var(--accent);
+  color: rgb(0, 15, 142);
 }
 .card p {
   font-size: 0.95rem;
   margin-bottom: 0.5rem;
+}
+
+.section-title{
+  color: rgb(0, 15, 142);
 }
 
 @keyframes fadeInUp {

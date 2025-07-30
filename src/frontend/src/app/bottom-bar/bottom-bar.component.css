@@ -1,5 +1,5 @@
 .bottom-bar {
-  background-color: hsl(213, 85%, 87%);
+  background-color: rgb(222, 226, 255);
   text-align: center;
   padding: 10px 0;
   position: fixed;
@@ -9,6 +9,9 @@
   transition: transform 0.3s ease;
   transform: translateY(0);
   z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .bottom-bar.hidden {
@@ -16,6 +19,18 @@
 }
 
 .bottom-bar-text {
-  color: #fff;
+  color: rgb(0, 15, 142);
   font-size: 14px;
+  font-weight: bold;
+}
+
+.bottom-bar-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-img {
+  height: 24px;
+  width: auto;
 }
