@@ -6,7 +6,7 @@ import { NewsComponent } from './news/news.component';
 import { LoginComponent } from './login/login.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { PortfolioComponent } from './portfolio/portfolio.component';
-import { ProductsComponent } from './products/products.component';
+import { TeamComponent } from './team/team.component';
 import { AdminComponent } from './admin/admin.component';
 import { AdminGuard } from './admin.guard';
 
@@ -32,8 +32,8 @@ const routes: Routes = [
     component: LoginComponent
   }, 
   {
-    path: 'products/:id',
-    component: ProductsComponent
+    path: 'team',
+    component: TeamComponent
   }, 
   {
     path: 'aboutus',

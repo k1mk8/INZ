@@ -15,7 +15,7 @@ import { AboutusComponent } from './aboutus/aboutus.component';
 import { PortfolioComponent } from './portfolio/portfolio.component';
 import { ButtonsComponent } from './buttons/buttons.component';
 import { BottomBarComponent } from './bottom-bar/bottom-bar.component';
-import { ProductsComponent } from './products/products.component';
+import { TeamComponent } from './team/team.component';
 import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
@@ -30,7 +30,7 @@ import { AdminComponent } from './admin/admin.component';
     PortfolioComponent,
     ButtonsComponent,
     BottomBarComponent,
-    ProductsComponent,
+    TeamComponent,
     AdminComponent,
   ],
   imports: [
