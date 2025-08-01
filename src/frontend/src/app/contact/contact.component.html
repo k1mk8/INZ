@@ -1,22 +1,33 @@
 <app-menu></app-menu>
 <section class="team-container">
   <div class="cards-grid">
-    <!-- Informacje kontaktowe -->
-    <div class="card" style="animation-delay: 0.1s;">
-      <h3>EC+ Sp. z o.o.</h3>
-      <p><strong>E-mail: </strong> <a href="mailto:biuro@ecplus.com.pl">biuro@ecplus.com.pl</a></p>
-      <p><strong>Telefon: </strong> <a href="tel:+48785550869">785 550 869</a></p>
-      <p><strong>Adres: </strong> <a  href="https://www.google.com/maps/search/?api=1&query=Vetter%C3%B3w+1%2C+20-277+Lublin" target="_blank">Vetterów 1, 20‑277 Lublin</a></p>
-      <p><strong>KRS: </strong> 0001087868</p>
-      <p><strong>NIP: </strong> 9462737113</p>
-    </div>
+    <!-- Jedna karta z dwiema kolumnami -->
+    <div class="card">
+      <!-- Lewa kolumna: dane kontaktowe -->
+      <div class="info-column">
+        <h3>EC+ Sp. z o.o.</h3>
+        <p><strong>E-mail: </strong>
+           <a href="mailto:biuro@ecplus.com.pl">biuro@ecplus.com.pl</a>
+        </p>
+        <p><strong>Telefon: </strong>
+           <a href="tel:+48785550869">785 550 869</a>
+        </p>
+        <p><strong>Adres: </strong>
+           <a href="https://www.google.com/maps/search/?api=1&query=Vetter%C3%B3w+1%2C+20-277+Lublin" target="_blank">
+             Vetterów 1, 20-277 Lublin
+           </a>
+        </p>
+        <p><strong>KRS: </strong>0001087868</p>
+        <p><strong>NIP: </strong>9462737113</p>
+      </div>
 
-    <!-- Mapa Google -->
-    <div class="card" style="animation-delay: 0.2s;">
-      <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2498.7094207891405!2d22.632216277058433!3d51.22442839300837!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47225691ebc9670d%3A0x3b90fc83b8c0af34!2sEuroCompass%20Sp.%20z%20o.o.!5e0!3m2!1spl!2spl!4v1753701019915!5m2!1spl!2spl"
-        width="100%" height="80%" style="border:0; border-radius:12px;" allowfullscreen="" loading="lazy">
-      </iframe>
+      <!-- Prawa kolumna: mapa -->
+      <div class="map-container">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2498.7094207891405!2d22.632216277058433!3d51.22442839300837!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47225691ebc9670d%3A0x3b90fc83b8c0af34!2sEuroCompass%20Sp.%20z%20o.o.!5e0!3m2!1spl!2spl!4v1753701019915!5m2!1spl!2spl"
+          allowfullscreen="" loading="lazy">
+        </iframe>
+      </div>
     </div>
   </div>
 </section>

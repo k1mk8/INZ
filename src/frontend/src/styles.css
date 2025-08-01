@@ -5,5 +5,9 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  background-color: rgb(241, 242, 255) !important;
+  background-color: rgb(255, 255, 255) !important;
+}
+
+.card {
+  background-color: rgb(241, 242, 255);
 }

@@ -1,61 +1,76 @@
 :root {
   --accent: #009bdf;
+  --highlight: #fe9400;    /* pomarańczowy pasek */
   --bg: #f9f9f9;
-  --section-alt: #eef6fb;
   --text: #333;
   --card-bg: #fff;
   --radius: 12px;
   --transition: 0.4s ease;
-  --font: 'Segoe UI', Tahoma, sans-serif;
 }
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
+
 body {
   font-family: var(--font);
   background-color: var(--bg);
   color: var(--text);
   line-height: 1.6;
 }
+
 app-menu,
 app-bottom-bar {
   display: block;
 }
 
+.team-banner {
+  width: 80%;
+  height: 30%;
+  margin: 0 auto;           
+  justify-content: center; 
+  overflow: hidden;
+  padding: 1% 0;       
+}
+
+
+.team-banner img {
+  width: auto;
+  height: auto;
+  display: block;
+}
+
+/* kontener sekcji */
 section.team-container {
-  margin: 0 10%; /* boczne marginesy 10% */
-  padding: 2rem 0;
+  margin: 0 10%;
+  padding-bottom: 3rem;
 }
 
-.section-title {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  position: relative;
-  display: inline-block;
-  padding-bottom: 0.5rem;
+/* pomarańczowy pasek z tytułem */
+.section-header {
+  background-color: rgb(254, 148, 0);
+  padding: 1rem 0;
+  margin-bottom: 2rem;
+  text-align: center;
 }
-.section-title::after {
-  content: '';
-  position: absolute;
-  width: 60%;
-  height: 4px;
-  background: var(--accent);
-  bottom: 0;
-  left: 0;
-  border-radius: 4px;
+.section-header h2 {
+  color: rgb(255, 255, 255);
+  font-size: 2.5rem;
+  font-weight: 600;
 }
 
+/* siatka kart */
 .cards-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  column-gap: 5%; /* odstępy między kolumnami */
-  row-gap: 2rem;
+  gap: 2rem 5%;
 }
 
+/* pojedyncza karta */
 .card {
-  background: var(--card-bg);
+  background: rgb(241, 242, 255);
   border-top: 4px solid var(--accent);
   border-radius: var(--radius);
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
@@ -64,31 +79,41 @@ section.team-container {
   transform: translateY(20px);
   animation: fadeInUp 0.6s ease forwards;
 }
-.card:nth-child(odd) {
-  animation-delay: 0.1s;
-}
-.card:nth-child(even) {
-  animation-delay: 0.2s;
-}
+
 .card:hover {
   transform: translateY(-8px) scale(1.02);
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
   transition: transform var(--transition), box-shadow var(--transition);
 }
+
 .card h3 {
-  font-size: 1.2rem;
-  margin-bottom: 0.75rem;
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
   color: rgb(0, 15, 142);
 }
+
+.card h4 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: rgb(254, 148, 0);
+}
+
 .card p {
   font-size: 0.95rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
 }
 
-.section-title{
-  color: rgb(0, 15, 142);
+.card .bio {
+  font-size: 0.9rem;
+  color: var(--text);
 }
 
+.email a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+/* animacja przy wczytywaniu */
 @keyframes fadeInUp {
   to {
     opacity: 1;

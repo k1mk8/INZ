@@ -22,7 +22,7 @@
       position: relative;
       display: inline-block;
       padding-bottom: 0.5rem;
-      color: rgb(0, 15, 142);
+      color: rgb(254, 148, 0);
     }
     .category h2::after {
       content: '';

@@ -9,5 +9,4 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class PortfolioComponent {
   constructor(private router: Router, private http: HttpClient, private cookieservice: CookieService) {}
-
 }

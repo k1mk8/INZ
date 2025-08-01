@@ -32,8 +32,8 @@ section.team-container {
   padding-top: 2rem;
   margin: 0 10%;
   display: flex;
-  align-items: flex-start; /* z góry, a nie center */
-  justify-content: flex-start; /* opcjonalnie */
+  align-items: flex-start;
+  justify-content: flex-start;
   flex-direction: column;
 }
 
@@ -58,31 +58,46 @@ section.team-container {
 
 .cards-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   width: 100%;
-  height: 80%; /* zwiększona wysokość na lepsze rozmieszczenie */
-  gap: 5%;
+  height: 80%;
+  gap: 0;
 }
 
 .card {
-  background: var(--card-bg);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  height: 100%;               /* karta na pełną wysokość komórki */
+  background: rgb(241, 242, 255);
   border-top: 4px solid var(--accent);
   border-radius: var(--radius);
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
-  background-color: #ffffff;
   padding: 2rem;
   opacity: 0;
   transform: translateY(20px);
   animation: fadeInUp 0.6s ease forwards;
   font-size: 20px;
+}
 
+.info-column {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: flex-start; /* ← zamiast left */
-  text-align: left;
+  justify-content: center; 
+  align-items: flex-start;
+  padding-left: 10%;
+}
 
-  height: 100%;
+.map-container {
+  overflow: hidden;
+  border-radius: var(--radius);
+  height: 100%;               /* kontener mapy na pełną wysokość karty */
+}
+
+.map-container iframe {
+  width: 100%;
+  height: 100%;               /* iframe rozciągnięty na całą kolumnę */
+  border: none;
 }
 
 .card:nth-child(odd) {
@@ -121,14 +136,10 @@ section.team-container {
   }
 }
 
-.card.map {
-  padding: 0; /* mapa nie potrzebuje wewnętrznego marginesu */
-}
-
-.card.map iframe,
-.card.map .map-container {
-  width: 70%;
-  height: 70%;
-  border: none;
-  border-radius: var(--radius);
+/* Logo z klasy .item.logo: dostosowana szerokość */
+.item.logo img {
+  max-width: 40%;     /* zmniejszona szerokość */
+  height: auto;       /* zachowanie proporcji */
+  display: block;
+  margin-bottom: 1rem;
 }
