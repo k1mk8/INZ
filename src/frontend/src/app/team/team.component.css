@@ -37,6 +37,7 @@ app-bottom-bar {
 
 
 .team-banner img {
+  margin-top: 0.65rem;
   width: auto;
   height: auto;
   display: block;
@@ -49,17 +50,16 @@ section.team-container {
 
 .section-header {
   background-color: rgb(246, 106, 18);
-  padding: 1rem 0;
+  padding: 2rem 1rem;
   margin-bottom: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
 }
-.section-header h2 {
+.section-header h1 {
   color: rgb(255, 255, 255);
   font-size: 2rem;
-  font-weight: 600;
 }
 
 .cards-grid {
