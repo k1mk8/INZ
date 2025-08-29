@@ -17,6 +17,8 @@ import { ButtonsComponent } from './buttons/buttons.component';
 import { BottomBarComponent } from './bottom-bar/bottom-bar.component';
 import { TeamComponent } from './team/team.component';
 import { AdminComponent } from './admin/admin.component';
+import { NewsDetailComponent } from './news-detail/news-detail.component';
+import { TruncatePipe } from './shared/truncate.pipe';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,8 @@ import { AdminComponent } from './admin/admin.component';
     BottomBarComponent,
     TeamComponent,
     AdminComponent,
+    NewsDetailComponent,
+    TruncatePipe
   ],
   imports: [
     BrowserModule,

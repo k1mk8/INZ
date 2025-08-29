@@ -35,8 +35,11 @@ public class Admin {
             boolean isPub = input.getBoolean("is_published");
             Object pubAt = input.opt("published_at"); // ISO string lub NULL
             String sql = String.format(
-                "INSERT INTO news (title, content, is_published, published_at) VALUES ('%s', '%s', %s, %s) RETURNING id",
-                title, content,
+                "INSERT INTO news (title, content, author_id, is_published, published_at) " +
+                "VALUES ('%s', '%s', %d, %s, %s) RETURNING id",
+                title,
+                content,
+                1,
                 isPub ? "true" : "false",
                 (pubAt == null || pubAt.equals(JSONObject.NULL)) ? "NULL" : "'" + pubAt + "'"
             );

@@ -30,7 +30,7 @@ app-bottom-bar {
 section.team-container {
   height: 100vh;
   padding-top: 2rem;
-  margin: 0 10%;
+  margin: 0 15%;
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
@@ -81,9 +81,12 @@ section.team-container {
 }
 
 .section-header {
-  background-color: rgb(254, 148, 0);
+  background-color: rgb(246, 106, 18);
   padding: 1rem 0;
   margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
   width: 100%;
   height: 10%;
@@ -98,7 +101,7 @@ section.team-container {
   display: flex;
   flex-direction: column;
   justify-content: center; 
-  align-items: flex-start;
+  align-items: center;
   padding-left: 10%;
 }
 
@@ -151,4 +154,11 @@ section.team-container {
   height: auto;       /* zachowanie proporcji */
   display: block;
   margin-bottom: 1rem;
+}
+
+img {
+  width: 30%;
+  height: auto;
+  display: block;
+  margin-bottom: 4rem;
 }

@@ -1,0 +1,28 @@
+<app-menu></app-menu>
+<section class="news-detail">
+  <div class="container">
+    <button class="back" (click)="back()">← Wróć</button>
+
+    <div *ngIf="loading" class="status">Ładowanie…</div>
+    <div *ngIf="error" class="status error">{{ error }}</div>
+
+    <article *ngIf="!loading && item" class="full-article">
+
+      <header class="full-header">
+        <h1 class="full-title">{{ item.title }}</h1>
+
+        <div class="article-meta">
+          <div class="meta-left">
+            <time *ngIf="item.published_at" class="full-meta">
+              {{ item.published_at | date:'dd MMMM yyyy, HH:mm' }}
+            </time>
+            <span class="dot">•</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="full-body" [innerHTML]="item.content"></div>
+    </article>
+  </div>
+</section>
+<app-bottom-bar></app-bottom-bar>

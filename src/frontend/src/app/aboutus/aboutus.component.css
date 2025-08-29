@@ -21,7 +21,7 @@
       z-index: 10;
     }
     main.container {
-      max-width: 1200px;
+      max-width: 70%;
       margin: 1rem auto 0; /* odstęp od górnego paska */
       padding: var(--gap) 8%;
       display: grid;
@@ -39,21 +39,20 @@
     }
     nav a:hover::after { width: 100%; }
     .hero {
-      padding: 6rem 8% 4rem;
+      max-width: 70%;
+      margin: 3rem auto 3rem;
       text-align: center;
-      background-color: rgb(254, 148, 0);
-      border-radius: var(--radius);
-      position: relative;
-      overflow: hidden;
+      margin-bottom: 2rem;
+      background-color: rgb(246, 106, 18);
+      padding: 2rem 1rem;
     }
     .hero h1 {
       position: relative;
-      font-size: 2.5rem;
+      font-size: 2rem;
       margin-bottom: 1rem;
       z-index: 1;
       color: rgb(255, 255, 255);
     }
-    .hero p { position: relative; z-index: 1; font-size: 1.125rem; color: #ffffff;}
     .cards {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -107,12 +106,13 @@
       transition: width var(--transition);
     }
     .card h2:hover::after { width: 60px; }
-    .card p, .card ul { margin-bottom: 1rem; }
+    .card p, .card ul { margin-bottom: 1rem; font-size: 1.3rem; }
     .card ul { list-style: none; }
     .card li {
       padding-left: 1.2em;
       position: relative;
       margin-bottom: 0.6em;
+      font-size: 1.3rem;
     }
     .card li::before {
       content: '';
@@ -127,7 +127,7 @@
       display: inline-block;
       padding: 0.75em 1.5em;
       border-radius: var(--radius);
-      background-color: rgb(254, 148, 0);
+      background-color: rgb(246, 106, 18);
       font-weight: 600;
       color: rgb(255, 255, 255);
       text-decoration: none;

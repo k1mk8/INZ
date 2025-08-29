@@ -27,7 +27,7 @@ app-bottom-bar {
 }
 
 .team-banner {
-  width: 80%;
+  width: 70%;
   height: 30%;
   margin: 0 auto;           
   justify-content: center; 
@@ -42,33 +42,32 @@ app-bottom-bar {
   display: block;
 }
 
-/* kontener sekcji */
 section.team-container {
-  margin: 0 10%;
+  margin: 2rem 15% 0;
   padding-bottom: 3rem;
 }
 
-/* pomarańczowy pasek z tytułem */
 .section-header {
-  background-color: rgb(254, 148, 0);
+  background-color: rgb(246, 106, 18);
   padding: 1rem 0;
   margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
 }
 .section-header h2 {
   color: rgb(255, 255, 255);
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 600;
 }
 
-/* siatka kart */
 .cards-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 2rem 5%;
 }
 
-/* pojedyncza karta */
 .card {
   background: rgb(241, 242, 255);
   border-top: 4px solid var(--accent);
@@ -93,19 +92,25 @@ section.team-container {
 }
 
 .card h4 {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   margin-bottom: 1rem;
-  color: rgb(254, 148, 0);
+  color: rgb(246, 106, 18);
 }
 
 .card p {
-  font-size: 0.95rem;
+  font-size: 1.3rem;
   margin-bottom: 0.75rem;
+  color: rgb(32, 37, 51);
 }
 
 .card .bio {
-  font-size: 0.9rem;
+  font-size: 1.3rem;
   color: var(--text);
+  color: rgb(32, 37, 51);
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
 }
 
 .email a {

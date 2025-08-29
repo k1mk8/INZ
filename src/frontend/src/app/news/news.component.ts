@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 interface News {
   id: number;
@@ -23,7 +24,7 @@ export class NewsComponent implements OnInit {
   pageSize = 3;
   pageCount = 0;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
     this.fetchNews();
@@ -40,7 +41,8 @@ export class NewsComponent implements OnInit {
             return db - da;
           });
         this.newsList = published;
-        this.pageCount = Math.ceil(this.newsList.length / this.pageSize);
+        this.pageCount = Math.max(1, Math.ceil(this.newsList.length / this.pageSize));
+        this.currentPage = 0;
         this.updatePagedNews();
         this.loading = false;
       },
@@ -74,5 +76,10 @@ export class NewsComponent implements OnInit {
   goTo(page: number): void {
     this.currentPage = page;
     this.updatePagedNews();
+  }
+
+  open(item: News): void {
+    // przejdź do strony szczegółów
+    this.router.navigate(['/news', item.id]);
   }
 }

@@ -1,117 +1,66 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
 :root {
   --parisian-blue: #7ec8e3;
   --midnight-blue: #2a3d66;
   --light-gray: #f5f7fa;
   --text-dark: #333;
   --white: #fff;
-  --transition: 0.4s ease;
+  --transition: 0.35s ease;
   --radius: 12px;
 }
 
-
-body {
-  background: var(--light-gray);
-  margin: 0;
-  font-family: 'Segoe UI', Tahoma, sans-serif;
-}
-
 .news-section {
-  max-width: 86vw;
-  margin: 4rem auto;
+  margin: 2rem 14.25% 0;
   padding: 0 1rem;
 }
 
 .section-header {
   text-align: center;
-  margin-bottom: 2rem;
-  background-color: rgb(254, 148, 0);
-  padding: 4rem 1rem;
+  align-items: center;
+  background-color: rgb(246, 106, 18);
+  padding: 2rem 1rem;
 }
 .page-title {
-  font-size: 2.8rem;
-  color: rgb(255, 255, 255);
-  margin: 0;
-}
-.section-subtitle {
-  color: var(--text-dark);
-  opacity: 0.7;
-  margin-top: 0.5rem;
+  font-size: 2rem;
+  color: #fff;
 }
 
-.status {
-  text-align: center;
-  margin: 2rem 0;
-  color: var(--text-dark);
-}
-.status.error {
-  color: #c00;
-}
+.status { text-align: center; margin: 2rem 0; color: var(--text-dark); }
+.status.error { color: #c00; }
 
-/* Paginacja */
+/* paginacja */
+.pagination-controls { display:flex; align-items:center; justify-content:center; margin-bottom:1.2rem; }
+.nav { background:var(--midnight-blue); border:none; color:var(--white); font-size:1.4rem; width:3rem; height:3rem; border-radius:50%; cursor:pointer; margin:0 1rem; transition: background var(--transition); }
+.nav:disabled { opacity:0.3; cursor:default; }
+.nav:not(:disabled):hover { background:var(--parisian-blue); }
 
-.pagination-controls {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 1.5rem;
-}
+.dots { display:flex; align-items:center; }
+.dots span { width:10px; height:10px; margin:0 5px; background:rgba(0,0,0,0.15); border-radius:50%; cursor:pointer; transition:var(--transition); }
+.dots span.active, .dots span:hover { background:var(--parisian-blue); }
 
-.nav {
-  background: var(--midnight-blue);
-  border: none;
-  color: var(--white);
-  font-size: 1.5rem;
-  width: 3rem;
-  height: 3rem;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: background var(--transition);
-  margin: 0 1rem;
-}
-
-.nav:disabled {
-  opacity: 0.3;
-  cursor: default;
-}
-
-.nav:not(:disabled):hover {
-  background: var(--parisian-blue);
-}
-
-.dots {
-  display: flex;
-}
-.dots span {
-  width: 12px; height: 12px;
-  margin: 0 6px;
-  background: rgba(0,0,0,0.2);
-  border-radius: 50%;
-  cursor: pointer;
-  transition: var(--transition);
-}
-.dots span.active,
-.dots span:hover {
-  background: var(--parisian-blue);
-}
-
-
+/* grid i karty */
 .news-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(28%, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 0.7rem; /* mniejszy odstęp */
+  align-items: start;
 }
 
-
+/* karta */
 .card {
   width: 100%;
-  max-height: 100%; 
   background: rgb(241, 242, 255);
   border-radius: var(--radius);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition);
+  min-height: 220px; /* większe karty */
+}
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.08);
 }
 
 .card-header {
@@ -120,33 +69,41 @@ body {
   color: var(--white);
 }
 .news-title {
-  font-size: 1.2rem;
+  font-size: 1.7rem;
   margin: 0 0 0.3rem;
   color: rgb(0, 15, 142);
 }
 .news-meta {
   font-size: 0.85rem;
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
 .card-body {
   padding: 1rem;
   color: var(--text-dark);
   flex: 1;
-  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-/* Prosta animacja wejścia przy każdej stronie */
-
-.fade-in {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeIn 0.5s ease-out forwards;
+.news-content {
+  margin: 0 0 0.6rem 0;
+  line-height: 1.45;
+  font-size: 1.3rem;
+  color: rgb(32, 37, 51);
+  overflow: hidden;
 }
 
-@keyframes fadeIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* czytaj więcej */
+.read-more { margin-top: auto; }
+.read-link {
+  text-decoration: none;
+  font-weight: 600;
+  color: var(--midnight-blue);
 }
+.read-link:hover { text-decoration: underline; }
+
+/* animacja */
+.fade-in { opacity: 0; transform: translateY(12px); animation: fadeIn 0.45s ease-out forwards; }
+@keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }

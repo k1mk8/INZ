@@ -8,42 +8,38 @@
   --font: 'Segoe UI', Tahoma, sans-serif;
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-/* HEADER */
 .mp-header {
+  margin: 2rem 15% 0;
   text-align: center;
+  align-items: center;
   padding: 2rem 1rem;
-  background-color: rgb(254, 148, 0);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  background-color: rgb(246, 106, 18);
 }
-.mp-header h1 {
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
-  color: white;
-}
-.mp-header p {
-  font-size: 1.2rem;
-  color: white;
+.mp-header img {
+  width: 38.3%;
+  height: auto;
 }
 
 
 .mp-container {
   flex: 1;
-  padding: 2rem 5%;
+  padding: 2rem 0; 
+  max-width: 70%;
+  margin: 0 auto;   /* wyśrodkowanie */
 }
 .mp-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(21%, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(3, 1fr);
+  justify-content: center;
+  justify-items: center;
+  width: 100%;
+  gap: 1rem; /* odstęp między kartami (zmniejszony) */
 }
 
 .mp-card {
   display: block;
+  width: 100%;
+  min-height: 250px;
   background-color: rgb(241, 242, 255);
   border-radius: var(--radius);
   overflow: hidden;
@@ -85,3 +81,16 @@
     @keyframes fadeInUp {
       to { opacity: 1; transform: translateY(0); }
     }
+
+@media (max-width: 900px) {
+  .mp-grid {
+    grid-template-columns: repeat(2, minmax(280px, 1fr));
+  }
+}
+
+
+@media (max-width: 600px) {
+  .mp-grid {
+    grid-template-columns: minmax(280px, 1fr);
+  }
+}
