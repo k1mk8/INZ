@@ -6,7 +6,10 @@ import { MainPageComponent } from './main-page/main-page.component';
 import { NewsComponent } from './news/news.component';
 import { LoginComponent } from './login/login.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
-import { PortfolioComponent } from './portfolio/portfolio.component';
+import { PortfolioListComponent } from './portfolio/portfolio-list.component';
+import { DocAnalizyComponent } from './portfolio/doc-analizy/doc-analizy.component';
+import { ZarzadzanieComponent } from './portfolio/zarzadzanie/zarzadzanie.component';
+import { DokumentyComponent } from './portfolio/dokumenty/dokumenty.component';
 import { TeamComponent } from './team/team.component';
 import { AdminComponent } from './admin/admin.component';
 import { AdminGuard } from './admin.guard';
@@ -44,8 +47,11 @@ const routes: Routes = [
   }, 
   {
     path: 'portfolio',
-    component: PortfolioComponent
+    component: PortfolioListComponent
   },
+  { path: 'portfolio/doc-analizy', component: DocAnalizyComponent },
+  { path: 'portfolio/zarzadzanie', component: ZarzadzanieComponent },
+  { path: 'portfolio/dokumenty', component: DokumentyComponent },  
   {
     path: 'admin',
     component: AdminComponent,

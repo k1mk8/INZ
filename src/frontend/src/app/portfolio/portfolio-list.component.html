@@ -1,0 +1,16 @@
+<app-menu></app-menu>
+
+<section class="news-section">
+  <div class="section-header">
+    <h1 class="page-title">Portfolio</h1>
+    <h3 class="subtitle">Nasi eksperci przez lata przygotowali ponad 1000 specjalistycznych usług o wartości ponad 1,5 mld zł.</h3>
+  </div>
+  <div class="portfolio-tiles" aria-label="Kategorie portfolio">
+    <button class="tile" *ngFor="let t of tiles" (click)="openCategory(t.slug)" type="button">
+      <h3>{{ t.title }}</h3>
+      <p>{{ t.desc }}</p>
+    </button>
+  </div>
+</section>
+
+<app-bottom-bar></app-bottom-bar>

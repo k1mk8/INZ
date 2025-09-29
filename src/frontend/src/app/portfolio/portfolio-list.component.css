@@ -1,0 +1,71 @@
+:host { display:block; }
+
+.news-section {
+  margin: 2rem 14.30% 0;
+  padding: 0 1rem;
+}
+
+/* sekcja nagłówka: pionowy układ, środek, gap między h1 i h3 */
+.section-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(246, 106, 18);
+  padding: 2rem 1rem;
+  gap: 0.75rem;          /* odstęp między h1 i h3 */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.page-title {
+  font-size: 2rem;
+  color: #fff;
+  margin: 0;
+}
+
+.subtitle {
+  color: rgb(255, 255, 255);
+  font-size: 1.2rem;
+  margin: 0;
+  max-width: 70%;
+  text-align: center;
+  line-height: 1.4;
+  font-weight: 400;
+}
+
+/* odległość między headerem (z subtitle) a kafelkami */
+.portfolio-tiles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  min-height: 50%;
+  gap: 1.25rem;
+  margin: 1.5rem 0 2rem; /* większy top-margin żeby subtitle „oddychało” */
+}
+
+/* kafelki */
+.tile {
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding: 8rem;
+  min-height: 200px;
+  border-radius: 12px;
+  background: rgb(241, 242, 255);
+  color: rgb(0, 15, 142);
+  border-top:4px solid #009bdf;
+  cursor:pointer;
+  border: none;
+}
+.tile h3 { margin:0; font-size:1.7rem; }
+.tile p { margin:0.4rem 0 0; font-size:1.0rem; opacity:0.95; }
+
+/* responsywność */
+@media (max-width: 980px) {
+  .portfolio-tiles { grid-template-columns: repeat(2, 1fr); }
+  .section-header { padding: 1.8rem 1rem; }
+}
+@media (max-width: 620px) {
+  .portfolio-tiles { grid-template-columns: 1fr; }
+  .subtitle { max-width: 92%; padding: 0 1rem; }
+}

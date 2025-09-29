@@ -12,7 +12,10 @@ import { FormsModule } from '@angular/forms';
 import { MenuComponent } from './menu/menu.component';
 import {CookieService} from 'ngx-cookie-service';
 import { AboutusComponent } from './aboutus/aboutus.component';
-import { PortfolioComponent } from './portfolio/portfolio.component';
+import { PortfolioListComponent } from './portfolio/portfolio-list.component';
+import { DocAnalizyComponent } from './portfolio/doc-analizy/doc-analizy.component';
+import { ZarzadzanieComponent } from './portfolio/zarzadzanie/zarzadzanie.component';
+import { DokumentyComponent } from './portfolio/dokumenty/dokumenty.component';
 import { ButtonsComponent } from './buttons/buttons.component';
 import { BottomBarComponent } from './bottom-bar/bottom-bar.component';
 import { TeamComponent } from './team/team.component';
@@ -29,13 +32,16 @@ import { TruncatePipe } from './shared/truncate.pipe';
     LoginComponent,
     MenuComponent,
     AboutusComponent,
-    PortfolioComponent,
+    PortfolioListComponent,
     ButtonsComponent,
     BottomBarComponent,
     TeamComponent,
     AdminComponent,
     NewsDetailComponent,
-    TruncatePipe
+    TruncatePipe,
+    DocAnalizyComponent,
+    ZarzadzanieComponent,
+    DokumentyComponent
   ],
   imports: [
     BrowserModule,
