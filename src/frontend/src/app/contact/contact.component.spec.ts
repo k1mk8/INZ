@@ -8,7 +8,6 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 describe('ContactComponent', () => {
   let component: ContactComponent;
   let fixture: ComponentFixture<ContactComponent>;
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   let httpTestingController: HttpTestingController;
 
   beforeEach(async () => {

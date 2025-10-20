@@ -1,36 +1,62 @@
-<head>
+
+ <head>
     <title>Semantic-UI Menu Button Content</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.css" integrity="sha512-KXol4x3sVoO+8ZsWPFI/r5KBVB/ssCGB5tsv2nVOKwLg33wTFP3fmnXa47FdSVIshVTgsYk/1734xSk9aFIa4A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <div class="ui inverted menu centered-menu">
-    <div class="item">
-      <div class="item logo">
-        <img src="../../assets/Logo_bez1.png" [routerLink]="['/main']" alt="EC Logo" style="width: 75px; height: auto; margin-right: 15%;" >
-      </div>
-      <div class="item" style="flex:1 1 auto;"></div>
-      <div class="ui secondary button" style="width: 200px;" [title]="'myaccount'"
-        [routerLink]="['/news']">
+  <div class="item">
+    <div class="item logo">
+      <img src="../../assets/Logo_bez1.png" [routerLink]="['/main']" alt="EC Logo"
+           style="width: 75px; height: auto; margin-right: 15%;">
+    </div>
+    <div class="item" style="flex:1 1 auto;"></div>
+
+    <div class="ui secondary button" style="width: 200px;" [title]="'myaccount'" [routerLink]="['/news']">
       <a class="labels">Aktualności</a>
-      </div>
-      <div class="ui secondary button" style="width: 200px;" [title]="'myaccount'"
-        [routerLink]="['/portfolio']">
-        <a class="labels">Portfolio</a>
-      </div>
-      <div class="ui secondary button" style="width: 200px;" [title]="'myaccount'"
-        [routerLink]="['/aboutus']">
-        <a class="labels">O nas</a>
-      </div>
-        <div class="ui secondary button" style="width: 200px;" [title]="'contact'"
-        [routerLink]="['/team']">
-        <a class="labels">Zespół</a>
-      </div> 
-      <div class="ui secondary button" style="width: 200px;" [title]="'contact'"
-        [routerLink]="['/contact']">
-        <a class="labels">Kontakt</a>
-      </div> 
-      <div class="ui secondary button" style="width: 200px;" [title]="'admin'" *ngIf="this.cookieService.get('SESSION_ADMIN') === 'YES'"
-        [routerLink]="['/admin']">
-        <a class="labels">Admin</a>
-      </div> 
+    </div>
+
+    <div class="ui secondary button" style="width: 200px;" [title]="'myaccount'" [routerLink]="['/portfolio']">
+      <a class="labels">Portfolio</a>
+    </div>
+
+    <div class="ui secondary button" style="width: 200px;" [title]="'myaccount'" [routerLink]="['/aboutus']">
+      <a class="labels">O nas</a>
+    </div>
+
+    <div class="ui secondary button" style="width: 200px;" [title]="'contact'" [routerLink]="['/team']">
+      <a class="labels">Zespół</a>
+    </div>
+
+    <div class="ui secondary button" style="width: 200px;" [title]="'contact'" [routerLink]="['/contact']">
+      <a class="labels">Kontakt</a>
+    </div>
+
+    <div class="ui secondary button" style="width: 200px;" [title]="'admin'" *ngIf="isAdmin" [routerLink]="['/admin']">
+      <a class="labels">Admin</a>
+    </div>
+  </div>
 </div>
-</div>
+
+<header class="mobile-header" aria-hidden="true">
+  <div class="mobile-top">
+    <img class="logo-img" src="../../assets/Logo_bez1.png" [routerLink]="['/main']" alt="EC Logo" />
+    <button
+      type="button"
+      class="menu-toggle"
+      (click)="toggleMobileMenu()"
+      [attr.aria-expanded]="mobileOpen"
+      aria-controls="mobile-menu-list"
+    >
+      Menu ▾
+    </button>
+  </div>
+
+  <div id="mobile-menu-list" class="mobile-collapse" [class.open]="mobileOpen" [attr.aria-hidden]="!mobileOpen">
+    <a class="mobile-link ui secondary button" (click)="closeMobileMenu()" [routerLink]="['/news']">Aktualności</a>
+    <a class="mobile-link ui secondary button" (click)="closeMobileMenu()" [routerLink]="['/portfolio']">Portfolio</a>
+    <a class="mobile-link ui secondary button" (click)="closeMobileMenu()" [routerLink]="['/aboutus']">O nas</a>
+    <a class="mobile-link ui secondary button" (click)="closeMobileMenu()" [routerLink]="['/team']">Zespół</a>
+    <a class="mobile-link ui secondary button" (click)="closeMobileMenu()" [routerLink]="['/contact']">Kontakt</a>
+    <a *ngIf="isAdmin" class="mobile-link ui secondary button" (click)="closeMobileMenu()" [routerLink]="['/admin']">Admin</a>
+  </div>
+</header>

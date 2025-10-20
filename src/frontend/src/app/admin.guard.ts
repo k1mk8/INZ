@@ -10,7 +10,6 @@ export class AdminGuard implements CanActivate {
 
   canActivate(
   ): boolean | UrlTree {
-    // Odczytaj status admina z ciasteczka
     const isAdmin = this.cookieService.get('SESSION_ADMIN');
 
     if (isAdmin === 'YES') {

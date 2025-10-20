@@ -25,7 +25,7 @@
   flex: 1;
   padding: 2rem 0; 
   max-width: 70%;
-  margin: 0 auto;   /* wyśrodkowanie */
+  margin: 0 auto;
 }
 .mp-grid {
   display: grid;
@@ -33,7 +33,7 @@
   justify-content: center;
   justify-items: center;
   width: 100%;
-  gap: 1rem; /* odstęp między kartami (zmniejszony) */
+  gap: 1rem;
 }
 
 .mp-card {

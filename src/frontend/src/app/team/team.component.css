@@ -1,6 +1,6 @@
 :root {
   --accent: #009bdf;
-  --highlight: #fe9400;    /* pomarańczowy pasek */
+  --highlight: #fe9400;
   --bg: #f9f9f9;
   --text: #333;
   --card-bg: #fff;
@@ -8,39 +8,34 @@
   --transition: 0.4s ease;
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  font-family: var(--font);
+  font-family: var(--font, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial);
   background-color: var(--bg);
   color: var(--text);
   line-height: 1.6;
 }
 
-app-menu,
-app-bottom-bar {
-  display: block;
-}
+app-menu, app-bottom-bar { display: block; }
 
 .team-banner {
   width: 70%;
-  height: 30%;
-  margin: 0 auto;           
-  justify-content: center; 
+  height: auto;
+  margin: 0 auto;
+  justify-content: center;
   overflow: hidden;
-  padding: 1% 0;       
+  padding: 1% 0;
+  display: flex;
+  align-items: center;
 }
 
-
 .team-banner img {
-  margin-top: 0.65rem;
-  width: auto;
+  width: 100%;
   height: auto;
   display: block;
+  object-fit: cover;
+  border-radius: 8px;
 }
 
 section.team-container {
@@ -78,6 +73,7 @@ section.team-container {
   opacity: 0;
   transform: translateY(20px);
   animation: fadeInUp 0.6s ease forwards;
+  box-sizing: border-box;
 }
 
 .card:hover {
@@ -86,27 +82,12 @@ section.team-container {
   transition: transform var(--transition), box-shadow var(--transition);
 }
 
-.card h3 {
-  font-size: 1.8rem;
-  margin-bottom: 0.5rem;
-  color: rgb(0, 15, 142);
-}
-
-.card h4 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  color: rgb(246, 106, 18);
-}
-
-.card p {
-  font-size: 1.3rem;
-  margin-bottom: 0.75rem;
-  color: rgb(32, 37, 51);
-}
+.card h3 { font-size: 1.8rem; margin-bottom: 0.5rem; color: rgb(0, 15, 142); }
+.card h4 { font-size: 1.5rem; margin-bottom: 1rem; color: rgb(246, 106, 18); }
+.card p { font-size: 1.3rem; margin-bottom: 0.75rem; color: rgb(32, 37, 51); }
 
 .card .bio {
   font-size: 1.3rem;
-  color: var(--text);
   color: rgb(32, 37, 51);
   text-align: justify;
   hyphens: auto;
@@ -114,22 +95,81 @@ section.team-container {
   -ms-hyphens: auto;
 }
 
-.email a {
-  color: var(--accent);
-  text-decoration: none;
-}
+.email a { color: var(--accent); text-decoration: none; }
 
-/* animacja przy wczytywaniu */
 @keyframes fadeInUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-@media (max-width: 620px) {
+@media (max-width: 768px) {
+  .team-banner {
+    width: 100%;
+    margin: 0 3% 1rem;
+    padding: 0.6rem 0;
+  }
+  .team-banner img { width: 100%; height: auto; border-radius: 8px; }
+
+  section.team-container {
+    margin: 1.2rem 4% 0;
+    padding-bottom: 2rem;
+  }
+
+  .section-header {
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  .section-header h1 { font-size: 1.4rem; }
+
   .cards-grid {
     grid-template-columns: 1fr;
-    gap: 1.25rem;
+    gap: 1rem;
   }
+
+  .card {
+    padding: 1rem;
+    border-radius: 10px;
+    font-size: 15px;
+  }
+
+  .card h3 { font-size: 1.4rem; }
+  .card h4 { font-size: 1.15rem; }
+  .card p, .card .bio { font-size: 1rem; line-height: 1.45; }
+
+  .card .bio { text-align: left; hyphens: auto; }
+
+  .card:hover {
+    transform: translateY(-3px) scale(1.01);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  }
+
+  .card p,
+.card .bio,
+.card ul,
+.card li {
+  text-align: justify;
+  text-justify: inter-word;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+  text-align-last: left;
+}
+}
+
+@media (max-width: 420px) {
+  .team-banner { margin: 0 3% 0.8rem; }
+  .team-banner img { border-radius: 6px; }
+
+  section.team-container { margin: 0.8rem 3% 0; padding-bottom: 1.2rem; }
+
+  .card { padding: 0.8rem; }
+  .card h3 { font-size: 1.2rem; }
+  .card h4 { font-size: 1rem; }
+  .card p, .card .bio { font-size: 0.95rem; }
+  .cards-grid { gap: 0.8rem; }
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+@media (min-width: 769px) {
+  .card .bio, .card p { text-align: justify; }
 }

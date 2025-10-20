@@ -3,14 +3,12 @@
 
   <app-menu></app-menu>
 
-  <!-- Logout button centered at top -->
   <div class="logout-container">
     <button class="ui secondary button logout-btn" (click)="deleteCookies()">Wyloguj się</button>
   </div>
 
   <div class="admin-wrapper">
     <div class="admin-container">
-      <!-- Formularz -->
       <section class="form-panel ui segment card-anim">
         <h2 class="ui header center">
           {{ editingId === null ? 'Dodaj nową aktualność' : 'Edytuj aktualność' }}
@@ -76,7 +74,6 @@ s
             </div>
           </div>
 
-          <!-- Paginacja -->
           <div class="pagination-controls">
             <button class="ui button" (click)="prevPage()" [disabled]="currentPage===0">Poprzednia</button>
             <span>Strona {{ currentPage+1 }} / {{ totalPages }}</span>

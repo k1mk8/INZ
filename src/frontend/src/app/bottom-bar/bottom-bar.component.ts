@@ -21,8 +21,7 @@ export class BottomBarComponent implements OnInit, OnDestroy {
         pairwise()
       )
       .subscribe(([prevY, currY]) => {
-        // ↓ gdy przewijasz w dół, pokaż poniżej linię, usuń warunek `&& currY > 20` jeśli chcesz próg 0px
-        if (currY > prevY /* && currY > 20 */) {
+        if (currY > prevY) {
           this.isHidden = true;
         } else {
           this.isHidden = false;

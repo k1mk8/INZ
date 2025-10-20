@@ -1,89 +1,160 @@
 h1.page-title {
-    font-size: 28px;
-    text-align: center;
-    font-weight: bold;
+  font-size: 28px;
+  text-align: center;
+  font-weight: bold;
 }
 
 .centered-menu {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    min-height: 100vh;
-    margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  margin: 0;
 }
-
 
 .ui.menu.centered-menu {
   background-color: rgb(222, 226, 255);
 }
-.labels{
-    font-size: 20px;
-    font-display: bold;
-    font-weight: bold;
-    color:  rgb(0, 15, 142);
+
+.labels {
+  font-size: 20px;
+  font-weight: bold;
+  color: rgb(0, 15, 142);
 }
 
-.ui.secondary.button{
-    background-color: rgb(222, 226, 255);
+.ui.secondary.button {
+  background-color: rgb(222, 226, 255);
 }
 
-.ui.secondary.button:hover{
-    background-color: rgb(254, 148, 0);
+.ui.secondary.button:hover {
+  background-color: rgb(254, 148, 0);
 }
-
 
 h2.name {
-    font-size: 25px;
-    text-align: center;
-    font-weight: bold;
+  font-size: 25px;
+  text-align: center;
+  font-weight: bold;
 }
 
 h2.contact {
-    font-size: 25px;
-    text-align: center;
-    margin-top: 6%;
-    margin-bottom: 6%;
-    font-weight: bold;
-}
-a.email {
-    font-size: 25px;
-    margin-left: 27%;
-    color: black;
-}
-a.value-email {
-    font-size: 25px;
-    margin-left: 35%;
-    color: black;
+  font-size: 25px;
+  text-align: center;
+  margin-top: 6%;
+  margin-bottom: 6%;
+  font-weight: bold;
 }
 
-a.telefon {
-    font-size: 25px;
-    margin-left: 27%;
-    color: black;
+a.email,
+a.value-email,
+a.telefon,
+a.value-telefon,
+a.adres,
+a.value-adres {
+  font-size: 25px;
+  color: black;
 }
-a.value-telefon {
-    font-size: 25px;
-    margin-left: 35%;
-    color: black;
-}
+
+a.email { margin-left: 27%; }
+a.value-email { margin-left: 35%; }
+a.telefon { margin-left: 27%; }
+a.value-telefon { margin-left: 35%; }
+a.adres { margin-left: 27%; }
+a.value-adres { margin-left: 35%; }
 
 h2.space {
-    margin-top: 3%;
-    margin-bottom: 3%;
-}
-
-a.adres {
-    font-size: 25px;
-    margin-left: 27%;
-    color: black;
-}
-a.value-adres {
-    font-size: 25px;
-    margin-left: 35%;
-    color: black;
+  margin-top: 3%;
+  margin-bottom: 3%;
 }
 
 div.navbar {
-    width: 400px;
+  width: 400px;
+}
+.mobile-header {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .ui.inverted.menu.centered-menu,
+  .ui.menu.centered-menu {
+    display: none !important;
+  }
+
+  .centered-menu {
+    min-height: auto;
+  }
+
+  .mobile-header {
+    display: block;
+    padding: 10px 12px;
+    background: transparent;
+  }
+
+  .mobile-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo-img {
+    width: 56px;
+    height: auto;
+  }
+
+  .menu-toggle {
+    background: rgb(222, 226, 255);
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    color: rgb(0,15,142);
+    box-shadow: none;
+  }
+
+  .menu-toggle:active,
+  .menu-toggle:focus {
+    outline: none;
+  }
+
+  .mobile-collapse {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.28s ease, padding 0.2s ease;
+    width: calc(100% - 24px);
+    margin: 8px 12px 0 12px;
+    box-sizing: border-box;
+    background: transparent;
+  }
+
+  .mobile-collapse.open {
+    max-height: 1000px;
+    padding-bottom: 12px;
+  }
+
+  .mobile-link.ui.secondary.button {
+    display: block;
+    width: 100%;
+    margin: 8px 0;
+    text-align: center;
+    border-radius: 6px;
+    background-color: rgb(222, 226, 255);
+    padding: 10px;
+    box-sizing: border-box;
+  }
+
+  .mobile-link.ui.secondary.button:hover {
+    background-color: rgb(254,148,0);
+    color: white !important;
+  }
+
+  .mobile-link {
+    color: rgb(0,15,142);
+    font-weight: bold;
+    text-decoration: none;
+  }
+
+  .labels, .mobile-link {
+    font-size: 18px;
+  }
 }

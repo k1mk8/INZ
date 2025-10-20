@@ -23,7 +23,6 @@
   margin: 0 auto;
 }
 
-/* Back */
 .back {
   background: transparent;
   border: none;
@@ -37,7 +36,6 @@
 }
 .back:hover { background: rgba(42,61,102,0.06); }
 
-/* Article card */
 .full-article {
   background: var(--card-bg);
   border-radius: var(--radius);
@@ -46,7 +44,6 @@
   overflow: hidden;
 }
 
-/* Header */
 .full-header { margin-bottom: 1rem; padding: 0 0.25rem; }
 
 .full-title {
@@ -58,7 +55,6 @@
   letter-spacing: -0.02em;
 }
 
-/* Meta row: left (date/read-time) and right (tags/share) */
 .article-meta {
   display: flex;
   gap: 0.75rem;
@@ -96,11 +92,9 @@
   border-radius: 6px;
 }
 
-/* status/errors */
 .status { text-align:center; margin:1rem 0; color: var(--muted); font-weight:600; }
 .status.error { color:#c00; }
 
-/* Responsive */
 @media (max-width: 800px) {
   :root { --max-width: 92vw; }
   .full-title { font-size: 1.45rem; }

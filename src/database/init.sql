@@ -29,24 +29,63 @@ INSERT INTO news (title, content, author_id, is_published, published_at)
 VALUES 
 (
   'Planowany nabór wniosków w ramach działania 2.3 Cyfrowe Lubelskie w ochronie zdrowia programu Fundusze Europejskie dla Lubelskiego',
-  'Zapraszamy instytucje ochrony zdrowia do współpracy w zakresie opracowania dokumentacji aplikacyjnej dla projektów ubiegających się o dofinansowanie w ramach działania 2.3 Cyfrowe Lubelskie w ochronie zdrowia programu Fundusze Europejskie dla Lubelskiego
-Nabór wniosków planowany jest od 20.10 do 20.11.2025 roku.
-O dofinansowanie mogą ubiegać się projekty:
-- z zakresu usług e-zdrowia oraz informatyzacji jednostek w sektorze ochrony zdrowia mające na celu zapewnienie interoperacyjności i integrację systemów informatycznych świadczeniodawców z centralną architekturą informatyczną e-zdrowia, w tym: wsparcie rozwoju elektronicznej dokumentacji medycznej, rozwiązań z zakresu telemedycyny, sztucznej inteligencji oraz cyfryzacji procesów back-office i rozwoju infrastruktury informatycznej służącej poprawie dojrzałości cyfrowej placówek medycznych;
-- z zakresu rozwoju cyberbezpieczeństwa, tj. wzmacniające bezpieczeństwo świadczenia e-usług lub systemów informatycznych poprzez budowę lub modernizację istniejących systemów, o zasięgu regionalnym i lokalnym
-Łączna pula środków przeznaczonych dla działania: 35 713 635,92 zł',
+  '<p>
+      Zapraszamy instytucje ochrony zdrowia do współpracy w zakresie opracowania dokumentacji aplikacyjnej dla projektów ubiegających się o dofinansowanie w ramach działania 2.3 Cyfrowe Lubelskie w ochronie zdrowia programu Fundusze Europejskie dla Lubelskiego.
+    </p>
+
+    <p>Nabór wniosków planowany jest od <strong>20.10 do 20.11.2025 roku</strong>.</p>
+
+    <p>O dofinansowanie mogą ubiegać się projekty:</p>
+
+    <ul>
+      <li>
+        z zakresu usług e-zdrowia oraz informatyzacji jednostek w sektorze ochrony zdrowia mające na celu zapewnienie interoperacyjności i integrację systemów informatycznych świadczeniodawców z centralną architekturą informatyczną e-zdrowia, w tym: wsparcie rozwoju elektronicznej dokumentacji medycznej, rozwiązań z zakresu telemedycyny, sztucznej inteligencji oraz cyfryzacji procesów back-office i rozwoju infrastruktury informatycznej służącej poprawie dojrzałości cyfrowej placówek medycznych;
+      </li>
+      <li>
+        z zakresu rozwoju cyberbezpieczeństwa, tj. wzmacniające bezpieczeństwo świadczenia e-usług lub systemów informatycznych poprzez budowę lub modernizację istniejących systemów, o zasięgu regionalnym i lokalnym.
+      </li>
+    </ul>
+
+    <p>
+      Łączna pula środków przeznaczonych dla działania: <strong>35 713 635,92 zł</strong>.
+    </p>
+
+    <p>Zapraszamy do kontaktu i zapoznania się ze szczegółową ofertą.</p>',
   1, TRUE, NOW()
 ),
 (
   'Weryfikacji infrastruktury pod względem wpływu na klimat w latach 2021–2027',
-  'Zapraszamy Wnioskodawców /Beneficjentów funduszy europejskich  do współpracy w zakresie opracowania analizy odporność infrastruktury na zmiany klimatu. 
-Projekty infrastrukturalne w perspektywie 2021-2027 podlegają obowiązkowi weryfikacji pod względem wpływu na klimat zgodnie z metodologia wynikającą z Zawiadomienia Komisji Europejskiej z 16.09.2021 r. pn. „Wytyczne techniczne dotyczące weryfikacji infrastruktury pod względem wpływu na klimat w latach 2021–2027 (2021/C 373/01). 
-W ramach naborów do działań programu Fundusze Europejskie dla Lubelskiego 2021-2027 Wnioskodawcy zobowiązani są do przedłożenia oświadczenia o przeprowadzonej weryfikacji projektu oraz opisania wniosków wynikających z analizy wpływu na klimat w sekcji I wniosku o dofinansowanie. Instytucja organizująca nabór ma prawo poprosić o przedstawienie dokumentacji dotyczącej weryfikacji projektu pod względem wpływu na klimat i uzyskania dodatkowych informacji na temat dokumentów. 
-Powyższy wymóg zobligował Wnioskodawców do wykonania analizy odporność infrastruktury na zmiany klimatu dla projektów współfinansowanych ze środków zewnętrznych. Analiza powinna być wykonana przed przystąpieniem do realizacji projektu - na etapie prac przygotowawczych. Weryfikacja pod względem wpływu na klimat projektu dokonywana jest  w ramach dwóch filarów tj.: 
-1) Neutralność klimatyczna – łagodzenie zmian klimatu oraz 
-2) Odporność na zmianę klimatu - przystosowanie się do zmiany klimatu. 
-Każdy z filarów obejmuje etap preselekcji a następnie (w uzależnieniu od wyników preselekcji) etap szczegółowej analizy.
-Koszt przeprowadzenia analizy uzależniony jest od zakresu inwestycji, powiązanej z potrzebą obliczenia śladu węglowego. 
-Zapraszamy do kontaktu i zapoznania się  ze szczegółową ofertą.',
+  '<p>
+      Zapraszamy Wnioskodawców / Beneficjentów funduszy europejskich do współpracy w zakresie opracowania analizy odporności infrastruktury na zmiany klimatu.
+    </p>
+
+    <p>
+      Projekty infrastrukturalne w perspektywie 2021–2027 podlegają obowiązkowi weryfikacji pod względem wpływu na klimat zgodnie z metodologią wynikającą z Zawiadomienia Komisji Europejskiej z 16.09.2021 r. pn. „Wytyczne techniczne dotyczące weryfikacji infrastruktury pod względem wpływu na klimat w latach 2021–2027 (2021/C 373/01)”.
+    </p>
+
+    <p>
+      W ramach naborów do działań programu Fundusze Europejskie dla Lubelskiego 2021–2027 wnioskodawcy zobowiązani są do przedłożenia oświadczenia o przeprowadzonej weryfikacji projektu oraz opisania wniosków wynikających z analizy wpływu na klimat w sekcji I wniosku o dofinansowanie. Instytucja organizująca nabór ma prawo poprosić o przedstawienie dokumentacji dotyczącej weryfikacji projektu pod względem wpływu na klimat i uzyskania dodatkowych informacji na temat dokumentów.
+    </p>
+
+    <p>
+      Powyższy wymóg zobligował wnioskodawców do wykonania analizy odporności infrastruktury na zmiany klimatu dla projektów współfinansowanych ze środków zewnętrznych. Analiza powinna być wykonana przed przystąpieniem do realizacji projektu — na etapie prac przygotowawczych.
+    </p>
+
+    <p>Weryfikacja pod względem wpływu na klimat projektu dokonywana jest w ramach dwóch filarów:</p>
+
+    <ol>
+      <li><strong>Neutralność klimatyczna</strong> – łagodzenie zmian klimatu;</li>
+      <li><strong>Odporność na zmianę klimatu</strong> – przystosowanie się do zmiany klimatu.</li>
+    </ol>
+
+    <p>
+      Każdy z filarów obejmuje etap preselekcji, a następnie (w uzależnieniu od wyników preselekcji) etap szczegółowej analizy.
+    </p>
+
+    <p>
+      Koszt przeprowadzenia analizy uzależniony jest od zakresu inwestycji, powiązanej z potrzebą obliczenia śladu węglowego.
+    </p>
+
+    <p>Zapraszamy do kontaktu i zapoznania się ze szczegółową ofertą.</p>',
   1, TRUE, NOW()
 );
